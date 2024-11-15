@@ -1,49 +1,34 @@
 <template>
   <div class="max-w-2xl mx-auto">
-    <form @submit.prevent="generateTest" class="space-y-8">
+    <form @submit.prevent="generateICP" class="space-y-8">
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Hypothesis
+            Product Description
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What do you want to test and why?
+              Tell us about your product and its main features
             </span>
           </label>
           <textarea
-            v-model="formData.hypothesis"
+            v-model="formData.productDescription"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Changing the onboarding flow to include interactive tutorials will increase user activation by 25%..."
+            placeholder="e.g., A SaaS platform that helps e-commerce businesses automate their customer support..."
           ></textarea>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Variant Details
-            <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe the different versions you want to test
-            </span>
-          </label>
-          <textarea
-            v-model="formData.variantDetails"
-            rows="3"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Version A: Current flow with text instructions, Version B: Interactive tutorial with progress tracking..."
-          ></textarea>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl border border-stone-200">
-          <label class="block text-base font-semibold text-neutral-900 mb-2">
             Target Market
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Who will participate in this test?
+              Describe your ideal customers and their characteristics
             </span>
           </label>
           <textarea
             v-model="formData.targetMarket"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., New users signing up for a free trial, excluding enterprise customers..."
+            placeholder="e.g., Mid-sized e-commerce businesses with 50+ daily customer inquiries..."
           ></textarea>
         </div>
       </div>
@@ -51,11 +36,39 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base"
+        :disabled="isLoading"
       >
-        <Icon name="ph:test-tube-duotone" class="text-xl" />
-        Generate A/B Test Plan
+        <Icon v-if="!isLoading" name="ph:buildings-duotone" class="text-xl" />
+        <Icon v-else name="ph:circle-notch-duotone" class="text-xl animate-spin" />
+        {{ isLoading ? 'Generating...' : 'Generate ICP' }}
       </button>
     </form>
+
+    <!-- Response Section -->
+    <div v-if="response" class="mt-8 space-y-6">
+      <div class="border-t border-stone-200 pt-8">
+        <div class="prose prose-stone max-w-none">
+          <div v-html="markdownToHtml(response)"></div>
+        </div>
+      </div>
+      
+      <div class="flex justify-end gap-4">
+        <button
+          @click="copyToClipboard"
+          class="px-4 py-2 text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
+        >
+          <Icon :name="copied ? 'ph:check-duotone' : 'ph:copy-duotone'" class="text-lg" />
+          {{ copied ? 'Copied!' : 'Copy' }}
+        </button>
+        <button
+          @click="downloadPDF"
+          class="px-4 py-2 text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
+        >
+          <Icon name="ph:download-duotone" class="text-lg" />
+          Download PDF
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -64,8 +77,7 @@ import { ref } from 'vue'
 import { marked } from 'marked'
 
 const formData = ref({
-  hypothesis: '',
-  variantDetails: '',
+  productDescription: '',
   targetMarket: ''
 })
 
@@ -77,12 +89,12 @@ const markdownToHtml = (markdown) => {
   return marked(markdown)
 }
 
-const generateTest = async () => {
+const generateICP = async () => {
   isLoading.value = true
   response.value = ''
   
   try {
-    const res = await fetch('/api/abtest', {
+    const res = await fetch('/api/icp', {
       method: 'POST',
       body: JSON.stringify(formData.value),
       headers: {
@@ -90,13 +102,13 @@ const generateTest = async () => {
       }
     })
 
-    if (!res.ok) throw new Error('Failed to generate A/B Test Plan')
+    if (!res.ok) throw new Error('Failed to generate ICP')
 
     const data = await res.text()
     response.value = data
 
   } catch (error) {
-    console.error('Error generating A/B Test Plan:', error)
+    console.error('Error generating ICP:', error)
   } finally {
     isLoading.value = false
   }

@@ -5,5 +5,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     'nuxt-icon'
-  ]
+  ],
+  runtimeConfig: {
+    openaiApiKey: process.env.OPENAI_API_KEY,
+  }
 })

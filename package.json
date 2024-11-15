@@ -10,12 +10,18 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.72",
+    "@ai-sdk/vue": "^0.0.59",
     "@iconify-json/ph": "^1.2.1",
     "@nuxt/icon": "^1.7.5",
+    "ai": "^3.4.33",
+    "marked": "^15.0.0",
     "nuxt": "^3.14.159",
     "nuxt-icon": "1.0.0-beta.7",
+    "openai": "^4.72.0",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2"

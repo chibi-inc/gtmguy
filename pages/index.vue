@@ -47,7 +47,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import UserPersona from '~/components/UserPersona.vue'
+import ICP from '~/components/ICP.vue'
 import GtmStrategy from '~/components/GtmStrategy.vue'
 import SwotAnalysis from '~/components/SwotAnalysis.vue'
 import AbTestPlanner from '~/components/AbTestPlanner.vue'
@@ -58,7 +58,7 @@ import MvpGenerator from '~/components/MvpGenerator.vue'
 const activeItem = ref(0)
 
 const menuItems = [
-  { label: 'ICP', icon: 'ph:buildings-duotone', component: UserPersona },
+  { label: 'ICP', icon: 'ph:buildings-duotone', component: ICP },
   { label: 'GTM Strategy', icon: 'ph:target-duotone', component: GtmStrategy },
   { label: 'SWOT Analysis', icon: 'ph:chart-pie-slice-duotone', component: SwotAnalysis },
   { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
