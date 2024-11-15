@@ -1,8 +1,27 @@
 <template>
   <div class="max-w-2xl mx-auto">
+    <!-- Loading Overlay -->
+    <div 
+      v-if="isLoading"
+      class="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-lg flex items-center gap-4">
+        <div class="animate-spin text-sky-500">
+          <Icon name="ph:circle-notch-duotone" class="text-2xl" />
+        </div>
+        <span class="text-neutral-900">Generating A/B Test Plan...</span>
+      </div>
+    </div>
+
     <form @submit.prevent="generateTest" class="space-y-8">
+      <!-- Form Header -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate A/B Test Plan</h3>
+        <p class="text-neutral-600">Fill in the details below to create a comprehensive A/B test plan.</p>
+      </div>
+
       <div class="space-y-6">
-        <div class="bg-white p-6 rounded-xl border border-stone-200">
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
             Hypothesis
             <span class="text-sm font-normal text-neutral-500 block mt-1">
@@ -17,7 +36,7 @@
           ></textarea>
         </div>
         
-        <div class="bg-white p-6 rounded-xl border border-stone-200">
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
             Variant Details
             <span class="text-sm font-normal text-neutral-500 block mt-1">
@@ -32,7 +51,7 @@
           ></textarea>
         </div>
 
-        <div class="bg-white p-6 rounded-xl border border-stone-200">
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
             Target Market
             <span class="text-sm font-normal text-neutral-500 block mt-1">
@@ -50,18 +69,27 @@
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
+        :disabled="isLoading || !formData.hypothesis || !formData.variantDetails || !formData.targetMarket"
       >
         <Icon name="ph:test-tube-duotone" class="text-xl" />
         Generate A/B Test Plan
       </button>
     </form>
+
+    <!-- Response Section -->
+    <ResponseSection 
+      v-if="response"
+      :content="response"
+      @clear="response = ''"
+      @regenerate="generateTest"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { marked } from 'marked'
+import ResponseSection from '~/components/common/ResponseSection.vue'
 
 const formData = ref({
   hypothesis: '',
@@ -71,13 +99,10 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
-const copied = ref(false)
-
-const markdownToHtml = (markdown) => {
-  return marked(markdown)
-}
 
 const generateTest = async () => {
+  if (!formData.value.hypothesis || !formData.value.variantDetails || !formData.value.targetMarket) return
+  
   isLoading.value = true
   response.value = ''
   
@@ -100,23 +125,6 @@ const generateTest = async () => {
   } finally {
     isLoading.value = false
   }
-}
-
-const copyToClipboard = async () => {
-  try {
-    await navigator.clipboard.writeText(response.value)
-    copied.value = true
-    setTimeout(() => {
-      copied.value = false
-    }, 2000)
-  } catch (error) {
-    console.error('Failed to copy:', error)
-  }
-}
-
-const downloadPDF = () => {
-  // Implement PDF download functionality
-  console.log('Downloading PDF...')
 }
 </script>
 

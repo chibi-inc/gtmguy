@@ -1,8 +1,27 @@
 <template>
   <div class="max-w-2xl mx-auto">
+    <!-- Loading Overlay -->
+    <div 
+      v-if="isLoading"
+      class="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-lg flex items-center gap-4">
+        <div class="animate-spin text-sky-500">
+          <Icon name="ph:circle-notch-duotone" class="text-2xl" />
+        </div>
+        <span class="text-neutral-900">Generating Launch Plan...</span>
+      </div>
+    </div>
+
     <form @submit.prevent="generateLaunchPlan" class="space-y-8">
+      <!-- Form Header -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Launch Plan</h3>
+        <p class="text-neutral-600">Fill in the details below to create a comprehensive product launch plan.</p>
+      </div>
+
       <div class="space-y-6">
-        <div class="bg-white p-6 rounded-xl border border-stone-200">
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
             Product
             <span class="text-sm font-normal text-neutral-500 block mt-1">
@@ -17,7 +36,7 @@
           ></textarea>
         </div>
         
-        <div class="bg-white p-6 rounded-xl border border-stone-200">
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
             Key Features
             <span class="text-sm font-normal text-neutral-500 block mt-1">
@@ -35,46 +54,27 @@
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base"
-        :disabled="isLoading"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
+        :disabled="isLoading || !formData.product || !formData.keyFeatures"
       >
-        <Icon v-if="!isLoading" name="ph:rocket-launch-duotone" class="text-xl" />
-        <Icon v-else name="ph:circle-notch-duotone" class="text-xl animate-spin" />
-        {{ isLoading ? 'Generating...' : 'Generate Launch Plan' }}
+        <Icon name="ph:rocket-launch-duotone" class="text-xl" />
+        Generate Launch Plan
       </button>
     </form>
 
     <!-- Response Section -->
-    <div v-if="response" class="mt-8 space-y-6">
-      <div class="border-t border-stone-200 pt-8">
-        <div class="prose prose-stone max-w-none">
-          <div v-html="markdownToHtml(response)"></div>
-        </div>
-      </div>
-      
-      <div class="flex justify-end gap-4">
-        <button
-          @click="copyToClipboard"
-          class="px-4 py-2 text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
-        >
-          <Icon :name="copied ? 'ph:check-duotone' : 'ph:copy-duotone'" class="text-lg" />
-          {{ copied ? 'Copied!' : 'Copy' }}
-        </button>
-        <button
-          @click="downloadPDF"
-          class="px-4 py-2 text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
-        >
-          <Icon name="ph:download-duotone" class="text-lg" />
-          Download PDF
-        </button>
-      </div>
-    </div>
+    <ResponseSection 
+      v-if="response"
+      :content="response"
+      @clear="response = ''"
+      @regenerate="generateLaunchPlan"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { marked } from 'marked'
+import ResponseSection from '~/components/common/ResponseSection.vue'
 
 const formData = ref({
   product: '',
@@ -83,13 +83,10 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
-const copied = ref(false)
-
-const markdownToHtml = (markdown) => {
-  return marked(markdown)
-}
 
 const generateLaunchPlan = async () => {
+  if (!formData.value.product || !formData.value.keyFeatures) return
+  
   isLoading.value = true
   response.value = ''
   
@@ -112,23 +109,6 @@ const generateLaunchPlan = async () => {
   } finally {
     isLoading.value = false
   }
-}
-
-const copyToClipboard = async () => {
-  try {
-    await navigator.clipboard.writeText(response.value)
-    copied.value = true
-    setTimeout(() => {
-      copied.value = false
-    }, 2000)
-  } catch (error) {
-    console.error('Failed to copy:', error)
-  }
-}
-
-const downloadPDF = () => {
-  // Implement PDF download functionality
-  console.log('Downloading PDF...')
 }
 </script>
 
