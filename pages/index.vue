@@ -54,6 +54,10 @@ import AbTestPlanner from '~/components/AbTestPlanner.vue'
 import UserJourneyMap from '~/components/UserJourneyMap.vue'
 import MetricsKpi from '~/components/MetricsKpi.vue'
 import MvpGenerator from '~/components/MvpGenerator.vue'
+import CopyOptimizer from '~/components/CopyOptimizer.vue'
+import UserResearchPlan from '~/components/UserResearchPlan.vue'
+import ProductLaunchPlan from '~/components/ProductLaunchPlan.vue'
+import Prioritization from '~/components/Prioritization.vue'
 
 const activeItem = ref(0)
 
@@ -65,6 +69,10 @@ const menuItems = [
   { label: 'User Journey Map', icon: 'ph:map-trifold-duotone', component: UserJourneyMap },
   { label: 'Metrics and KPI', icon: 'ph:chart-line-up-duotone', component: MetricsKpi },
   { label: 'MVP Generator', icon: 'ph:cube-duotone', component: MvpGenerator },
+  { label: 'Copy Optimizer', icon: 'ph:pencil-duotone', component: CopyOptimizer },
+  { label: 'Research Plan', icon: 'ph:magnifying-glass-duotone', component: UserResearchPlan },
+  { label: 'Launch Plan', icon: 'ph:rocket-launch-duotone', component: ProductLaunchPlan },
+  { label: 'Prioritization', icon: 'ph:list-numbers-duotone', component: Prioritization }
 ]
 
 const currentComponent = computed(() => menuItems[activeItem.value].component)
@@ -82,7 +90,11 @@ const getDescription = (index) => {
     3: "Design and track A/B tests for your product",
     4: "Map out your user's journey and touchpoints",
     5: "Track key performance indicators and metrics",
-    6: "Generate MVP features and requirements"
+    6: "Generate MVP features and requirements",
+    7: "Optimize your copy for target customers",
+    8: "Create comprehensive user research plans",
+    9: "Plan and execute your product launch",
+    10: "Prioritize features and initiatives"
   }
   return descriptions[index]
 }
