@@ -1,45 +1,56 @@
 <template>
   <div class="flex min-h-screen bg-gradient-to-br from-stone-100 to-stone-200">
-    <!-- Sidebar -->
-    <aside class="w-72 p-8 border-r border-stone-200 bg-white/50 backdrop-blur-sm">
-      <div class="mb-10">
-        <div class="flex items-center gap-3 mb-2">
-          <Icon name="ph:rocket-launch-duotone" class="text-3xl text-sky-600" />
-          <h1 class="text-2xl font-bold text-neutral-900">GTMGuy</h1>
+    <!-- Fixed Sidebar -->
+    <aside class="fixed inset-y-0 left-0 w-72 bg-white/50 backdrop-blur-sm border-r border-stone-200">
+      <div class="flex flex-col h-full p-6">
+        <!-- Header -->
+        <div class="mb-6">
+          <div class="flex items-center gap-3 mb-2">
+            <Icon name="ph:rocket-launch-duotone" class="text-3xl text-sky-600" />
+            <h1 class="text-2xl font-bold text-neutral-900">GTMGuy</h1>
+          </div>
+          <p class="text-sm text-neutral-600">Your AI-Powered Go-to-Market Assistant</p>
         </div>
-        <p class="text-sm text-neutral-600">Your AI-Powered Go-to-Market Assistant</p>
-      </div>
-      <nav>
-        <ul class="space-y-3">
-          <li v-for="(item, index) in menuItems" :key="index">
-            <button 
-              :class="getMenuItemClasses(index)"
-              @click="activeItem = index"
-            >
-              <Icon :name="item.icon" class="text-xl" :class="activeItem === index ? 'text-sky-600' : 'text-neutral-600'" />
-              {{ item.label }}
-            </button>
-          </li>
-        </ul>
-      </nav>
-      
-      <!-- Footer -->
-      <div class="mt-auto pt-8 border-t border-stone-200 mt-8">
-        <div class="flex items-center gap-2 text-sm text-neutral-600">
-          <Icon name="ph:info-duotone" class="text-lg" />
-          <span>Version 1.0.0</span>
+
+        <!-- Navigation -->
+        <nav class="flex-1">
+          <ul class="grid grid-cols-1 gap-1.5">
+            <li v-for="(item, index) in menuItems" :key="index">
+              <button 
+                :class="getMenuItemClasses(index)"
+                @click="activeItem = index"
+              >
+                <Icon 
+                  :name="item.icon" 
+                  class="text-lg shrink-0" 
+                  :class="activeItem === index ? 'text-sky-600' : 'text-neutral-600'" 
+                />
+                <span class="truncate">{{ item.label }}</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+        
+        <!-- Footer -->
+        <div class="pt-4 border-t border-stone-200">
+          <div class="flex items-center gap-2 text-sm text-neutral-600">
+            <Icon name="ph:info-duotone" class="text-lg" />
+            <span>Version 1.0.0</span>
+          </div>
         </div>
       </div>
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 p-8">
-      <div class="mb-6">
-        <h2 class="text-2xl font-bold text-neutral-900">{{ menuItems[activeItem].label }}</h2>
-        <p class="text-neutral-600 mt-1">{{ getDescription(activeItem) }}</p>
-      </div>
-      <div class="rounded-xl border border-stone-200 bg-white/50 backdrop-blur-sm p-6 shadow-sm">
-        <component :is="currentComponent" />
+    <main class="flex-1 ml-72">
+      <div class="max-w-6xl mx-auto p-8">
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold text-neutral-900">{{ menuItems[activeItem].label }}</h2>
+          <p class="text-neutral-600 mt-1">{{ getDescription(activeItem) }}</p>
+        </div>
+        <div class="rounded-xl border border-stone-200 bg-white/50 backdrop-blur-sm p-6 shadow-sm">
+          <component :is="currentComponent" />
+        </div>
       </div>
     </main>
   </div>
@@ -78,7 +89,7 @@ const menuItems = [
 const currentComponent = computed(() => menuItems[activeItem.value].component)
 
 const getMenuItemClasses = (index) => ({
-  'w-full text-left px-5 py-3.5 rounded-xl text-neutral-700 hover:bg-stone-200 transition-all duration-200 flex items-center gap-3': true,
+  'w-full text-left px-3 py-2 rounded-lg text-neutral-700 hover:bg-stone-200 transition-all duration-200 flex items-center gap-2 text-sm': true,
   'text-neutral-900 bg-stone-200 font-medium': activeItem.value === index
 })
 
@@ -99,3 +110,23 @@ const getDescription = (index) => {
   return descriptions[index]
 }
 </script>
+
+<style>
+/* Optional: Add custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+</style>
