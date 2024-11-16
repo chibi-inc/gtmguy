@@ -7,23 +7,36 @@ export default defineEventHandler(async (event) => {
     apiKey: config.openaiApiKey
   });
 
-  const { businessGoal, keyActivities, timeFrame } = await readBody(event);
+  const { businessGoal, timeFrame } = await readBody(event);
 
   const prompt = `As a Business Analytics expert, create a comprehensive metrics and KPI framework based on the following information:
 
-Business Goal: ${businessGoal}
-Key Activities: ${keyActivities}
+Primary Business Goal: ${businessGoal}
 Time Frame: ${timeFrame}
 
 Please provide a detailed metrics framework including:
 1. Key Performance Indicators (KPIs)
-2. Leading Indicators
-3. Lagging Indicators
-4. Measurement Methodology
-5. Target Values
-6. Data Collection Strategy
-7. Reporting Framework
-8. Success Criteria
+   - Primary KPIs directly tied to the goal
+   - Secondary supporting KPIs
+   - Leading indicators
+   - Lagging indicators
+
+2. Measurement Methodology
+   - Data collection points
+   - Calculation methods
+   - Frequency of measurement
+   - Baseline metrics
+
+3. Target Values
+   - Milestone targets
+   - Final targets
+   - Industry benchmarks
+
+4. Tracking Framework
+   - Reporting cadence
+   - Review process
+   - Stakeholder communication
+   - Course correction triggers
 
 Format the response in a clear, structured way using markdown.`;
 

@@ -40,7 +40,7 @@
           <label class="block text-base font-semibold text-neutral-900 mb-2">
             Target Market
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your ideal customers and their characteristics
+              Describe your target market
             </span>
           </label>
           <textarea
@@ -57,7 +57,7 @@
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
         :disabled="isLoading || !formData.productDescription || !formData.targetMarket"
       >
-        <Icon name="ph:buildings-duotone" class="text-xl" />
+        <Icon name="ph:user-duotone" class="text-xl" />
         Generate ICP
       </button>
     </form>

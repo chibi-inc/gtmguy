@@ -9,30 +9,30 @@
         <div class="animate-spin text-sky-500">
           <Icon name="ph:circle-notch-duotone" class="text-2xl" />
         </div>
-        <span class="text-neutral-900">Optimizing Copy...</span>
+        <span class="text-neutral-900">Generating Copy...</span>
       </div>
     </div>
 
-    <form @submit.prevent="generateOptimizedCopy" class="space-y-8">
+    <form @submit.prevent="generateCopy" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
-        <h3 class="text-lg font-semibold text-neutral-900 mb-2">Optimize Your Copy</h3>
-        <p class="text-neutral-600">Fill in the details below to create targeted, engaging copy.</p>
+        <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Marketing Copy</h3>
+        <p class="text-neutral-600">Fill in the details below to create targeted, engaging copy variations.</p>
       </div>
 
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Original Copy
+            Product Details
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Enter the copy you want to optimize
+              Describe your product's features and benefits
             </span>
           </label>
           <textarea
-            v-model="formData.originalCopy"
+            v-model="formData.productDetails"
             rows="4"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Our software helps businesses manage their tasks better..."
+            placeholder="e.g., An AI-powered social media management tool with automated scheduling, content suggestions, and analytics dashboard..."
           ></textarea>
         </div>
         
@@ -55,10 +55,10 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.originalCopy || !formData.targetCustomer"
+        :disabled="isLoading || !formData.productDetails || !formData.targetCustomer"
       >
         <Icon name="ph:pencil-duotone" class="text-xl" />
-        Optimize Copy
+        Generate Copy
       </button>
     </form>
 
@@ -67,7 +67,7 @@
       v-if="response"
       :content="response"
       @clear="response = ''"
-      @regenerate="generateOptimizedCopy"
+      @regenerate="generateCopy"
     />
   </div>
 </template>
@@ -77,21 +77,21 @@ import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 
 const formData = ref({
-  originalCopy: '',
+  productDetails: '',
   targetCustomer: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
 
-const generateOptimizedCopy = async () => {
-  if (!formData.value.originalCopy || !formData.value.targetCustomer) return
+const generateCopy = async () => {
+  if (!formData.value.productDetails || !formData.value.targetCustomer) return
   
   isLoading.value = true
   response.value = ''
   
   try {
-    const res = await fetch('/api/copy-optimizer', {
+    const res = await fetch('/api/copy-generator', {
       method: 'POST',
       body: JSON.stringify(formData.value),
       headers: {
@@ -99,13 +99,13 @@ const generateOptimizedCopy = async () => {
       }
     })
 
-    if (!res.ok) throw new Error('Failed to optimize copy')
+    if (!res.ok) throw new Error('Failed to generate copy')
 
     const data = await res.text()
     response.value = data
 
   } catch (error) {
-    console.error('Error optimizing copy:', error)
+    console.error('Error generating copy:', error)
   } finally {
     isLoading.value = false
   }

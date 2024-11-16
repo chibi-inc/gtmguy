@@ -23,7 +23,7 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product
+            Product Description
             <span class="text-sm font-normal text-neutral-500 block mt-1">
               Describe your product and its value proposition
             </span>

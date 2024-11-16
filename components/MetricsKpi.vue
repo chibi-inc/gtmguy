@@ -35,21 +35,6 @@
             placeholder="e.g., Increase market share in the enterprise segment by 30% within the next year..."
           ></textarea>
         </div>
-        
-        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
-          <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Key Activities
-            <span class="text-sm font-normal text-neutral-500 block mt-1">
-              List the main activities you want to measure
-            </span>
-          </label>
-          <textarea
-            v-model="formData.keyActivities"
-            rows="3"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., User acquisition, Feature adoption, Customer retention, Sales conversion..."
-          ></textarea>
-        </div>
 
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
@@ -61,7 +46,7 @@
           <input
             type="text"
             v-model="formData.timeFrame"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none py-2.5 px-3"
             placeholder="e.g., Q2 2024, Next 6 months, Annual 2024"
           />
         </div>
@@ -70,7 +55,7 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.businessGoal || !formData.keyActivities || !formData.timeFrame"
+        :disabled="isLoading || !formData.businessGoal || !formData.timeFrame"
       >
         <Icon name="ph:chart-line-up-duotone" class="text-xl" />
         Generate Metrics & KPIs
@@ -93,7 +78,6 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 
 const formData = ref({
   businessGoal: '',
-  keyActivities: '',
   timeFrame: ''
 })
 
@@ -101,7 +85,7 @@ const isLoading = ref(false)
 const response = ref('')
 
 const generateMetrics = async () => {
-  if (!formData.value.businessGoal || !formData.value.keyActivities || !formData.value.timeFrame) return
+  if (!formData.value.businessGoal || !formData.value.timeFrame) return
   
   isLoading.value = true
   response.value = ''
