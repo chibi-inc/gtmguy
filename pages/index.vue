@@ -25,10 +25,13 @@
           </p>
           <!-- Mobile-optimized CTA buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-            <NuxtLink to="/app" class="w-full sm:w-auto px-6 sm:px-8 py-4 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2">
+            <button 
+              @click="signInWithGoogle"
+              :disabled="isLoading"
+              class="w-full sm:w-auto px-6 sm:px-8 py-4 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2">
               <Icon name="ph:rocket-launch-duotone" class="text-xl" />
-              Build Your GTM Strategy
-            </NuxtLink>
+              {{ isLoading ? 'Loading...' : 'Build Your GTM Strategy' }}
+            </button>
             <a href="#features" class="w-full sm:w-auto px-6 py-4 text-neutral-900 hover:bg-white/75 rounded-xl transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2 group">
               <Icon name="ph:arrow-down-duotone" class="text-xl transition-transform group-hover:translate-y-1" />
               See Features
@@ -125,9 +128,12 @@
                       <p class="text-neutral-700 text-sm">Get lifetime access to 100 strategies/month for just $50. Start with 10 free strategies to try it out.</p>
                     </div>
                   </div>
-                  <NuxtLink to="/app" class="mt-6 w-full bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-                    Start Building Free
-                  </NuxtLink>
+                  <button 
+                    @click="signInWithGoogle"
+                    :disabled="isLoading"
+                    class="mt-6 w-full bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
+                    {{ isLoading ? 'Loading...' : 'Start Building Free' }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -247,9 +253,12 @@
                 <span>Basic templates</span>
               </li>
             </ul>
-            <NuxtLink to="/app" class="w-full bg-neutral-900 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-              Build Your First Strategy
-            </NuxtLink>
+            <button 
+              @click="signInWithGoogle"
+              :disabled="isLoading"
+              class="w-full bg-neutral-900 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
+              {{ isLoading ? 'Loading...' : 'Start Building Free' }}
+            </button>
           </div>
 
           <!-- Pro Tier -->
@@ -299,9 +308,12 @@
                   <span>Lifetime access</span>
                 </li>
               </ul>
-              <NuxtLink to="/app" class="w-full bg-white text-neutral-900 rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-                Unlock Lifetime Access
-              </NuxtLink>
+              <button 
+                @click="signInWithGoogle"
+                :disabled="isLoading"
+                class="w-full bg-white text-neutral-900 rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
+                {{ isLoading ? 'Loading...' : 'Unlock Lifetime Access' }}
+              </button>
             </div>
           </div>
         </div>
@@ -321,10 +333,13 @@
             <p class="text-xl text-neutral-300 mb-10 max-w-2xl mx-auto">
               Join thousands of companies using GTMGuy to accelerate their go-to-market success. Start creating professional GTM assets in minutes.
             </p>
-            <NuxtLink to="/app" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-neutral-900 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium">
+            <button 
+              @click="signInWithGoogle"
+              :disabled="isLoading"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-white text-neutral-900 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium">
               <Icon name="ph:rocket-launch-duotone" class="text-xl" />
-              Build Your GTM Strategy Free
-            </NuxtLink>
+              {{ isLoading ? 'Loading...' : 'Build Your GTM Strategy Free' }}
+            </button>
           </div>
         </div>
       </div>
@@ -336,6 +351,46 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+const isLoading = ref(false)
+const errorMessage = ref('')
+const router = useRouter()
+const supabase = useSupabaseClient()
+const user = useSupabaseUser()
+
+const signInWithGoogle = async () => {
+  errorMessage.value = ''
+  isLoading.value = true
+
+  try {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+        scopes: 'email profile'
+      },
+    })
+
+    if (error) {
+      errorMessage.value = error.message
+    }
+
+  } catch (error) {
+    console.error('Error signing in with Google:', error)
+    errorMessage.value = 'An unexpected error occurred. Please try again.'
+  } finally {
+    isLoading.value = false
+  }
+}
+
+onMounted(async () => {
+  if (user.value) {
+    await router.push('/app')
+  }
+})
+
 const { setSeo } = useSeo()
 
 // Set SEO metadata

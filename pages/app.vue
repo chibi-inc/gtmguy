@@ -42,8 +42,29 @@
       </div>
     </aside>
 
-    <!-- Main Content Area -->
+    <!-- Main Content Area with Navbar -->
     <main class="flex-1 ml-72">
+      <!-- Add Navbar -->
+      <nav class="bg-white/50 backdrop-blur-sm border-b border-stone-200 px-8 py-4">
+        <div class="flex justify-end items-center">
+          <div class="user-profile relative">
+            <div @click="toggleDropdown" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-sky-600 font-bold border-2 border-sky-600 overflow-hidden cursor-pointer">
+              <img v-if="userAvatar" :src="userAvatar" alt="User avatar" class="w-full h-full object-cover">
+              <span v-else>{{ userInitial }}</span>
+            </div>
+            <div v-if="showDropdown" class="absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+              <a @click="signOut" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-stone-100 cursor-pointer transition-colors duration-150">
+                <div class="flex items-center gap-2">
+                  <Icon name="ph:sign-out-duotone" class="text-lg" />
+                  <span>Sign out</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Existing content -->
       <div class="max-w-6xl mx-auto p-8">
         <div class="mb-6">
           <h2 class="text-2xl font-bold text-neutral-900">{{ menuItems[activeItem].label }}</h2>
@@ -58,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import ICP from '~/components/ICP.vue'
 import GtmStrategy from '~/components/GtmStrategy.vue'
 import SwotAnalysis from '~/components/SwotAnalysis.vue'
@@ -122,6 +143,67 @@ useHead({
   title: 'GTMGuy Dashboard',
   description: 'Create and manage your go-to-market strategies with GTMGuy.',
 })
+
+// Add user state
+const user = useSupabaseUser()
+
+// Add user profile functionality
+const supabase = useSupabaseClient()
+const showDropdown = ref(false)
+const userAvatar = computed(() => user.value?.user_metadata?.avatar_url)
+const userInitial = computed(() => {
+  const name = user.value?.user_metadata?.full_name || user.value?.email || 'U'
+  const nameParts = name.split(' ')
+  const firstInitial = nameParts[0].charAt(0)
+  const lastInitial = nameParts.length > 1 ? nameParts[nameParts.length - 1].charAt(0) : ''
+  return (firstInitial + lastInitial).toUpperCase()
+})
+
+const toggleDropdown = () => {
+  showDropdown.value = !showDropdown.value
+}
+
+const closeDropdown = (event) => {
+  if (showDropdown.value && !event.target.closest('.user-profile')) {
+    showDropdown.value = false
+  }
+}
+
+const signOut = async () => {
+  try {
+    await supabase.auth.signOut()
+    await navigateTo('/')
+  } catch (error) {
+    console.error('Error signing out:', error)
+  }
+}
+
+// Add initialization logic
+onMounted(async () => {
+  if (!user.value) {
+    await navigateTo('/')
+  } else {
+    await fetchOrCreateUserAccount()
+  }
+  document.addEventListener('click', closeDropdown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeDropdown)
+})
+
+async function fetchOrCreateUserAccount() {
+  try {
+    await $fetch('/api/auth/create-account', {
+      method: 'POST',
+      body: {
+        user_id: user.value.id,
+      }
+    })
+  } catch (error) {
+    console.error('Error initializing user account:', error)
+  }
+}
 </script>
 
 <style>
