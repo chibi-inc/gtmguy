@@ -4,8 +4,8 @@
     
     <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-24">
       <div v-if="post">
-        <!-- Category & Back Link -->
-        <div class="flex items-center justify-between mb-8 sm:mb-12">
+        <!-- Back Link -->
+        <div class="mb-8 sm:mb-12">
           <NuxtLink 
             to="/blog"
             class="inline-flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors group text-sm"
@@ -52,25 +52,11 @@
           <ContentRenderer :value="post" />
         </div>
 
-        <!-- Share and Navigation -->
-        <div class="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-neutral-200 pt-8">
-          <div class="flex items-center gap-4 order-2 sm:order-1">
-            <span class="text-sm font-medium text-neutral-700">Share:</span>
-            <div class="flex items-center gap-3">
-              <button class="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-neutral-200 text-neutral-700 hover:bg-neutral-50 transition-colors">
-                <Icon name="ph:twitter-logo-duotone" class="text-lg" />
-              </button>
-              <button class="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-neutral-200 text-neutral-700 hover:bg-neutral-50 transition-colors">
-                <Icon name="ph:linkedin-logo-duotone" class="text-lg" />
-              </button>
-              <button class="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-neutral-200 text-neutral-700 hover:bg-neutral-50 transition-colors">
-                <Icon name="ph:link-duotone" class="text-lg" />
-              </button>
-            </div>
-          </div>
+        <!-- Back to Blog -->
+        <div class="mt-12 text-center">
           <NuxtLink 
             to="/blog"
-            class="inline-flex items-center gap-2 text-neutral-700 hover:text-neutral-900 transition-colors group order-1 sm:order-2"
+            class="inline-flex items-center gap-2 text-neutral-700 hover:text-neutral-900 transition-colors group"
           >
             <Icon name="ph:arrow-left-duotone" class="group-hover:-translate-x-0.5 transition-transform" />
             Back to Blog

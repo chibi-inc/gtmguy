@@ -394,6 +394,9 @@
               <li>
                 <a href="#benefits-section" class="text-neutral-600 hover:text-neutral-900 transition-colors">Benefits</a>
               </li>
+              <li>
+                <NuxtLink to="/blog" class="text-neutral-600 hover:text-neutral-900 transition-colors">Blog</NuxtLink>
+              </li>
             </ul>
           </div>
 

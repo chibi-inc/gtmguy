@@ -113,6 +113,15 @@ const getDescription = (index) => {
   }
   return descriptions[index]
 }
+
+// Set SEO metadata with noindex
+useHead({
+  meta: [
+    { name: 'robots', content: 'noindex, nofollow' }, // Prevent indexing
+  ],
+  title: 'GTMGuy Dashboard',
+  description: 'Create and manage your go-to-market strategies with GTMGuy.',
+})
 </script>
 
 <style>
