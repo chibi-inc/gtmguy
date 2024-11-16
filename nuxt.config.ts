@@ -4,9 +4,16 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxt/content'
   ],
   runtimeConfig: {
     openaiApiKey: process.env.OPENAI_API_KEY,
+  },
+  content: {
+    markdown: {
+      toc: true,
+      anchorLinks: true,
+    }
   }
 })
