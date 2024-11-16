@@ -5,7 +5,7 @@
         <!-- Brand Column -->
         <div class="space-y-4">
           <NuxtLink to="/" class="flex items-center gap-3">
-            <div class="bg-neutral-900 text-white p-1.5 rounded-lg">
+            <div class="text-black p-1.5 rounded-lg">
               <Icon name="ph:rocket-launch-duotone" class="text-xl" />
             </div>
             <span class="text-neutral-900 font-semibold">GTMGuy</span>
@@ -19,9 +19,6 @@
             </a>
             <a href="#" class="text-neutral-600 hover:text-neutral-900 transition-colors">
               <Icon name="ph:linkedin-logo-duotone" class="text-xl" />
-            </a>
-            <a href="#" class="text-neutral-600 hover:text-neutral-900 transition-colors">
-              <Icon name="ph:github-logo-duotone" class="text-xl" />
             </a>
           </div>
         </div>

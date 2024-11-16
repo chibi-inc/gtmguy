@@ -1,32 +1,9 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-stone-50 to-stone-100">
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-stone-50/50 backdrop-blur-sm border-b border-stone-200 z-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-8">
-            <div class="flex items-center gap-3">
-              <div class="bg-gradient-to-br from-neutral-900 to-neutral-800 text-white p-2 rounded-xl shadow-lg">
-                <Icon name="ph:rocket-launch-duotone" class="text-2xl sm:text-3xl" />
-              </div>
-              <h1 class="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-800">GTMGuy</h1>
-            </div>
-            <div class="hidden md:flex items-center gap-6">
-              <a href="#features" class="text-neutral-700 hover:text-neutral-900 transition-colors">Features</a>
-              <a href="#pricing-section" class="text-neutral-700 hover:text-neutral-900 transition-colors">Pricing</a>
-              <a href="#benefits-section" class="text-neutral-700 hover:text-neutral-900 transition-colors">Benefits</a>
-            </div>
-          </div>
-          <NuxtLink to="/app" class="px-6 py-2.5 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 font-medium">
-            <Icon name="ph:lightning-duotone" class="text-lg" />
-            <span class="hidden sm:inline">Get Started Free</span>
-            <span class="sm:hidden">Start</span>
-          </NuxtLink>
-        </div>
-      </div>
-    </nav>
+    <!-- Use shared Navbar component -->
+    <TheNavbar />
 
-    <!-- Hero Section - Updated for better visual hierarchy -->
+    <!-- Hero Section -->
     <section class="pt-28 sm:pt-40 pb-16 sm:pb-24 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-sky-50/30 to-transparent"></div>
       <!-- Enhanced Decorative Elements -->
@@ -77,7 +54,7 @@
       </div>
     </section>
 
-    <!-- After the hero section and before features, add this new section -->
+    <!-- Why GTMGuy Section -->
     <section class="py-6 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sky-50/10 to-transparent"></div>
       <div class="max-w-7xl mx-auto px-6 relative">
@@ -159,7 +136,7 @@
       </div>
     </section>
 
-    <!-- Features Grid - Updated styling -->
+    <!-- Features Grid -->
     <section id="features" class="py-24 bg-stone-50/50 backdrop-blur-sm border-y border-stone-200">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-20">
@@ -232,7 +209,7 @@
       </div>
     </section>
 
-    <!-- Add this section before the CTA section -->
+    <!-- Pricing Section -->
     <section id="pricing-section" class="py-24 bg-stone-50/50 backdrop-blur-sm border-y border-stone-200">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
@@ -331,7 +308,7 @@
       </div>
     </section>
 
-    <!-- Updated CTA Section -->
+    <!-- CTA Section -->
     <section class="py-16 sm:py-24">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
         <div class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 sm:p-16 text-center text-white relative overflow-hidden">
@@ -353,77 +330,8 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-stone-50/50 border-t border-stone-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 py-12 sm:py-16">
-          <!-- Brand Column -->
-          <div class="space-y-4">
-            <div class="flex items-center gap-3">
-              <div class="bg-neutral-900 text-white p-1.5 rounded-lg">
-                <Icon name="ph:rocket-launch-duotone" class="text-xl" />
-              </div>
-              <span class="text-neutral-900 font-semibold">GTMGuy</span>
-            </div>
-            <p class="text-sm text-neutral-600">
-              AI-powered go-to-market tools to help you launch products with confidence.
-            </p>
-            <div class="flex items-center gap-4">
-              <a href="#" class="text-neutral-600 hover:text-neutral-900 transition-colors">
-                <Icon name="ph:twitter-logo-duotone" class="text-xl" />
-              </a>
-              <a href="#" class="text-neutral-600 hover:text-neutral-900 transition-colors">
-                <Icon name="ph:linkedin-logo-duotone" class="text-xl" />
-              </a>
-              <a href="#" class="text-neutral-600 hover:text-neutral-900 transition-colors">
-                <Icon name="ph:github-logo-duotone" class="text-xl" />
-              </a>
-            </div>
-          </div>
-
-          <!-- Product Column -->
-          <div>
-            <h3 class="font-semibold text-neutral-900 mb-4">Product</h3>
-            <ul class="space-y-3">
-              <li>
-                <a href="#features" class="text-neutral-600 hover:text-neutral-900 transition-colors">Features</a>
-              </li>
-              <li>
-                <a href="#pricing-section" class="text-neutral-600 hover:text-neutral-900 transition-colors">Pricing</a>
-              </li>
-              <li>
-                <a href="#benefits-section" class="text-neutral-600 hover:text-neutral-900 transition-colors">Benefits</a>
-              </li>
-              <li>
-                <NuxtLink to="/blog" class="text-neutral-600 hover:text-neutral-900 transition-colors">Blog</NuxtLink>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Legal Column -->
-          <div>
-            <h3 class="font-semibold text-neutral-900 mb-4">Legal</h3>
-            <ul class="space-y-3">
-              <li>
-                <NuxtLink to="/privacy" class="text-neutral-600 hover:text-neutral-900 transition-colors">Privacy Policy</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/terms" class="text-neutral-600 hover:text-neutral-900 transition-colors">Terms of Service</NuxtLink>
-              </li>
-              <li>
-                <a href="mailto:support@gtmguy.com" class="text-neutral-600 hover:text-neutral-900 transition-colors">Contact</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="border-t border-stone-200 py-6">
-          <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-sm text-neutral-600">&copy; {{ new Date().getFullYear() }} GTMGuy. All rights reserved.</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <!-- Use shared Footer component -->
+    <TheFooter />
   </div>
 </template>
 
@@ -458,6 +366,7 @@ useHead({
   ]
 })
 
+// Features and Benefits data
 const features = [
   {
     title: 'ICP Creator',
