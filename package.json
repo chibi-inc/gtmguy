@@ -20,6 +20,8 @@
     "nuxt": "^3.14.159",
     "nuxt-icon": "1.0.0-beta.7",
     "openai": "^4.72.0",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.0",
     "vue": "latest",
     "vue-router": "latest",
     "zod": "^3.23.8"

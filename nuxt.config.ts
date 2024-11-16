@@ -12,8 +12,15 @@ export default defineNuxtConfig({
   },
   content: {
     markdown: {
-      toc: true,
-      anchorLinks: true,
+      toc: {
+        depth: 3,
+        searchDepth: 3
+      },
+      remarkPlugins: ['remark-gfm'],
+      rehypePlugins: ['rehype-slug']
+    },
+    highlight: {
+      theme: 'github-light'
     }
   }
 })

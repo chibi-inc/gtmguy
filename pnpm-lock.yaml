@@ -38,6 +38,12 @@ importers:
       openai:
         specifier: ^4.72.0
         version: 4.72.0(zod@3.23.8)
+      rehype-slug:
+        specifier: ^6.0.0
+        version: 6.0.0
+      remark-gfm:
+        specifier: ^4.0.0
+        version: 4.0.0
       vue:
         specifier: latest
         version: 3.5.12(typescript@5.6.3)
