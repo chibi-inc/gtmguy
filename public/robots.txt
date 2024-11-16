@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
 
+Sitemap: https://gtmguy.com/sitemap.xml

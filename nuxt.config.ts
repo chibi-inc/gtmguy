@@ -5,7 +5,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     'nuxt-icon',
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/sitemap',
   ],
   runtimeConfig: {
     openaiApiKey: process.env.OPENAI_API_KEY,
@@ -21,6 +22,18 @@ export default defineNuxtConfig({
     },
     highlight: {
       theme: 'github-light'
+    }
+  },
+  sitemap: {
+    hostname: 'https://gtmguy.com',
+  },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+      },
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
     }
   }
 })

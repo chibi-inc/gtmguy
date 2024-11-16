@@ -58,6 +58,15 @@
 </template>
 
 <script setup>
+const { setSeo } = useSeo()
+
+setSeo({
+  title: 'GTM Insights Blog',
+  description: 'Expert insights and guides on go-to-market strategy and product launches. Learn how to create effective GTM strategies.',
+  url: 'https://gtmguy.com/blog', // Replace with your domain
+  type: 'blog',
+})
+
 const { data: posts } = await useAsyncData('posts', () => queryContent('/blog').sort({ date: -1 }).find())
 
 const formatDate = (date) => {
