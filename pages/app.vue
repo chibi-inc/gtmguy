@@ -46,7 +46,25 @@
     <main class="flex-1 ml-72">
       <!-- Add Navbar -->
       <nav class="bg-white/50 backdrop-blur-sm border-b border-stone-200 px-8 py-4">
-        <div class="flex justify-end items-center">
+        <div class="flex justify-between items-center">
+          <!-- Add upgrade CTA -->
+          <div class="flex items-center gap-4">
+            <div class="bg-stone-50 border border-stone-200 rounded-lg px-4 py-2 flex items-center gap-3">
+              <div class="flex items-center gap-2 text-sm text-neutral-600">
+                <Icon name="ph:lightning-duotone" class="text-lg" />
+                <span>10 reports remaining</span>
+              </div>
+              <button 
+                @click="signInWithGoogle"
+                class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors flex items-center gap-1"
+              >
+                Upgrade to Pro
+                <Icon name="ph:arrow-right-duotone" class="text-lg" />
+              </button>
+            </div>
+          </div>
+
+          <!-- User profile (existing code) -->
           <div class="user-profile relative">
             <div @click="toggleDropdown" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-sky-600 font-bold border-2 border-sky-600 overflow-hidden cursor-pointer">
               <img v-if="userAvatar" :src="userAvatar" alt="User avatar" class="w-full h-full object-cover">

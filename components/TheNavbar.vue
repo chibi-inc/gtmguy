@@ -16,12 +16,21 @@
             <NuxtLink to="/blog" class="text-neutral-700 hover:text-neutral-900 transition-colors">Blog</NuxtLink>
           </div>
         </div>
-        <NuxtLink to="/app" class="px-6 py-2.5 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 font-medium">
+        <button 
+          @click="signInWithGoogle"
+          :disabled="isLoading"
+          class="px-6 py-2.5 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 font-medium"
+        >
           <Icon name="ph:lightning-duotone" class="text-lg" />
           <span class="hidden sm:inline">Get Started Free</span>
           <span class="sm:hidden">Start</span>
-        </NuxtLink>
+        </button>
       </div>
     </div>
   </nav>
 </template> 
+
+<script setup>
+const isLoading = ref(false)
+const { signInWithGoogle } = useAuth()
+</script> 

@@ -125,7 +125,7 @@
                     </div>
                     <div>
                       <h4 class="font-semibold text-neutral-900 mb-1">Limited Time Launch Offer</h4>
-                      <p class="text-neutral-700 text-sm">Get lifetime access to 100 strategies/month for just $50. Start with 10 free strategies to try it out.</p>
+                      <p class="text-neutral-700 text-sm">Get lifetime access to unlimited strategies for just $199. Start with 10 free strategies to try it out.</p>
                     </div>
                   </div>
                   <button 
@@ -222,22 +222,22 @@
           <span class="text-sky-600 font-medium mb-2 block">Simple Pricing</span>
           <h2 class="text-5xl font-bold text-neutral-900 mb-6">Start Free, Scale When Ready</h2>
           <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
-            Try GTMGuy risk-free with our generous free tier. Upgrade once you're convinced.
+            Try GTMGuy risk-free with our trial. Upgrade to lifetime access when you're ready.
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
-          <!-- Free Tier -->
+          <!-- Free Trial -->
           <div class="bg-white rounded-2xl border border-stone-200 p-8 hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-200">
             <div class="flex justify-between items-start mb-6">
               <div>
-                <h3 class="text-2xl font-bold text-neutral-900 mb-2">Free Forever</h3>
-                <p class="text-neutral-700">Perfect for trying out GTMGuy</p>
+                <h3 class="text-2xl font-bold text-neutral-900 mb-2">Free Trial</h3>
+                <p class="text-neutral-700">Best to try out GTMGuy</p>
               </div>
               <span class="bg-stone-100 text-neutral-900 px-4 py-1 rounded-full text-sm font-medium">Free</span>
             </div>
             <div class="mb-8">
               <div class="text-5xl font-bold text-neutral-900 mb-1">10</div>
-              <p class="text-neutral-700">Strategies per month</p>
+              <p class="text-neutral-700">Reports total</p>
             </div>
             <ul class="space-y-4 mb-8">
               <li class="flex items-center gap-3 text-neutral-700">
@@ -246,22 +246,22 @@
               </li>
               <li class="flex items-center gap-3 text-neutral-700">
                 <Icon name="ph:check-circle-duotone" class="text-xl text-sky-600" />
-                <span>Export to PDF</span>
+                <span>Ideal for testing</span>
               </li>
               <li class="flex items-center gap-3 text-neutral-700">
                 <Icon name="ph:check-circle-duotone" class="text-xl text-sky-600" />
-                <span>Basic templates</span>
+                <span>No credit card required</span>
               </li>
             </ul>
             <button 
               @click="signInWithGoogle"
               :disabled="isLoading"
               class="w-full bg-neutral-900 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-              {{ isLoading ? 'Loading...' : 'Start Building Free' }}
+              {{ isLoading ? 'Loading...' : 'Start Free Trial' }}
             </button>
           </div>
 
-          <!-- Pro Tier -->
+          <!-- Lifetime Pro -->
           <div class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 text-white relative overflow-hidden hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-200">
             <div class="absolute inset-0">
               <div class="absolute top-0 left-0 w-64 h-64 bg-sky-400/10 rounded-full blur-3xl"></div>
@@ -276,24 +276,24 @@
                 <span class="bg-white/20 text-white px-4 py-1 rounded-full text-sm font-medium">Limited Time</span>
               </div>
               <div class="mb-8">
-                <div class="text-5xl font-bold mb-1">100</div>
-                <p class="text-neutral-300">Strategies per month</p>
+                <div class="text-5xl font-bold mb-1">∞</div>
+                <p class="text-neutral-300">Unlimited reports forever</p>
               </div>
               <div class="mb-8">
                 <div class="flex items-baseline gap-2">
-                  <span class="text-3xl font-bold">$50</span>
+                  <span class="text-3xl font-bold">$199</span>
                   <span class="text-neutral-300">one-time payment</span>
                 </div>
-                <p class="text-sm text-neutral-300 mt-1">That's just $0.50 per strategy!</p>
+                <p class="text-sm text-neutral-300 mt-1">Lifetime access, unlimited value</p>
               </div>
               <ul class="space-y-4 mb-8">
                 <li class="flex items-center gap-3 text-neutral-200">
                   <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
-                  <span>Everything in Free</span>
+                  <span>Everything in Free Trial</span>
                 </li>
                 <li class="flex items-center gap-3 text-neutral-200">
                   <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
-                  <span>10x more strategies monthly</span>
+                  <span>Unlimited reports</span>
                 </li>
                 <li class="flex items-center gap-3 text-neutral-200">
                   <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
@@ -301,18 +301,14 @@
                 </li>
                 <li class="flex items-center gap-3 text-neutral-200">
                   <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
-                  <span>Advanced templates</span>
-                </li>
-                <li class="flex items-center gap-3 text-neutral-200">
-                  <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
-                  <span>Lifetime access</span>
+                  <span>Lifetime updates</span>
                 </li>
               </ul>
               <button 
                 @click="signInWithGoogle"
                 :disabled="isLoading"
                 class="w-full bg-white text-neutral-900 rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-                {{ isLoading ? 'Loading...' : 'Unlock Lifetime Access' }}
+                {{ isLoading ? 'Loading...' : 'Get Lifetime Access' }}
               </button>
             </div>
           </div>
