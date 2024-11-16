@@ -12,13 +12,6 @@
             {{ copied ? 'Copied!' : 'Copy' }}
           </button>
           <button
-            @click="downloadPDF"
-            class="px-3 py-1.5 text-neutral-600 hover:text-neutral-900 flex items-center gap-2 text-sm transition-colors"
-          >
-            <Icon name="ph:download-duotone" class="text-lg" />
-            Download PDF
-          </button>
-          <button
             @click="$emit('clear')"
             class="px-3 py-1.5 text-neutral-600 hover:text-neutral-900 flex items-center gap-2 text-sm transition-colors"
           >
@@ -80,10 +73,6 @@ const copyToClipboard = async () => {
   }
 }
 
-const downloadPDF = () => {
-  // Implement PDF download functionality
-  console.log('Downloading PDF...')
-}
 
 const regenerate = () => {
   emit('regenerate')
