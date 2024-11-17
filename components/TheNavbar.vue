@@ -3,8 +3,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-8">
-          <NuxtLink to="/" class="flex items-center gap-3">
-            <div class="text-sky-600 p-2 rounded-xl">
+          <NuxtLink to="/" class="flex items-center gap-1">
+            <div class="text-sky-600 p-2 rounded-xl flex items-center">
               <Icon name="ph:rocket-duotone" class="text-2xl sm:text-3xl" />
             </div>
             <h1 class="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-800">GTMGuy</h1>

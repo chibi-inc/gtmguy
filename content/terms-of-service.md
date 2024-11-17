@@ -58,4 +58,4 @@ We may update these terms. Continued use after changes constitutes acceptance.
 
 ## Contact
 
-Questions about these terms? Contact: support@gtmguy.com 
+Questions about these terms? Contact: support@gtmguy.ai 

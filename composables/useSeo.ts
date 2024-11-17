@@ -2,8 +2,8 @@ export const useSeo = () => {
   const defaultMeta = {
     title: 'GTMGuy - AI-Powered Go-to-Market Strategy Tools',
     description: 'Create comprehensive go-to-market strategies, ICPs, and product launch plans in minutes with AI. Start free and transform your GTM strategy.',
-    image: '/og-image.jpg', // Add your default OG image
-    url: 'https://gtmguy.com', // Replace with your actual domain
+    image: '/og-image.png', // Add your default OG image
+    url: 'https://gtmguy.ai', // Replace with your actual domain
     type: 'website',
   }
 

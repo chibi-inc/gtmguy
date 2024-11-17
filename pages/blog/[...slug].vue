@@ -81,7 +81,7 @@ watch(post, (newPost) => {
       title: newPost.title,
       description: newPost.description,
       image: newPost.image,
-      url: `https://gtmguy.com${route.path}`, // Replace with your domain
+      url: `https://gtmguy.ai${route.path}`, // Replace with your domain
       type: 'article',
     })
 
@@ -106,7 +106,7 @@ watch(post, (newPost) => {
               "name": "GTMGuy",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://gtmguy.com/logo.png" // Add your logo URL
+                "url": "https://gtmguy.ai/logo.png" // Add your logo URL
               }
             }
           })

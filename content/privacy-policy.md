@@ -43,4 +43,4 @@ We retain your data for as long as you maintain an active account. Generated str
 
 ## Contact Us
 
-For privacy-related questions, contact us at: support@gtmguy.com 
+For privacy-related questions, contact us at: support@gtmguy.ai 

@@ -393,7 +393,7 @@ const { setSeo } = useSeo()
 setSeo({
   title: 'AI-Powered Go-to-Market Strategy Tools',
   description: 'Create comprehensive go-to-market strategies, ICPs, and product launch plans in minutes with AI. Transform your GTM strategy with GTMGuy.',
-  url: 'https://gtmguy.com', // Replace with your domain
+  url: 'https://gtmguy.ai', // Replace with your domain
 })
 
 // Structured data

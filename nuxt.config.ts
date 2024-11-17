@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    hostname: 'https://gtmguy.com',
+    hostname: 'https://gtmguy.ai',
   },
   supabase: {
     redirect: false,

@@ -50,7 +50,7 @@
               <NuxtLink to="/terms" class="text-neutral-600 hover:text-neutral-900 transition-colors">Terms of Service</NuxtLink>
             </li>
             <li>
-              <a href="mailto:support@gtmguy.com" class="text-neutral-600 hover:text-neutral-900 transition-colors">Contact</a>
+              <a href="mailto:support@gtmguy.ai" class="text-neutral-600 hover:text-neutral-900 transition-colors">Contact</a>
             </li>
           </ul>
         </div>
