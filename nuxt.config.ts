@@ -5,11 +5,13 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
-    'nuxt-icon',
+    '@nuxt/icon',
     '@nuxt/content',
     '@nuxtjs/sitemap',
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
+    '@nuxt/fonts'
   ],
+  css: ['~/assets/main.css'],
   runtimeConfig: {
     openaiApiKey: process.env.OPENAI_API_KEY,
     supabase: {
@@ -40,6 +42,14 @@ export default defineNuxtConfig({
       login: '/',
       callback: '/auth/callback',
     }
+  },
+  fonts: {
+    families: [
+      {
+        name: 'Poppins',
+        weights: [400, 500, 600, 700]
+      }
+    ]
   },
   app: {
     head: {

@@ -17,7 +17,7 @@
           </div>
         </div>
         <button 
-          @click="signInWithGoogle"
+          @click="$emit('sign-in')"
           :disabled="isLoading"
           class="px-6 py-2.5 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 font-medium"
         >
@@ -28,9 +28,10 @@
       </div>
     </div>
   </nav>
-</template> 
+</template>
 
 <script setup>
 const isLoading = ref(false)
-const { signInWithGoogle } = useAuth()
+
+defineEmits(['sign-in'])
 </script> 

@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-stone-50 to-stone-100">
-    <!-- Use shared Navbar component -->
-    <TheNavbar />
+    <!-- Update the Navbar component to listen for the sign-in event -->
+    <TheNavbar @sign-in="signInWithGoogle" />
 
     <!-- Hero Section -->
     <section class="pt-28 sm:pt-40 pb-16 sm:pb-24 relative overflow-hidden">
@@ -195,7 +195,7 @@
           <span class="text-sky-600 font-medium mb-2 block">Early Access</span>
           <h2 class="text-4xl font-bold text-neutral-900 mb-4">Join the GTM Revolution</h2>
           <p class="text-lg text-neutral-700 max-w-2xl mx-auto">
-            Be among the first to transform your go-to-market strategy with AI. Limited spots available for early access.
+            Join early adopters who are already creating winning go-to-market strategies in record time. No more endless meetings and spreadsheets.
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
@@ -327,7 +327,7 @@
           <div class="relative">
             <h2 class="text-5xl font-bold mb-6">Ready to Transform Your GTM Strategy?</h2>
             <p class="text-xl text-neutral-300 mb-10 max-w-2xl mx-auto">
-              Join thousands of companies using GTMGuy to accelerate their go-to-market success. Start creating professional GTM assets in minutes.
+              Join early adopters who are already creating winning go-to-market strategies in record time. No more endless meetings and spreadsheets.
             </p>
             <button 
               @click="signInWithGoogle"
