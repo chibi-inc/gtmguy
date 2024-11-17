@@ -20,10 +20,11 @@ Please provide:
 3. Marketing Channels
 4. Content Strategy
 5. PR Strategy
-6. Success Metrics
-7. Timeline
-8. Risk Mitigation
-9. Post-launch Activities
+6. Ideas to market each of the features
+7. Success Metrics
+8. Timeline
+9. Risk Mitigation
+10. Post-launch Activities
 
 Format the response in a clear, structured way using markdown.`;
 

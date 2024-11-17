@@ -7,13 +7,12 @@ export default defineEventHandler(async (event) => {
     apiKey: config.openaiApiKey
   });
 
-  const { userDescription, mainTouchpoints, goals } = await readBody(event);
+  const { productDescription, userType } = await readBody(event);
 
   const prompt = `As a User Experience expert, create a detailed user journey map based on the following information:
 
-User Description: ${userDescription}
-Main Touchpoints: ${mainTouchpoints}
-Goals: ${goals}
+Product Description: ${productDescription}
+User Type: ${userType}
 
 Please provide a comprehensive user journey analysis including:
 1. User Stages

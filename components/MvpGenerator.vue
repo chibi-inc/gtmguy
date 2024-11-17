@@ -55,31 +55,31 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Vision
+            Problem Statement
             <span class="text-sm font-normal text-neutral-500 block mt-1">
               What problem are you trying to solve?
             </span>
           </label>
           <textarea
-            v-model="formData.productVision"
+            v-model="formData.problem"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             placeholder="e.g., A mobile app that helps remote teams track their productivity..."
           ></textarea>
         </div>
-        
+
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Users
+            Must-Have Functionalities
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Who are your initial target users?
+              What are the essential features needed?
             </span>
           </label>
           <textarea
-            v-model="formData.targetUsers"
+            v-model="formData.mustHaveFunctionalities"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Remote software development teams of 5-20 people..."
+            placeholder="e.g., Time tracking, Task management, Team dashboard..."
           ></textarea>
         </div>
       </div>
@@ -87,7 +87,7 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productVision || !formData.targetUsers"
+        :disabled="isLoading || !formData.problem || !formData.mustHaveFunctionalities"
       >
         <Icon name="ph:cube-duotone" class="text-xl" />
         Generate MVP Plan
@@ -110,8 +110,8 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productVision: '',
-  targetUsers: ''
+  problem: '',
+  mustHaveFunctionalities: ''
 })
 
 const isLoading = ref(false)
@@ -124,7 +124,7 @@ const handleUpgrade = () => {
 }
 
 const generateMvp = async () => {
-  if (!formData.value.productVision || !formData.value.targetUsers) return
+  if (!formData.value.problem || !formData.value.mustHaveFunctionalities) return
   
   isLoading.value = true
   response.value = ''

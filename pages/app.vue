@@ -47,15 +47,15 @@
       <!-- Add Navbar -->
       <nav class="bg-white/50 backdrop-blur-sm border-b border-stone-200 px-8 py-4">
         <div class="flex justify-between items-center">
-          <!-- Add upgrade CTA -->
+          <!-- Credits display -->
           <div class="flex items-center gap-4">
             <div class="bg-stone-50 border border-stone-200 rounded-lg px-4 py-2 flex items-center gap-3">
               <div class="flex items-center gap-2 text-sm text-neutral-600">
                 <Icon name="ph:lightning-duotone" class="text-lg" />
-                <span>10 reports remaining</span>
+                <span>{{ credits }} reports remaining</span>
               </div>
               <button 
-                @click="signInWithGoogle"
+                @click="handleUpgrade"
                 class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors flex items-center gap-1"
               >
                 Upgrade to Pro
@@ -97,7 +97,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import ICP from '~/components/ICP.vue'
 import GtmStrategy from '~/components/GtmStrategy.vue'
 import SwotAnalysis from '~/components/SwotAnalysis.vue'
@@ -142,7 +142,7 @@ const getDescription = (index) => {
     2: "Plan and execute your go-to-market strategy",
     3: "Define and analyze your Ideal Customer Profile",
     4: "Plan and execute your product launch",
-    5: "Track key performance indicators and metrics",
+    5: "Improve metrics and KPIs",
     6: "Generate MVP features and requirements",
     7: "Generate comprehensive Product Requirements Documents",
     8: "Prioritize features and initiatives",
@@ -221,6 +221,39 @@ async function fetchOrCreateUserAccount() {
   } catch (error) {
     console.error('Error initializing user account:', error)
   }
+}
+
+// Add credits state and fetching
+const credits = ref(0)
+
+// Function to fetch credits
+const fetchCredits = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('accounts')
+      .select('credits')
+      .eq('user', user.value.id)
+      .single()
+
+    if (error) throw error
+    credits.value = data?.credits || 0
+  } catch (error) {
+    console.error('Error fetching credits:', error)
+  }
+}
+
+// Fetch credits initially and after account creation
+watch(user, async (newUser) => {
+  if (newUser) {
+    await fetchOrCreateUserAccount()
+    await fetchCredits()
+  }
+}, { immediate: true })
+
+// Add upgrade handler
+const handleUpgrade = () => {
+  // Implement upgrade logic
+  console.log('Upgrade clicked')
 }
 </script>
 

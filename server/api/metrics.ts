@@ -15,7 +15,8 @@ Primary Business Goal: ${businessGoal}
 Time Frame: ${timeFrame}
 
 Please provide a detailed metrics framework including:
-1. Key Performance Indicators (KPIs)
+1. Actionable plans to improve the business goals to
+2. Key Performance Indicators (KPIs)
    - Primary KPIs directly tied to the goal
    - Secondary supporting KPIs
    - Leading indicators

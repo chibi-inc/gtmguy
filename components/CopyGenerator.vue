@@ -130,17 +130,18 @@ const generateCopy = async () => {
   response.value = ''
   
   try {
-    // Check credits first
     const canProceed = await checkAndConsumeCredit()
     if (!canProceed) {
       isLoading.value = false
       return
     }
 
-    // If credit check passes, proceed with generation
-    const res = await fetch('/api/copy', {
+    const res = await fetch('/api/copy-generator', {
       method: 'POST',
-      body: JSON.stringify(formData.value),
+      body: JSON.stringify({
+        productDetails: formData.value.productDescription,
+        targetCustomer: formData.value.targetAudience
+      }),
       headers: {
         'Content-Type': 'application/json'
       }

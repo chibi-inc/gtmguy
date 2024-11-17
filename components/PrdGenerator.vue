@@ -55,16 +55,31 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Overview
+            Product Vision
             <span class="text-sm font-normal text-neutral-500 block mt-1">
               Describe your product and its main objectives
             </span>
           </label>
           <textarea
-            v-model="formData.productOverview"
+            v-model="formData.productVision"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             placeholder="e.g., A mobile app for team collaboration with focus on real-time communication..."
+          ></textarea>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+          <label class="block text-base font-semibold text-neutral-900 mb-2">
+            Target Users
+            <span class="text-sm font-normal text-neutral-500 block mt-1">
+              Describe your target audience
+            </span>
+          </label>
+          <textarea
+            v-model="formData.targetUsers"
+            rows="3"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            placeholder="e.g., Small to medium-sized business teams, remote workers..."
           ></textarea>
         </div>
         
@@ -82,12 +97,27 @@
             placeholder="e.g., Real-time messaging, file sharing, video calls..."
           ></textarea>
         </div>
+        
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+          <label class="block text-base font-semibold text-neutral-900 mb-2">
+            Constraints
+            <span class="text-sm font-normal text-neutral-500 block mt-1">
+              List any technical, business, or resource constraints
+            </span>
+          </label>
+          <textarea
+            v-model="formData.constraints"
+            rows="3"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            placeholder="e.g., Must work offline, comply with GDPR..."
+          ></textarea>
+        </div>
       </div>
 
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productOverview || !formData.keyFeatures"
+        :disabled="isLoading || !formData.productVision || !formData.targetUsers || !formData.keyFeatures || !formData.constraints"
       >
         <Icon name="ph:file-text-duotone" class="text-xl" />
         Generate PRD
@@ -110,8 +140,10 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productOverview: '',
-  keyFeatures: ''
+  productVision: '',
+  targetUsers: '',
+  keyFeatures: '',
+  constraints: ''
 })
 
 const isLoading = ref(false)
@@ -124,7 +156,7 @@ const handleUpgrade = () => {
 }
 
 const generatePrd = async () => {
-  if (!formData.value.productOverview || !formData.value.keyFeatures) return
+  if (!formData.value.productVision || !formData.value.targetUsers || !formData.value.keyFeatures || !formData.value.constraints) return
   
   isLoading.value = true
   response.value = ''

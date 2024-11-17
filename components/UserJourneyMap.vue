@@ -130,17 +130,18 @@ const generateJourneyMap = async () => {
   response.value = ''
   
   try {
-    // Check credits first
     const canProceed = await checkAndConsumeCredit()
     if (!canProceed) {
       isLoading.value = false
       return
     }
 
-    // If credit check passes, proceed with generation
-    const res = await fetch('/api/user-journey', {
+    const res = await fetch('/api/journey', {
       method: 'POST',
-      body: JSON.stringify(formData.value),
+      body: JSON.stringify({
+        productDescription: formData.value.productDescription,
+        userType: formData.value.userType
+      }),
       headers: {
         'Content-Type': 'application/json'
       }

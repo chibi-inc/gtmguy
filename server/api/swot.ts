@@ -7,12 +7,12 @@ export default defineEventHandler(async (event) => {
     apiKey: config.openaiApiKey
   });
 
-  const { productDescription, targetMarket } = await readBody(event);
+  const { description, market } = await readBody(event);
 
   const prompt = `As a strategic business analyst, create a comprehensive SWOT analysis based on the following information:
 
-Product Description: ${productDescription}
-Target Market: ${targetMarket}
+Product Description: ${description}
+Target Market: ${market}
 
 Please provide a detailed SWOT analysis including:
 1. Strengths (Internal positive factors)

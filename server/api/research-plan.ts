@@ -7,12 +7,12 @@ export default defineEventHandler(async (event) => {
     apiKey: config.openaiApiKey
   });
 
-  const { problem, targetMarket } = await readBody(event);
+  const { objectives, targetUsers } = await readBody(event);
 
   const prompt = `As a User Research Expert, create a comprehensive research plan for:
 
-Problem: ${problem}
-Target Market: ${targetMarket}
+Research Objectives: ${objectives}
+Target Users: ${targetUsers}
 
 Please provide:
 1. Research Objectives

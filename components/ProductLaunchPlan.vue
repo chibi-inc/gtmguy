@@ -55,31 +55,31 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Description
+            Product
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your product and its key features
+              What is your product?
             </span>
           </label>
           <textarea
-            v-model="formData.productDescription"
+            v-model="formData.product"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., A SaaS platform for team collaboration with real-time features..."
+            placeholder="e.g., A SaaS platform for team collaboration..."
           ></textarea>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Launch Timeline
+            Key Features
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              When do you plan to launch?
+              What are the main features of your product?
             </span>
           </label>
           <textarea
-            v-model="formData.launchTimeline"
+            v-model="formData.keyFeatures"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Planning to launch in Q2 2024 with a beta phase starting in March..."
+            placeholder="e.g., Real-time collaboration, AI-powered suggestions, Custom workflows..."
           ></textarea>
         </div>
       </div>
@@ -87,7 +87,7 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productDescription || !formData.launchTimeline"
+        :disabled="isLoading || !formData.product || !formData.keyFeatures"
       >
         <Icon name="ph:rocket-launch-duotone" class="text-xl" />
         Generate Launch Plan
@@ -110,8 +110,8 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productDescription: '',
-  launchTimeline: ''
+  product: '',
+  keyFeatures: ''
 })
 
 const isLoading = ref(false)
@@ -124,7 +124,7 @@ const handleUpgrade = () => {
 }
 
 const generateLaunchPlan = async () => {
-  if (!formData.value.productDescription || !formData.value.launchTimeline) return
+  if (!formData.value.product || !formData.value.keyFeatures) return
   
   isLoading.value = true
   response.value = ''

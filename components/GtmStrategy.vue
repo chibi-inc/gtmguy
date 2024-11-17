@@ -138,7 +138,7 @@ const generateStrategy = async () => {
     }
 
     // If credit check passes, proceed with generation
-    const res = await fetch('/api/gtm-strategy', {
+    const res = await fetch('/api/gtm', {
       method: 'POST',
       body: JSON.stringify(formData.value),
       headers: {

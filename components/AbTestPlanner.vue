@@ -55,31 +55,46 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Test Objective
+            Hypothesis
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What are you trying to achieve with this test?
+              What is your hypothesis for this test?
             </span>
           </label>
           <textarea
-            v-model="formData.objective"
+            v-model="formData.hypothesis"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Increase signup conversion rate on the landing page..."
+            placeholder="e.g., We believe that changing the CTA color will increase signup rates..."
           ></textarea>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Current Metrics
+            Variant Details
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What are your current metrics for this test area?
+              Describe the variations you want to test
             </span>
           </label>
           <textarea
-            v-model="formData.currentMetrics"
+            v-model="formData.variantDetails"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Current signup rate is 2.5% with 10,000 monthly visitors..."
+            placeholder="e.g., Control: Blue CTA, Variant A: Green CTA, Variant B: Red CTA..."
+          ></textarea>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+          <label class="block text-base font-semibold text-neutral-900 mb-2">
+            Target Market
+            <span class="text-sm font-normal text-neutral-500 block mt-1">
+              Who is the target audience for this test?
+            </span>
+          </label>
+          <textarea
+            v-model="formData.targetMarket"
+            rows="3"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            placeholder="e.g., All desktop users from the US, aged 25-34..."
           ></textarea>
         </div>
       </div>
@@ -87,7 +102,7 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.objective || !formData.currentMetrics"
+        :disabled="isLoading || !formData.hypothesis || !formData.variantDetails || !formData.targetMarket"
       >
         <Icon name="ph:test-tube-duotone" class="text-xl" />
         Generate Test Plan
@@ -110,8 +125,9 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  objective: '',
-  currentMetrics: ''
+  hypothesis: '',
+  variantDetails: '',
+  targetMarket: ''
 })
 
 const isLoading = ref(false)
@@ -124,7 +140,7 @@ const handleUpgrade = () => {
 }
 
 const generateTest = async () => {
-  if (!formData.value.objective || !formData.value.currentMetrics) return
+  if (!formData.value.hypothesis || !formData.value.variantDetails || !formData.value.targetMarket) return
   
   isLoading.value = true
   response.value = ''
@@ -138,7 +154,7 @@ const generateTest = async () => {
     }
 
     // If credit check passes, proceed with generation
-    const res = await fetch('/api/ab-test', {
+    const res = await fetch('/api/abtest', {
       method: 'POST',
       body: JSON.stringify(formData.value),
       headers: {
