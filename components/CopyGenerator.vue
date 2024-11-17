@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateCopy" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Marketing Copy</h3>
@@ -64,8 +64,15 @@
             v-model="formData.productDescription"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showDescriptionError }"
             placeholder="e.g., A productivity app that helps remote teams collaborate better..."
+            @input="showDescriptionError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showDescriptionError" class="mt-2 text-sm text-red-600">
+            Please describe your product
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
@@ -79,18 +86,25 @@
             v-model="formData.targetAudience"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showAudienceError }"
             placeholder="e.g., Remote tech teams looking to improve their collaboration..."
+            @input="showAudienceError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showAudienceError" class="mt-2 text-sm text-red-600">
+            Please specify your target audience
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productDescription || !formData.targetAudience"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:pencil-duotone" class="text-xl" />
-        Generate Copy
+        {{ isLoading ? 'Generating...' : 'Generate Copy' }}
       </button>
     </form>
 
@@ -116,6 +130,8 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
+const showDescriptionError = ref(false)
+const showAudienceError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,25 +139,42 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateCopy = async () => {
-  if (!formData.value.productDescription || !formData.value.targetAudience) return
+const handleSubmit = async () => {
+  // Reset errors
+  showDescriptionError.value = false
+  showAudienceError.value = false
+
+  // Validate inputs
+  if (!formData.value.productDescription) {
+    showDescriptionError.value = true
+  }
+  if (!formData.value.targetAudience) {
+    showAudienceError.value = true
+  }
+
+  if (!formData.value.productDescription || !formData.value.targetAudience) {
+    return
+  }
   
+  await generateCopy()
+}
+
+const generateCopy = async () => {
   isLoading.value = true
   response.value = ''
   
   try {
+    // Check credits first
     const canProceed = await checkAndConsumeCredit()
     if (!canProceed) {
       isLoading.value = false
       return
     }
 
-    const res = await fetch('/api/copy-generator', {
+    // If credit check passes, proceed with generation
+    const res = await fetch('/api/copy', {
       method: 'POST',
-      body: JSON.stringify({
-        productDetails: formData.value.productDescription,
-        targetCustomer: formData.value.targetAudience
-      }),
+      body: JSON.stringify(formData.value),
       headers: {
         'Content-Type': 'application/json'
       }

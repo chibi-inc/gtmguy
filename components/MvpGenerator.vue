@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateMvp" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate MVP Plan</h3>
@@ -55,42 +55,56 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Problem Statement
+            Product Vision
             <span class="text-sm font-normal text-neutral-500 block mt-1">
               What problem are you trying to solve?
             </span>
           </label>
           <textarea
-            v-model="formData.problem"
+            v-model="formData.productVision"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showVisionError }"
             placeholder="e.g., A mobile app that helps remote teams track their productivity..."
+            @input="showVisionError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showVisionError" class="mt-2 text-sm text-red-600">
+            Please describe your product vision
+          </p>
         </div>
-
+        
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Must-Have Functionalities
+            Target Users
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What are the essential features needed?
+              Who are your initial target users?
             </span>
           </label>
           <textarea
-            v-model="formData.mustHaveFunctionalities"
+            v-model="formData.targetUsers"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Time tracking, Task management, Team dashboard..."
+            :class="{ 'border-red-300': showUsersError }"
+            placeholder="e.g., Remote software development teams of 5-20 people..."
+            @input="showUsersError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showUsersError" class="mt-2 text-sm text-red-600">
+            Please describe your target users
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.problem || !formData.mustHaveFunctionalities"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:cube-duotone" class="text-xl" />
-        Generate MVP Plan
+        {{ isLoading ? 'Generating...' : 'Generate MVP Plan' }}
       </button>
     </form>
 
@@ -110,12 +124,14 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  problem: '',
-  mustHaveFunctionalities: ''
+  productVision: '',
+  targetUsers: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const showVisionError = ref(false)
+const showUsersError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateMvp = async () => {
-  if (!formData.value.problem || !formData.value.mustHaveFunctionalities) return
+const handleSubmit = async () => {
+  // Reset errors
+  showVisionError.value = false
+  showUsersError.value = false
+
+  // Validate inputs
+  if (!formData.value.productVision) {
+    showVisionError.value = true
+  }
+  if (!formData.value.targetUsers) {
+    showUsersError.value = true
+  }
+
+  if (!formData.value.productVision || !formData.value.targetUsers) {
+    return
+  }
   
+  await generateMvp()
+}
+
+const generateMvp = async () => {
   isLoading.value = true
   response.value = ''
   

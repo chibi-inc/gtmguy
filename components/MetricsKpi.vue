@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateMetrics" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Metrics & KPIs</h3>
@@ -64,8 +64,15 @@
             v-model="formData.businessGoal"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showGoalError }"
             placeholder="e.g., Increase user activation rate by 30% in the next quarter..."
+            @input="showGoalError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showGoalError" class="mt-2 text-sm text-red-600">
+            Please specify your business goal
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
@@ -79,18 +86,25 @@
             v-model="formData.timeFrame"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showTimeFrameError }"
             placeholder="e.g., Next 3 months, Q4 2024..."
+            @input="showTimeFrameError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showTimeFrameError" class="mt-2 text-sm text-red-600">
+            Please specify your timeframe
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.businessGoal || !formData.timeFrame"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:chart-line-up-duotone" class="text-xl" />
-        Generate Metrics Framework
+        {{ isLoading ? 'Generating...' : 'Generate Metrics Framework' }}
       </button>
     </form>
 
@@ -116,6 +130,8 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
+const showGoalError = ref(false)
+const showTimeFrameError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateMetrics = async () => {
-  if (!formData.value.businessGoal || !formData.value.timeFrame) return
+const handleSubmit = async () => {
+  // Reset errors
+  showGoalError.value = false
+  showTimeFrameError.value = false
+
+  // Validate inputs
+  if (!formData.value.businessGoal) {
+    showGoalError.value = true
+  }
+  if (!formData.value.timeFrame) {
+    showTimeFrameError.value = true
+  }
+
+  if (!formData.value.businessGoal || !formData.value.timeFrame) {
+    return
+  }
   
+  await generateMetrics()
+}
+
+const generateMetrics = async () => {
   isLoading.value = true
   response.value = ''
   

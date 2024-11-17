@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateSwot" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate SWOT Analysis</h3>
@@ -64,8 +64,15 @@
             v-model="formData.description"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showDescriptionError }"
             placeholder="e.g., A SaaS platform that helps e-commerce businesses..."
+            @input="showDescriptionError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showDescriptionError" class="mt-2 text-sm text-red-600">
+            Please provide a description
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
@@ -79,18 +86,25 @@
             v-model="formData.market"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showMarketError }"
             placeholder="e.g., Competitive e-commerce market with several established players..."
+            @input="showMarketError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showMarketError" class="mt-2 text-sm text-red-600">
+            Please describe your market context
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.description || !formData.market"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:chart-pie-slice-duotone" class="text-xl" />
-        Generate SWOT Analysis
+        {{ isLoading ? 'Generating...' : 'Generate SWOT Analysis' }}
       </button>
     </form>
 
@@ -116,6 +130,8 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
+const showDescriptionError = ref(false)
+const showMarketError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateSwot = async () => {
-  if (!formData.value.description || !formData.value.market) return
+const handleSubmit = async () => {
+  // Reset errors
+  showDescriptionError.value = false
+  showMarketError.value = false
+
+  // Validate inputs
+  if (!formData.value.description) {
+    showDescriptionError.value = true
+  }
+  if (!formData.value.market) {
+    showMarketError.value = true
+  }
+
+  if (!formData.value.description || !formData.value.market) {
+    return
+  }
   
+  await generateSwot()
+}
+
+const generateSwot = async () => {
   isLoading.value = true
   response.value = ''
   

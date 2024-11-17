@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateLaunchPlan" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Launch Plan</h3>
@@ -55,42 +55,56 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product
+            Product Description
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What is your product?
+              Describe your product and its key features
             </span>
           </label>
           <textarea
-            v-model="formData.product"
+            v-model="formData.productDescription"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., A SaaS platform for team collaboration..."
+            :class="{ 'border-red-300': showDescriptionError }"
+            placeholder="e.g., A SaaS platform for team collaboration with real-time features..."
+            @input="showDescriptionError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showDescriptionError" class="mt-2 text-sm text-red-600">
+            Please describe your product
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Key Features
+            Launch Timeline
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What are the main features of your product?
+              When do you plan to launch?
             </span>
           </label>
           <textarea
-            v-model="formData.keyFeatures"
+            v-model="formData.launchTimeline"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Real-time collaboration, AI-powered suggestions, Custom workflows..."
+            :class="{ 'border-red-300': showTimelineError }"
+            placeholder="e.g., Planning to launch in Q2 2024 with a beta phase starting in March..."
+            @input="showTimelineError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showTimelineError" class="mt-2 text-sm text-red-600">
+            Please specify your launch timeline
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.product || !formData.keyFeatures"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:rocket-launch-duotone" class="text-xl" />
-        Generate Launch Plan
+        {{ isLoading ? 'Generating...' : 'Generate Launch Plan' }}
       </button>
     </form>
 
@@ -110,12 +124,14 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  product: '',
-  keyFeatures: ''
+  productDescription: '',
+  launchTimeline: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const showDescriptionError = ref(false)
+const showTimelineError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateLaunchPlan = async () => {
-  if (!formData.value.product || !formData.value.keyFeatures) return
+const handleSubmit = async () => {
+  // Reset errors
+  showDescriptionError.value = false
+  showTimelineError.value = false
+
+  // Validate inputs
+  if (!formData.value.productDescription) {
+    showDescriptionError.value = true
+  }
+  if (!formData.value.launchTimeline) {
+    showTimelineError.value = true
+  }
+
+  if (!formData.value.productDescription || !formData.value.launchTimeline) {
+    return
+  }
   
+  await generateLaunchPlan()
+}
+
+const generateLaunchPlan = async () => {
   isLoading.value = true
   response.value = ''
   

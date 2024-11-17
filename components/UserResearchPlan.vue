@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateResearchPlan" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Research Plan</h3>
@@ -64,8 +64,15 @@
             v-model="formData.objectives"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showObjectivesError }"
             placeholder="e.g., Understand how users currently manage their tasks and what pain points they face..."
+            @input="showObjectivesError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showObjectivesError" class="mt-2 text-sm text-red-600">
+            Please specify your research objectives
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
@@ -79,18 +86,25 @@
             v-model="formData.targetUsers"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showUsersError }"
             placeholder="e.g., Product managers in tech companies who manage multiple projects..."
+            @input="showUsersError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showUsersError" class="mt-2 text-sm text-red-600">
+            Please describe your target users
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.objectives || !formData.targetUsers"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:magnifying-glass-duotone" class="text-xl" />
-        Generate Research Plan
+        {{ isLoading ? 'Generating...' : 'Generate Research Plan' }}
       </button>
     </form>
 
@@ -116,6 +130,8 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
+const showObjectivesError = ref(false)
+const showUsersError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateResearchPlan = async () => {
-  if (!formData.value.objectives || !formData.value.targetUsers) return
+const handleSubmit = async () => {
+  // Reset errors
+  showObjectivesError.value = false
+  showUsersError.value = false
+
+  // Validate inputs
+  if (!formData.value.objectives) {
+    showObjectivesError.value = true
+  }
+  if (!formData.value.targetUsers) {
+    showUsersError.value = true
+  }
+
+  if (!formData.value.objectives || !formData.value.targetUsers) {
+    return
+  }
   
+  await generateResearchPlan()
+}
+
+const generateResearchPlan = async () => {
   isLoading.value = true
   response.value = ''
   

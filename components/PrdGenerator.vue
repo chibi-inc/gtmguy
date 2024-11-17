@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generatePrd" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate PRD</h3>
@@ -55,32 +55,24 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Vision
+            Product Overview
             <span class="text-sm font-normal text-neutral-500 block mt-1">
               Describe your product and its main objectives
             </span>
           </label>
           <textarea
-            v-model="formData.productVision"
+            v-model="formData.productOverview"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showOverviewError }"
             placeholder="e.g., A mobile app for team collaboration with focus on real-time communication..."
+            @input="showOverviewError = false"
+            required
           ></textarea>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
-          <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Users
-            <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your target audience
-            </span>
-          </label>
-          <textarea
-            v-model="formData.targetUsers"
-            rows="3"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Small to medium-sized business teams, remote workers..."
-          ></textarea>
+          <!-- Error Message -->
+          <p v-if="showOverviewError" class="mt-2 text-sm text-red-600">
+            Please provide a product overview
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
@@ -94,33 +86,25 @@
             v-model="formData.keyFeatures"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showFeaturesError }"
             placeholder="e.g., Real-time messaging, file sharing, video calls..."
+            @input="showFeaturesError = false"
+            required
           ></textarea>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
-          <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Constraints
-            <span class="text-sm font-normal text-neutral-500 block mt-1">
-              List any technical, business, or resource constraints
-            </span>
-          </label>
-          <textarea
-            v-model="formData.constraints"
-            rows="3"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Must work offline, comply with GDPR..."
-          ></textarea>
+          <!-- Error Message -->
+          <p v-if="showFeaturesError" class="mt-2 text-sm text-red-600">
+            Please list your key features
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productVision || !formData.targetUsers || !formData.keyFeatures || !formData.constraints"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:file-text-duotone" class="text-xl" />
-        Generate PRD
+        {{ isLoading ? 'Generating...' : 'Generate PRD' }}
       </button>
     </form>
 
@@ -140,14 +124,14 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productVision: '',
-  targetUsers: '',
-  keyFeatures: '',
-  constraints: ''
+  productOverview: '',
+  keyFeatures: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const showOverviewError = ref(false)
+const showFeaturesError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -155,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generatePrd = async () => {
-  if (!formData.value.productVision || !formData.value.targetUsers || !formData.value.keyFeatures || !formData.value.constraints) return
+const handleSubmit = async () => {
+  // Reset errors
+  showOverviewError.value = false
+  showFeaturesError.value = false
+
+  // Validate inputs
+  if (!formData.value.productOverview) {
+    showOverviewError.value = true
+  }
+  if (!formData.value.keyFeatures) {
+    showFeaturesError.value = true
+  }
+
+  if (!formData.value.productOverview || !formData.value.keyFeatures) {
+    return
+  }
   
+  await generatePrd()
+}
+
+const generatePrd = async () => {
   isLoading.value = true
   response.value = ''
   

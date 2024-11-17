@@ -9,7 +9,7 @@
         <div class="animate-spin text-sky-500">
           <Icon name="ph:circle-notch-duotone" class="text-2xl" />
         </div>
-        <span class="text-neutral-900">Generating Strategy...</span>
+        <span class="text-neutral-900">Generating GTM Strategy...</span>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateStrategy" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate GTM Strategy</h3>
@@ -64,33 +64,47 @@
             v-model="formData.productDescription"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., A mobile app that helps remote teams track their productivity and collaborate better..."
+            :class="{ 'border-red-300': showDescriptionError }"
+            placeholder="e.g., An AI-powered project management tool that automates task prioritization..."
+            @input="showDescriptionError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showDescriptionError" class="mt-2 text-sm text-red-600">
+            Please describe your product
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Market
+            Market Context
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Define your target audience and their pain points
+              Describe your target market and competition
             </span>
           </label>
           <textarea
-            v-model="formData.targetMarket"
+            v-model="formData.marketContext"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Remote-first companies with 20-200 employees struggling with team coordination..."
+            :class="{ 'border-red-300': showMarketError }"
+            placeholder="e.g., Enterprise software market with focus on large tech companies..."
+            @input="showMarketError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showMarketError" class="mt-2 text-sm text-red-600">
+            Please describe your market context
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productDescription || !formData.targetMarket"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:target-duotone" class="text-xl" />
-        Generate GTM Strategy
+        {{ isLoading ? 'Generating...' : 'Generate GTM Strategy' }}
       </button>
     </form>
 
@@ -111,11 +125,13 @@ import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
   productDescription: '',
-  targetMarket: ''
+  marketContext: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const showDescriptionError = ref(false)
+const showMarketError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateStrategy = async () => {
-  if (!formData.value.productDescription) return
+const handleSubmit = async () => {
+  // Reset errors
+  showDescriptionError.value = false
+  showMarketError.value = false
+
+  // Validate inputs
+  if (!formData.value.productDescription) {
+    showDescriptionError.value = true
+  }
+  if (!formData.value.marketContext) {
+    showMarketError.value = true
+  }
+
+  if (!formData.value.productDescription || !formData.value.marketContext) {
+    return
+  }
   
+  await generateStrategy()
+}
+
+const generateStrategy = async () => {
   isLoading.value = true
   response.value = ''
   
@@ -138,7 +172,7 @@ const generateStrategy = async () => {
     }
 
     // If credit check passes, proceed with generation
-    const res = await fetch('/api/gtm', {
+    const res = await fetch('/api/gtm-strategy', {
       method: 'POST',
       body: JSON.stringify(formData.value),
       headers: {
@@ -146,7 +180,7 @@ const generateStrategy = async () => {
       }
     })
 
-    if (!res.ok) throw new Error('Failed to generate strategy')
+    if (!res.ok) throw new Error('Failed to generate GTM strategy')
 
     const data = await res.text()
     response.value = data

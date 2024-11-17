@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateJourneyMap" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate User Journey Map</h3>
@@ -55,42 +55,56 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Description
+            User Persona
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your product and its main features
+              Describe your target user persona
             </span>
           </label>
           <textarea
-            v-model="formData.productDescription"
+            v-model="formData.userPersona"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., A mobile app for tracking daily fitness activities..."
+            :class="{ 'border-red-300': showPersonaError }"
+            placeholder="e.g., Sarah, a 32-year-old product manager who needs to coordinate with remote teams..."
+            @input="showPersonaError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showPersonaError" class="mt-2 text-sm text-red-600">
+            Please describe your user persona
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            User Type
+            User Goals
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe the user type for this journey
+              What are the user's main goals and tasks?
             </span>
           </label>
           <textarea
-            v-model="formData.userType"
+            v-model="formData.userGoals"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Busy professional looking to maintain a fitness routine..."
+            :class="{ 'border-red-300': showGoalsError }"
+            placeholder="e.g., Efficiently manage project timelines, collaborate with team members, track progress..."
+            @input="showGoalsError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showGoalsError" class="mt-2 text-sm text-red-600">
+            Please specify the user's goals
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productDescription || !formData.userType"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:map-trifold-duotone" class="text-xl" />
-        Generate Journey Map
+        {{ isLoading ? 'Generating...' : 'Generate Journey Map' }}
       </button>
     </form>
 
@@ -110,12 +124,14 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productDescription: '',
-  userType: ''
+  userPersona: '',
+  userGoals: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const showPersonaError = ref(false)
+const showGoalsError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,25 +139,42 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateJourneyMap = async () => {
-  if (!formData.value.productDescription || !formData.value.userType) return
+const handleSubmit = async () => {
+  // Reset errors
+  showPersonaError.value = false
+  showGoalsError.value = false
+
+  // Validate inputs
+  if (!formData.value.userPersona) {
+    showPersonaError.value = true
+  }
+  if (!formData.value.userGoals) {
+    showGoalsError.value = true
+  }
+
+  if (!formData.value.userPersona || !formData.value.userGoals) {
+    return
+  }
   
+  await generateJourneyMap()
+}
+
+const generateJourneyMap = async () => {
   isLoading.value = true
   response.value = ''
   
   try {
+    // Check credits first
     const canProceed = await checkAndConsumeCredit()
     if (!canProceed) {
       isLoading.value = false
       return
     }
 
-    const res = await fetch('/api/journey', {
+    // If credit check passes, proceed with generation
+    const res = await fetch('/api/user-journey', {
       method: 'POST',
-      body: JSON.stringify({
-        productDescription: formData.value.productDescription,
-        userType: formData.value.userType
-      }),
+      body: JSON.stringify(formData.value),
       headers: {
         'Content-Type': 'application/json'
       }

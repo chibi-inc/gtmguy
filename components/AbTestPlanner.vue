@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateTest" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate A/B Test Plan</h3>
@@ -55,42 +55,56 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Goal
+            Test Objective
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What is the main goal you want to achieve?
+              What are you trying to achieve with this test?
             </span>
           </label>
           <textarea
-            v-model="formData.goal"
+            v-model="formData.objective"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Increase conversion rate on the pricing page..."
+            :class="{ 'border-red-300': showObjectiveError }"
+            placeholder="e.g., Increase signup conversion rate on the landing page..."
+            @input="showObjectiveError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showObjectiveError" class="mt-2 text-sm text-red-600">
+            Please specify your test objective
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Details
+            Current Metrics
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your product and current situation
+              What are your current metrics for this test area?
             </span>
           </label>
           <textarea
-            v-model="formData.productDetails"
+            v-model="formData.currentMetrics"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., SaaS product with 10k monthly visitors, current conversion rate is 2%..."
+            :class="{ 'border-red-300': showMetricsError }"
+            placeholder="e.g., Current signup rate is 2.5% with 10,000 monthly visitors..."
+            @input="showMetricsError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showMetricsError" class="mt-2 text-sm text-red-600">
+            Please provide your current metrics
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.goal || !formData.productDetails"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:test-tube-duotone" class="text-xl" />
-        Generate Test Plan
+        {{ isLoading ? 'Generating...' : 'Generate Test Plan' }}
       </button>
     </form>
 
@@ -110,12 +124,14 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  goal: '',
-  productDetails: ''
+  objective: '',
+  currentMetrics: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const showObjectiveError = ref(false)
+const showMetricsError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -123,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generateTest = async () => {
-  if (!formData.value.goal || !formData.value.productDetails) return
+const handleSubmit = async () => {
+  // Reset errors
+  showObjectiveError.value = false
+  showMetricsError.value = false
+
+  // Validate inputs
+  if (!formData.value.objective) {
+    showObjectiveError.value = true
+  }
+  if (!formData.value.currentMetrics) {
+    showMetricsError.value = true
+  }
+
+  if (!formData.value.objective || !formData.value.currentMetrics) {
+    return
+  }
   
+  await generateTest()
+}
+
+const generateTest = async () => {
   isLoading.value = true
   response.value = ''
   
@@ -138,7 +172,7 @@ const generateTest = async () => {
     }
 
     // If credit check passes, proceed with generation
-    const res = await fetch('/api/abtest', {
+    const res = await fetch('/api/ab-test', {
       method: 'POST',
       body: JSON.stringify(formData.value),
       headers: {

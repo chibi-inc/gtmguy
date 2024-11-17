@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateICP" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Your ICP</h3>
@@ -64,8 +64,15 @@
             v-model="formData.productDescription"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., A SaaS platform that helps e-commerce businesses automate their customer support..."
+            :class="{ 'border-red-300': showProductError }"
+            placeholder="e.g., A SaaS platform that helps e-commerce businesses..."
+            @input="showProductError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showProductError" class="mt-2 text-sm text-red-600">
+            Please provide a product description
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
@@ -79,18 +86,25 @@
             v-model="formData.targetMarket"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Mid-sized e-commerce businesses with 50+ daily customer inquiries..."
+            :class="{ 'border-red-300': showMarketError }"
+            placeholder="e.g., Mid-sized e-commerce businesses..."
+            @input="showMarketError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showMarketError" class="mt-2 text-sm text-red-600">
+            Please describe your target market
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productDescription || !formData.targetMarket"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:user-duotone" class="text-xl" />
-        Generate ICP
+        {{ isLoading ? 'Generating...' : 'Generate ICP' }}
       </button>
     </form>
 
@@ -116,11 +130,33 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
+const showProductError = ref(false)
+const showMarketError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
   showUpgradeModal.value = false
   // Implement upgrade logic
+}
+
+const handleSubmit = async () => {
+  // Reset errors
+  showProductError.value = false
+  showMarketError.value = false
+
+  // Validate inputs
+  if (!formData.value.productDescription) {
+    showProductError.value = true
+  }
+  if (!formData.value.targetMarket) {
+    showMarketError.value = true
+  }
+
+  if (!formData.value.productDescription || !formData.value.targetMarket) {
+    return
+  }
+  
+  await generateICP()
 }
 
 const generateICP = async () => {

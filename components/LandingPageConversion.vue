@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="analyzeLandingPage" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Landing Page Optimizer</h3>
@@ -64,9 +64,15 @@
             v-model="formData.url"
             type="url"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none"
+            :class="{ 'border-red-300': showUrlError }"
             placeholder="e.g., https://example.com/landing-page"
+            @input="showUrlError = false"
             required
           />
+          <!-- Error Message -->
+          <p v-if="showUrlError" class="mt-2 text-sm text-red-600">
+            Please enter a valid URL
+          </p>
         </div>
       </div>
 
@@ -101,6 +107,7 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
+const showUrlError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -109,8 +116,12 @@ const handleUpgrade = () => {
 }
 
 const analyzeLandingPage = async () => {
-  if (!formData.value.url) return
-  
+  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
+  if (!formData.value.url || !urlPattern.test(formData.value.url)) {
+    showUrlError.value = true
+    return
+  }
+
   isLoading.value = true
   response.value = ''
   
@@ -141,5 +152,19 @@ const analyzeLandingPage = async () => {
   } finally {
     isLoading.value = false
   }
+}
+
+const handleSubmit = async () => {
+  // Reset error
+  showUrlError.value = false
+
+  // Validate URL format
+  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
+  if (!formData.value.url || !urlPattern.test(formData.value.url)) {
+    showUrlError.value = true
+    return
+  }
+  
+  await analyzeLandingPage()
 }
 </script> 

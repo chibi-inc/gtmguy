@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <form @submit.prevent="generatePrioritization" class="space-y-8">
+    <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Prioritization Framework</h3>
@@ -55,45 +55,56 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Items to Prioritize
+            Features/Initiatives
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              List the items you want to prioritize
+              List the features or initiatives to prioritize
             </span>
           </label>
           <textarea
-            v-model="formData.items"
+            v-model="formData.features"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showFeaturesError }"
             placeholder="e.g., Mobile app, API integration, Analytics dashboard..."
+            @input="showFeaturesError = false"
+            required
           ></textarea>
+          <!-- Error Message -->
+          <p v-if="showFeaturesError" class="mt-2 text-sm text-red-600">
+            Please list your features or initiatives
+          </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Prioritization Method
+            Business Goals
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Select the framework to use for prioritization
+              What are your main business objectives?
             </span>
           </label>
-          <select
-            v-model="formData.method"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none appearance-none px-4 py-2.5 text-neutral-900 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke-width%3D%221.5%22%20stroke%3D%22currentColor%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M8.25%2015L12%2018.75%2015.75%2015m-7.5-6L12%205.25%2015.75%209%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem] bg-[right_1rem_center] bg-no-repeat"
-          >
-            <option value="RICE" class="py-2">RICE (Reach, Impact, Confidence, Effort)</option>
-            <option value="MOSCOW" class="py-2">MoSCoW (Must, Should, Could, Won't)</option>
-            <option value="VALUE_EFFORT" class="py-2">Value vs Effort Matrix</option>
-            <option value="KANO" class="py-2">Kano Model</option>
-          </select>
+          <textarea
+            v-model="formData.goals"
+            rows="3"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showGoalsError }"
+            placeholder="e.g., Increase user engagement, improve retention, expand market share..."
+            @input="showGoalsError = false"
+            required
+          ></textarea>
+          <!-- Error Message -->
+          <p v-if="showGoalsError" class="mt-2 text-sm text-red-600">
+            Please specify your business goals
+          </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.items"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
         <Icon name="ph:list-numbers-duotone" class="text-xl" />
-        Generate Prioritization
+        {{ isLoading ? 'Generating...' : 'Generate Prioritization' }}
       </button>
     </form>
 
@@ -113,12 +124,14 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  items: '',
-  method: 'RICE'
+  features: '',
+  goals: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const showFeaturesError = ref(false)
+const showGoalsError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -126,9 +139,27 @@ const handleUpgrade = () => {
   // Implement upgrade logic
 }
 
-const generatePrioritization = async () => {
-  if (!formData.value.items) return
+const handleSubmit = async () => {
+  // Reset errors
+  showFeaturesError.value = false
+  showGoalsError.value = false
+
+  // Validate inputs
+  if (!formData.value.features) {
+    showFeaturesError.value = true
+  }
+  if (!formData.value.goals) {
+    showGoalsError.value = true
+  }
+
+  if (!formData.value.features || !formData.value.goals) {
+    return
+  }
   
+  await generatePrioritization()
+}
+
+const generatePrioritization = async () => {
   isLoading.value = true
   response.value = ''
   
