@@ -55,46 +55,31 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Hypothesis
+            Goal
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What is your hypothesis for this test?
+              What is the main goal you want to achieve?
             </span>
           </label>
           <textarea
-            v-model="formData.hypothesis"
+            v-model="formData.goal"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., We believe that changing the CTA color will increase signup rates..."
+            placeholder="e.g., Increase conversion rate on the pricing page..."
           ></textarea>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Variant Details
+            Product Details
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe the variations you want to test
+              Describe your product and current situation
             </span>
           </label>
           <textarea
-            v-model="formData.variantDetails"
+            v-model="formData.productDetails"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Control: Blue CTA, Variant A: Green CTA, Variant B: Red CTA..."
-          ></textarea>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
-          <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Market
-            <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Who is the target audience for this test?
-            </span>
-          </label>
-          <textarea
-            v-model="formData.targetMarket"
-            rows="3"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., All desktop users from the US, aged 25-34..."
+            placeholder="e.g., SaaS product with 10k monthly visitors, current conversion rate is 2%..."
           ></textarea>
         </div>
       </div>
@@ -102,7 +87,7 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.hypothesis || !formData.variantDetails || !formData.targetMarket"
+        :disabled="isLoading || !formData.goal || !formData.productDetails"
       >
         <Icon name="ph:test-tube-duotone" class="text-xl" />
         Generate Test Plan
@@ -125,9 +110,8 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  hypothesis: '',
-  variantDetails: '',
-  targetMarket: ''
+  goal: '',
+  productDetails: ''
 })
 
 const isLoading = ref(false)
@@ -140,7 +124,7 @@ const handleUpgrade = () => {
 }
 
 const generateTest = async () => {
-  if (!formData.value.hypothesis || !formData.value.variantDetails || !formData.value.targetMarket) return
+  if (!formData.value.goal || !formData.value.productDetails) return
   
   isLoading.value = true
   response.value = ''

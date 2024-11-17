@@ -7,22 +7,21 @@ export default defineEventHandler(async (event) => {
     apiKey: config.openaiApiKey
   });
 
-  const { hypothesis, variantDetails, targetMarket } = await readBody(event);
+  const { goal, productDetails } = await readBody(event);
 
   const prompt = `As an A/B Testing expert, create a comprehensive test plan based on the following information:
 
-Hypothesis: ${hypothesis}
-Variant Details: ${variantDetails}
-Target Market: ${targetMarket}
+Goal: ${goal}
+Product Details: ${productDetails}
 
 Please provide a detailed A/B test plan including:
-1. Test Objectives
-2. Success Metrics
-3. Test Duration
-4. Sample Size Calculation
-5. Implementation Plan
-6. Risk Assessment
-7. Monitoring Strategy
+1. Hypothesis
+2. Test Variables & Variants
+3. Success Metrics
+4. Test Duration
+5. Sample Size Requirements
+6. Implementation Plan
+7. Risk Assessment
 8. Analysis Framework
 
 Format the response in a clear, structured way using markdown.`;
