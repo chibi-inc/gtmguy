@@ -13,7 +13,39 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateSWOT" class="space-y-8">
+    <!-- Upgrade Modal -->
+    <div 
+      v-if="showUpgradeModal"
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-xl max-w-md w-full mx-4">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="ph:warning-duotone" class="text-3xl text-neutral-900" />
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2">No Credits Remaining</h3>
+          <p class="text-neutral-600 mb-6">
+            Upgrade to our Lifetime Pro plan to get unlimited generations and premium features.
+          </p>
+          <div class="space-y-3">
+            <button
+              @click="handleUpgrade"
+              class="w-full py-3 px-4 bg-neutral-900 text-white rounded-xl hover:bg-neutral-800 transition-all duration-200 font-medium"
+            >
+              Upgrade to Pro
+            </button>
+            <button
+              @click="showUpgradeModal = false"
+              class="w-full py-3 px-4 bg-stone-100 text-neutral-700 rounded-xl hover:bg-stone-200 transition-all duration-200 font-medium"
+            >
+              Maybe Later
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form @submit.prevent="generateSwot" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate SWOT Analysis</h3>
@@ -23,31 +55,31 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Description
+            Product/Company Description
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Tell us about your product and its key features
+              Describe your product or company
             </span>
           </label>
           <textarea
-            v-model="formData.productDescription"
+            v-model="formData.description"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., An AI-powered content management system for digital publishers..."
+            placeholder="e.g., A SaaS platform that helps e-commerce businesses..."
           ></textarea>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Market
+            Market Context
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your market and competitive landscape
+              Describe your market and competition
             </span>
           </label>
           <textarea
-            v-model="formData.targetMarket"
+            v-model="formData.market"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Online news outlets and digital magazines competing with traditional media..."
+            placeholder="e.g., Competitive e-commerce market with several established players..."
           ></textarea>
         </div>
       </div>
@@ -55,7 +87,7 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productDescription || !formData.targetMarket"
+        :disabled="isLoading || !formData.description || !formData.market"
       >
         <Icon name="ph:chart-pie-slice-duotone" class="text-xl" />
         Generate SWOT Analysis
@@ -67,7 +99,7 @@
       v-if="response"
       :content="response"
       @clear="response = ''"
-      @regenerate="generateSWOT"
+      @regenerate="generateSwot"
     />
   </div>
 </template>
@@ -75,22 +107,37 @@
 <script setup>
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
+import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productDescription: '',
-  targetMarket: ''
+  description: '',
+  market: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
-const generateSWOT = async () => {
-  if (!formData.value.productDescription || !formData.value.targetMarket) return
+const handleUpgrade = () => {
+  showUpgradeModal.value = false
+  // Implement upgrade logic
+}
+
+const generateSwot = async () => {
+  if (!formData.value.description || !formData.value.market) return
   
   isLoading.value = true
   response.value = ''
   
   try {
+    // Check credits first
+    const canProceed = await checkAndConsumeCredit()
+    if (!canProceed) {
+      isLoading.value = false
+      return
+    }
+
+    // If credit check passes, proceed with generation
     const res = await fetch('/api/swot', {
       method: 'POST',
       body: JSON.stringify(formData.value),
@@ -99,13 +146,13 @@ const generateSWOT = async () => {
       }
     })
 
-    if (!res.ok) throw new Error('Failed to generate SWOT Analysis')
+    if (!res.ok) throw new Error('Failed to generate SWOT analysis')
 
     const data = await res.text()
     response.value = data
 
   } catch (error) {
-    console.error('Error generating SWOT Analysis:', error)
+    console.error('Error:', error)
   } finally {
     isLoading.value = false
   }

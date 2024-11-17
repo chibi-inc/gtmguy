@@ -13,7 +13,39 @@
       </div>
     </div>
 
-    <form @submit.prevent="generateMVP" class="space-y-8">
+    <!-- Upgrade Modal -->
+    <div 
+      v-if="showUpgradeModal"
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-xl max-w-md w-full mx-4">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="ph:warning-duotone" class="text-3xl text-neutral-900" />
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2">No Credits Remaining</h3>
+          <p class="text-neutral-600 mb-6">
+            Upgrade to our Lifetime Pro plan to get unlimited generations and premium features.
+          </p>
+          <div class="space-y-3">
+            <button
+              @click="handleUpgrade"
+              class="w-full py-3 px-4 bg-neutral-900 text-white rounded-xl hover:bg-neutral-800 transition-all duration-200 font-medium"
+            >
+              Upgrade to Pro
+            </button>
+            <button
+              @click="showUpgradeModal = false"
+              class="w-full py-3 px-4 bg-stone-100 text-neutral-700 rounded-xl hover:bg-stone-200 transition-all duration-200 font-medium"
+            >
+              Maybe Later
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form @submit.prevent="generateMvp" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate MVP Plan</h3>
@@ -23,46 +55,31 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Problem
+            Product Vision
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What problem does your MVP solve?
+              What problem are you trying to solve?
             </span>
           </label>
           <textarea
-            v-model="formData.problem"
+            v-model="formData.productVision"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Small businesses struggle to manage their social media presence effectively..."
+            placeholder="e.g., A mobile app that helps remote teams track their productivity..."
           ></textarea>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Market
+            Target Users
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Who are your early adopters?
+              Who are your initial target users?
             </span>
           </label>
           <textarea
-            v-model="formData.targetMarket"
+            v-model="formData.targetUsers"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Small e-commerce businesses with 1-5 employees managing their own social media..."
-          ></textarea>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
-          <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Must Have Functionalities
-            <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What are the core features needed?
-            </span>
-          </label>
-          <textarea
-            v-model="formData.mustHaveFunctionalities"
-            rows="3"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Social media post scheduling, Analytics dashboard, Content calendar..."
+            placeholder="e.g., Remote software development teams of 5-20 people..."
           ></textarea>
         </div>
       </div>
@@ -70,7 +87,7 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.problem || !formData.targetMarket || !formData.mustHaveFunctionalities"
+        :disabled="isLoading || !formData.productVision || !formData.targetUsers"
       >
         <Icon name="ph:cube-duotone" class="text-xl" />
         Generate MVP Plan
@@ -82,7 +99,7 @@
       v-if="response"
       :content="response"
       @clear="response = ''"
-      @regenerate="generateMVP"
+      @regenerate="generateMvp"
     />
   </div>
 </template>
@@ -90,23 +107,37 @@
 <script setup>
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
+import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  problem: '',
-  targetMarket: '',
-  mustHaveFunctionalities: ''
+  productVision: '',
+  targetUsers: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
-const generateMVP = async () => {
-  if (!formData.value.problem || !formData.value.targetMarket || !formData.value.mustHaveFunctionalities) return
+const handleUpgrade = () => {
+  showUpgradeModal.value = false
+  // Implement upgrade logic
+}
+
+const generateMvp = async () => {
+  if (!formData.value.productVision || !formData.value.targetUsers) return
   
   isLoading.value = true
   response.value = ''
   
   try {
+    // Check credits first
+    const canProceed = await checkAndConsumeCredit()
+    if (!canProceed) {
+      isLoading.value = false
+      return
+    }
+
+    // If credit check passes, proceed with generation
     const res = await fetch('/api/mvp', {
       method: 'POST',
       body: JSON.stringify(formData.value),
@@ -115,13 +146,13 @@ const generateMVP = async () => {
       }
     })
 
-    if (!res.ok) throw new Error('Failed to generate MVP Plan')
+    if (!res.ok) throw new Error('Failed to generate MVP plan')
 
     const data = await res.text()
     response.value = data
 
   } catch (error) {
-    console.error('Error generating MVP Plan:', error)
+    console.error('Error:', error)
   } finally {
     isLoading.value = false
   }

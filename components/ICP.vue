@@ -13,6 +13,38 @@
       </div>
     </div>
 
+    <!-- Upgrade Modal -->
+    <div 
+      v-if="showUpgradeModal"
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-xl max-w-md w-full mx-4">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="ph:warning-duotone" class="text-3xl text-neutral-900" />
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2">No Credits Remaining</h3>
+          <p class="text-neutral-600 mb-6">
+            Upgrade to our Lifetime Pro plan to get unlimited generations and premium features.
+          </p>
+          <div class="space-y-3">
+            <button
+              @click="handleUpgrade"
+              class="w-full py-3 px-4 bg-neutral-900 text-white rounded-xl hover:bg-neutral-800 transition-all duration-200 font-medium"
+            >
+              Upgrade to Pro
+            </button>
+            <button
+              @click="showUpgradeModal = false"
+              class="w-full py-3 px-4 bg-stone-100 text-neutral-700 rounded-xl hover:bg-stone-200 transition-all duration-200 font-medium"
+            >
+              Maybe Later
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <form @submit.prevent="generateICP" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
@@ -75,6 +107,7 @@
 <script setup>
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
+import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
   productDescription: '',
@@ -83,6 +116,12 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
+const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+
+const handleUpgrade = () => {
+  showUpgradeModal.value = false
+  // Implement upgrade logic
+}
 
 const generateICP = async () => {
   if (!formData.value.productDescription || !formData.value.targetMarket) return
@@ -91,6 +130,14 @@ const generateICP = async () => {
   response.value = ''
   
   try {
+    // Check credits first
+    const canProceed = await checkAndConsumeCredit()
+    if (!canProceed) {
+      isLoading.value = false
+      return
+    }
+
+    // If credit check passes, proceed with generation
     const res = await fetch('/api/icp', {
       method: 'POST',
       body: JSON.stringify(formData.value),
@@ -105,7 +152,7 @@ const generateICP = async () => {
     response.value = data
 
   } catch (error) {
-    console.error('Error generating ICP:', error)
+    console.error('Error:', error)
   } finally {
     isLoading.value = false
   }

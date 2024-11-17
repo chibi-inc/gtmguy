@@ -13,41 +13,73 @@
       </div>
     </div>
 
+    <!-- Upgrade Modal -->
+    <div 
+      v-if="showUpgradeModal"
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-xl max-w-md w-full mx-4">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="ph:warning-duotone" class="text-3xl text-neutral-900" />
+          </div>
+          <h3 class="text-xl font-bold text-neutral-900 mb-2">No Credits Remaining</h3>
+          <p class="text-neutral-600 mb-6">
+            Upgrade to our Lifetime Pro plan to get unlimited generations and premium features.
+          </p>
+          <div class="space-y-3">
+            <button
+              @click="handleUpgrade"
+              class="w-full py-3 px-4 bg-neutral-900 text-white rounded-xl hover:bg-neutral-800 transition-all duration-200 font-medium"
+            >
+              Upgrade to Pro
+            </button>
+            <button
+              @click="showUpgradeModal = false"
+              class="w-full py-3 px-4 bg-stone-100 text-neutral-700 rounded-xl hover:bg-stone-200 transition-all duration-200 font-medium"
+            >
+              Maybe Later
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <form @submit.prevent="generateCopy" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
         <h3 class="text-lg font-semibold text-neutral-900 mb-2">Generate Marketing Copy</h3>
-        <p class="text-neutral-600">Fill in the details below to create targeted, engaging copy variations.</p>
+        <p class="text-neutral-600">Fill in the details below to create compelling marketing copy.</p>
       </div>
 
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Details
+            Product Description
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your product's features and benefits
+              Describe your product and its key benefits
             </span>
           </label>
           <textarea
-            v-model="formData.productDetails"
-            rows="4"
+            v-model="formData.productDescription"
+            rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., An AI-powered social media management tool with automated scheduling, content suggestions, and analytics dashboard..."
+            placeholder="e.g., A productivity app that helps remote teams collaborate better..."
           ></textarea>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Customer
+            Target Audience
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe who this copy is targeting
+              Who is this copy for?
             </span>
           </label>
           <textarea
-            v-model="formData.targetCustomer"
+            v-model="formData.targetAudience"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            placeholder="e.g., Small business owners aged 30-45 who are tech-savvy and value efficiency..."
+            placeholder="e.g., Remote tech teams looking to improve their collaboration..."
           ></textarea>
         </div>
       </div>
@@ -55,7 +87,7 @@
       <button
         type="submit"
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.productDetails || !formData.targetCustomer"
+        :disabled="isLoading || !formData.productDescription || !formData.targetAudience"
       >
         <Icon name="ph:pencil-duotone" class="text-xl" />
         Generate Copy
@@ -75,23 +107,38 @@
 <script setup>
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
+import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productDetails: '',
-  targetCustomer: ''
+  productDescription: '',
+  targetAudience: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
+const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+
+const handleUpgrade = () => {
+  showUpgradeModal.value = false
+  // Implement upgrade logic
+}
 
 const generateCopy = async () => {
-  if (!formData.value.productDetails || !formData.value.targetCustomer) return
+  if (!formData.value.productDescription || !formData.value.targetAudience) return
   
   isLoading.value = true
   response.value = ''
   
   try {
-    const res = await fetch('/api/copy-generator', {
+    // Check credits first
+    const canProceed = await checkAndConsumeCredit()
+    if (!canProceed) {
+      isLoading.value = false
+      return
+    }
+
+    // If credit check passes, proceed with generation
+    const res = await fetch('/api/copy', {
       method: 'POST',
       body: JSON.stringify(formData.value),
       headers: {
@@ -105,7 +152,7 @@ const generateCopy = async () => {
     response.value = data
 
   } catch (error) {
-    console.error('Error generating copy:', error)
+    console.error('Error:', error)
   } finally {
     isLoading.value = false
   }
