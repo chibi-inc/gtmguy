@@ -6,7 +6,7 @@
         <div class="space-y-4">
           <NuxtLink to="/" class="flex items-center gap-3">
             <div class="text-black p-1.5 rounded-lg">
-              <Icon name="ph:rocket-launch-duotone" class="text-xl" />
+              <Icon name="ph:rocket-duotone" class="text-xl" />
             </div>
             <span class="text-neutral-900 font-semibold">GTMGuy</span>
           </NuxtLink>

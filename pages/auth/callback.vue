@@ -4,7 +4,7 @@
       <div class="text-center mb-8">
         <div class="inline-flex items-center gap-3 mb-6">
           <div class="bg-gradient-to-br from-neutral-900 to-neutral-800 text-white p-2 rounded-xl shadow-lg">
-            <Icon name="ph:rocket-launch-duotone" class="text-3xl" />
+            <Icon name="ph:rocket-duotone" class="text-3xl" />
           </div>
           <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-800">GTMGuy</h1>
         </div>

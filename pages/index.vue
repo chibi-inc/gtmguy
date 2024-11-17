@@ -18,23 +18,23 @@
             AI-Powered Go-to-Market Tools
           </span>
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-neutral-900 mb-6 sm:mb-8 leading-tight">
-            Launch Your Product with <span class="text-gradient">Confidence</span>
+            Go to Market in <span class="text-gradient">Seconds</span>, Not Months
           </h1>
           <p class="text-lg sm:text-xl text-neutral-700 mb-8 sm:mb-10 leading-relaxed">
-            Create comprehensive go-to-market strategies, ICPs, product docs, and more in <span class="font-semibold">minutes</span>.
+            Optimize your landing page, improve SEO, generate product strategies, launch plans, user research, and more in <span class="font-semibold">seconds</span>.
           </p>
           <!-- Mobile-optimized CTA buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             <button 
               @click="signInWithGoogle"
               :disabled="isLoading"
-              class="w-full sm:w-auto px-6 sm:px-8 py-4 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2">
-              <Icon name="ph:rocket-launch-duotone" class="text-xl" />
-              {{ isLoading ? 'Loading...' : 'Build Your GTM Strategy' }}
+              class="w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2">
+              <Icon name="ph:sparkle-duotone" class="text-xl" />
+              {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
             </button>
             <a href="#features" class="w-full sm:w-auto px-6 py-4 text-neutral-900 hover:bg-white/75 rounded-xl transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2 group">
-              <Icon name="ph:arrow-down-duotone" class="text-xl transition-transform group-hover:translate-y-1" />
-              See Features
+              <Icon name="ph:magic-wand-duotone" class="text-xl" />
+              See All Tools
             </a>
           </div>
           <!-- Social Proof -->
@@ -121,7 +121,7 @@
                 <div class="bg-neutral-50 rounded-xl p-6">
                   <div class="flex items-start gap-4">
                     <div class="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Icon name="ph:rocket-launch-duotone" class="text-2xl text-white" />
+                      <Icon name="ph:rocket-duotone" class="text-2xl text-white" />
                     </div>
                     <div>
                       <h4 class="font-semibold text-neutral-900 mb-1">Limited Time Launch Offer</h4>
@@ -132,7 +132,7 @@
                     @click="signInWithGoogle"
                     :disabled="isLoading"
                     class="mt-6 w-full bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-                    {{ isLoading ? 'Loading...' : 'Start Building Free' }}
+                    {{ isLoading ? 'Loading...' : 'Try All Tools Free →' }}
                   </button>
                 </div>
               </div>
@@ -147,9 +147,9 @@
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-20">
           <span class="text-sky-600 font-medium mb-2 block">Features</span>
-          <h2 class="text-5xl font-bold text-neutral-900 mb-6">Everything You Need for GTM Success</h2>
+          <h2 class="text-5xl font-bold text-neutral-900 mb-6">All the Tools You Need</h2>
           <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
-            Our AI-powered tools help you create professional go-to-market assets in minutes, not days.
+            Our AI-powered tools help you build, launch, and grow better products faster.
           </p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -220,9 +220,9 @@
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
           <span class="text-sky-600 font-medium mb-2 block">Simple Pricing</span>
-          <h2 class="text-5xl font-bold text-neutral-900 mb-6">Start Free, Scale When Ready</h2>
+          <h2 class="text-5xl font-bold text-neutral-900 mb-6">Start For Free, Scale When Ready</h2>
           <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
-            Try GTMGuy risk-free with our trial. Upgrade to lifetime access when you're ready.
+            Try GTMGuy for free with our trial. Upgrade to lifetime access when you're ready.
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
@@ -257,7 +257,7 @@
               @click="signInWithGoogle"
               :disabled="isLoading"
               class="w-full bg-neutral-900 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-              {{ isLoading ? 'Loading...' : 'Start Free Trial' }}
+              {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
             </button>
           </div>
 
@@ -308,7 +308,7 @@
                 @click="signInWithGoogle"
                 :disabled="isLoading"
                 class="w-full bg-white text-neutral-900 rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-                {{ isLoading ? 'Loading...' : 'Get Lifetime Access' }}
+                {{ isLoading ? 'Loading...' : 'Get Unlimited Access →' }}
               </button>
             </div>
           </div>
@@ -332,9 +332,9 @@
             <button 
               @click="signInWithGoogle"
               :disabled="isLoading"
-              class="inline-flex items-center gap-2 px-8 py-4 bg-white text-neutral-900 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium">
-              <Icon name="ph:rocket-launch-duotone" class="text-xl" />
-              {{ isLoading ? 'Loading...' : 'Build Your GTM Strategy Free' }}
+              class="inline-flex items-center gap-2 px-10 py-4 bg-white text-neutral-900 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium group">
+              <Icon name="ph:sparkle-duotone" class="text-xl transition-transform group-hover:rotate-12" />
+              {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
             </button>
           </div>
         </div>
@@ -430,9 +430,14 @@ const features = [
     description: 'Create comprehensive go-to-market strategies tailored to your product and market positioning.'
   },
   {
-    title: 'SWOT Analysis',
-    icon: 'ph:chart-pie-slice-duotone',
-    description: 'Get detailed analysis of your Strengths, Weaknesses, Opportunities, and Threats with actionable insights.'
+    title: 'Landing Page Analyzer',
+    icon: 'ph:browser-duotone',
+    description: 'Get AI-powered insights on your landing page conversion potential and actionable improvement suggestions.'
+  },
+  {
+    title: 'SEO Optimizer',
+    icon: 'ph:google-logo-duotone',
+    description: 'Analyze and optimize your content for search engines with AI-driven recommendations and keywords.'
   },
   {
     title: 'Copy Generator',
@@ -445,11 +450,6 @@ const features = [
     description: 'Plan your product launches with detailed timelines, strategies, and success metrics.'
   },
   {
-    title: 'PRD Generator',
-    icon: 'ph:file-text-duotone',
-    description: 'Create comprehensive Product Requirements Documents that align teams and set clear objectives.'
-  },
-  {
     title: 'A/B Test Planner',
     icon: 'ph:test-tube-duotone',
     description: 'Design effective A/B tests to optimize your product features and marketing campaigns.'
@@ -457,7 +457,7 @@ const features = [
   {
     title: 'Metrics & KPIs',
     icon: 'ph:chart-line-up-duotone',
-    description: 'Define the right metrics and KPIs to track and measure your go-to-market success.'
+    description: 'Define the right metrics and KPIs for your goals to track and measure your go-to-market success.'
   },
   {
     title: 'User Research Plan',

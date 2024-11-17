@@ -5,7 +5,7 @@
         <div class="flex items-center gap-8">
           <NuxtLink to="/" class="flex items-center gap-3">
             <div class="text-sky-600 p-2 rounded-xl">
-              <Icon name="ph:rocket-launch-duotone" class="text-2xl sm:text-3xl" />
+              <Icon name="ph:rocket-duotone" class="text-2xl sm:text-3xl" />
             </div>
             <h1 class="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-800">GTMGuy</h1>
           </NuxtLink>
@@ -22,7 +22,7 @@
           class="px-6 py-2.5 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 font-medium"
         >
           <Icon name="ph:lightning-duotone" class="text-lg" />
-          <span class="hidden sm:inline">Get Started Free</span>
+          <span class="hidden sm:inline">Get Started For Free</span>
           <span class="sm:hidden">Start</span>
         </button>
       </div>

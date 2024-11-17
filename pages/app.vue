@@ -6,7 +6,7 @@
         <!-- Header -->
         <div class="mb-6">
           <div class="flex items-center gap-3 mb-2">
-            <Icon name="ph:rocket-launch-duotone" class="text-3xl text-sky-600" />
+            <Icon name="ph:rocket-duotone" class="text-3xl text-sky-600" />
             <h1 class="text-2xl font-bold text-neutral-900">GTMGuy</h1>
           </div>
           <p class="text-sm text-neutral-600">Your AI-Powered Product & Marketing Suite
@@ -110,6 +110,9 @@ import UserResearchPlan from '~/components/UserResearchPlan.vue'
 import ProductLaunchPlan from '~/components/ProductLaunchPlan.vue'
 import Prioritization from '~/components/Prioritization.vue'
 import PrdGenerator from '~/components/PrdGenerator.vue'
+import LandingPageConversion from '~/components/LandingPageConversion.vue'
+import SeoOptimizer from '~/components/SeoOptimizer.vue'
+
 
 const activeItem = ref(0)
 
@@ -125,7 +128,9 @@ const menuItems = [
   { label: 'Prioritization', icon: 'ph:list-numbers-duotone', component: Prioritization },
   { label: 'Research Plan', icon: 'ph:magnifying-glass-duotone', component: UserResearchPlan },
   { label: 'SWOT Analysis', icon: 'ph:chart-pie-slice-duotone', component: SwotAnalysis },
-  { label: 'User Journey Map', icon: 'ph:map-trifold-duotone', component: UserJourneyMap }
+  { label: 'User Journey Map', icon: 'ph:map-trifold-duotone', component: UserJourneyMap },
+  { label: 'Landing Page Conversion', icon: 'ph:browser-duotone', component: LandingPageConversion },
+  { label: 'SEO Optimizer', icon: 'ph:google-logo-duotone', component: SeoOptimizer }
 ]
 
 const currentComponent = computed(() => menuItems[activeItem.value].component)
@@ -148,7 +153,9 @@ const getDescription = (index) => {
     8: "Prioritize features and initiatives",
     9: "Create comprehensive user research plans",
     10: "Analyze strengths, weaknesses, opportunities, and threats",
-    11: "Map out your user's journey and touchpoints"
+    11: "Map out your user's journey and touchpoints",
+    12: "Optimize landing pages for better conversion rates",
+    13: "Optimize your website's SEO"
   }
   return descriptions[index]
 }
