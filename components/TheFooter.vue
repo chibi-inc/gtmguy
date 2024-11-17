@@ -4,8 +4,8 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 py-16">
         <!-- Brand Column -->
         <div class="space-y-4">
-          <NuxtLink to="/" class="flex items-center gap-3">
-            <div class="text-black p-1.5 rounded-lg">
+          <NuxtLink to="/" class="flex items-center">
+            <div class="text-black p-1.5 rounded-lg flex items-center">
               <Icon name="ph:rocket-duotone" class="text-xl" />
             </div>
             <span class="text-neutral-900 font-semibold">GTMGuy</span>
