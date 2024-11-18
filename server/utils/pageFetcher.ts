@@ -1,5 +1,7 @@
 import fetch from 'node-fetch'
 
+// TODO add security validations and prevent localhost inputs
+
 export async function fetchPageContent(url: string) {
   try {
     const response = await fetch(url)
