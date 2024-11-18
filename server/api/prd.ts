@@ -18,7 +18,7 @@ Context:
 - Focus on fundamental motivations that should remain stable throughout development
 
 Usage Scenarios:
-Create 3-4 detailed, real-life usage narratives that:
+Create 2-3 detailed, real-life usage narratives that:
 - Are anchored to specific user personas in specific moments
 - Describe actual problems and how this solution addresses them
 - Include contextual details (time, place, situation)

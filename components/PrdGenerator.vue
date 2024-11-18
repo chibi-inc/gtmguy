@@ -185,6 +185,8 @@ const isLoading = ref(false)
 const response = ref('')
 const showUpgradeModal = ref(false)
 
+const { checkAndConsumeCredit } = useCredits()
+
 const handleUpgrade = () => {
   showUpgradeModal.value = false
   // Implement upgrade logic
