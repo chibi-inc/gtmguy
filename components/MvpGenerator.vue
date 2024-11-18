@@ -55,45 +55,43 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Vision
+            Problem Statement
             <span class="text-sm font-normal text-neutral-500 block mt-1">
               What problem are you trying to solve?
             </span>
           </label>
           <textarea
-            v-model="formData.productVision"
+            v-model="formData.problem"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            :class="{ 'border-red-300': showVisionError }"
+            :class="{ 'border-red-300': showProblemError }"
             placeholder="e.g., A mobile app that helps remote teams track their productivity..."
-            @input="showVisionError = false"
+            @input="showProblemError = false"
             required
           ></textarea>
-          <!-- Error Message -->
-          <p v-if="showVisionError" class="mt-2 text-sm text-red-600">
-            Please describe your product vision
+          <p v-if="showProblemError" class="mt-2 text-sm text-red-600">
+            Please describe the problem you're solving
           </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Users
+            Must-Have Functionalities
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Who are your initial target users?
+              What are the core features needed to solve this problem?
             </span>
           </label>
           <textarea
-            v-model="formData.targetUsers"
+            v-model="formData.mustHaveFunctionalities"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            :class="{ 'border-red-300': showUsersError }"
-            placeholder="e.g., Remote software development teams of 5-20 people..."
-            @input="showUsersError = false"
+            :class="{ 'border-red-300': showFunctionalitiesError }"
+            placeholder="e.g., Time tracking, Team dashboard, Daily reports..."
+            @input="showFunctionalitiesError = false"
             required
           ></textarea>
-          <!-- Error Message -->
-          <p v-if="showUsersError" class="mt-2 text-sm text-red-600">
-            Please describe your target users
+          <p v-if="showFunctionalitiesError" class="mt-2 text-sm text-red-600">
+            Please list the must-have functionalities
           </p>
         </div>
       </div>
@@ -124,14 +122,14 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productVision: '',
-  targetUsers: ''
+  problem: '',
+  mustHaveFunctionalities: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
-const showVisionError = ref(false)
-const showUsersError = ref(false)
+const showProblemError = ref(false)
+const showFunctionalitiesError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -141,18 +139,18 @@ const handleUpgrade = () => {
 
 const handleSubmit = async () => {
   // Reset errors
-  showVisionError.value = false
-  showUsersError.value = false
+  showProblemError.value = false
+  showFunctionalitiesError.value = false
 
   // Validate inputs
-  if (!formData.value.productVision) {
-    showVisionError.value = true
+  if (!formData.value.problem) {
+    showProblemError.value = true
   }
-  if (!formData.value.targetUsers) {
-    showUsersError.value = true
+  if (!formData.value.mustHaveFunctionalities) {
+    showFunctionalitiesError.value = true
   }
 
-  if (!formData.value.productVision || !formData.value.targetUsers) {
+  if (!formData.value.problem || !formData.value.mustHaveFunctionalities) {
     return
   }
   
