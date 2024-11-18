@@ -53,28 +53,51 @@
       </div>
 
       <div class="space-y-6">
+        <!-- Product Vision -->
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product Overview
+            Product Vision
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your product and its main objectives
+              Describe your product vision and its main objectives
             </span>
           </label>
           <textarea
-            v-model="formData.productOverview"
+            v-model="formData.productVision"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            :class="{ 'border-red-300': showOverviewError }"
-            placeholder="e.g., A mobile app for team collaboration with focus on real-time communication..."
-            @input="showOverviewError = false"
+            :class="{ 'border-red-300': errors.productVision }"
+            placeholder="e.g., To revolutionize team collaboration through intuitive real-time communication..."
+            @input="errors.productVision = false"
             required
           ></textarea>
-          <!-- Error Message -->
-          <p v-if="showOverviewError" class="mt-2 text-sm text-red-600">
-            Please provide a product overview
+          <p v-if="errors.productVision" class="mt-2 text-sm text-red-600">
+            Please provide a product vision
           </p>
         </div>
-        
+
+        <!-- Target Users -->
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+          <label class="block text-base font-semibold text-neutral-900 mb-2">
+            Target Users
+            <span class="text-sm font-normal text-neutral-500 block mt-1">
+              Define your target user segments
+            </span>
+          </label>
+          <textarea
+            v-model="formData.targetUsers"
+            rows="3"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': errors.targetUsers }"
+            placeholder="e.g., Remote teams, project managers, startup founders..."
+            @input="errors.targetUsers = false"
+            required
+          ></textarea>
+          <p v-if="errors.targetUsers" class="mt-2 text-sm text-red-600">
+            Please define your target users
+          </p>
+        </div>
+
+        <!-- Key Features -->
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
             Key Features
@@ -86,14 +109,35 @@
             v-model="formData.keyFeatures"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            :class="{ 'border-red-300': showFeaturesError }"
+            :class="{ 'border-red-300': errors.keyFeatures }"
             placeholder="e.g., Real-time messaging, file sharing, video calls..."
-            @input="showFeaturesError = false"
+            @input="errors.keyFeatures = false"
             required
           ></textarea>
-          <!-- Error Message -->
-          <p v-if="showFeaturesError" class="mt-2 text-sm text-red-600">
+          <p v-if="errors.keyFeatures" class="mt-2 text-sm text-red-600">
             Please list your key features
+          </p>
+        </div>
+
+        <!-- Constraints -->
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+          <label class="block text-base font-semibold text-neutral-900 mb-2">
+            Constraints
+            <span class="text-sm font-normal text-neutral-500 block mt-1">
+              List any technical, business, or resource constraints
+            </span>
+          </label>
+          <textarea
+            v-model="formData.constraints"
+            rows="3"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': errors.constraints }"
+            placeholder="e.g., Budget limitations, technical requirements, timeline constraints..."
+            @input="errors.constraints = false"
+            required
+          ></textarea>
+          <p v-if="errors.constraints" class="mt-2 text-sm text-red-600">
+            Please specify any constraints
           </p>
         </div>
       </div>
@@ -124,15 +168,22 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productOverview: '',
-  keyFeatures: ''
+  productVision: '',
+  targetUsers: '',
+  keyFeatures: '',
+  constraints: ''
+})
+
+const errors = ref({
+  productVision: false,
+  targetUsers: false,
+  keyFeatures: false,
+  constraints: false
 })
 
 const isLoading = ref(false)
 const response = ref('')
-const showOverviewError = ref(false)
-const showFeaturesError = ref(false)
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const showUpgradeModal = ref(false)
 
 const handleUpgrade = () => {
   showUpgradeModal.value = false
@@ -140,19 +191,13 @@ const handleUpgrade = () => {
 }
 
 const handleSubmit = async () => {
-  // Reset errors
-  showOverviewError.value = false
-  showFeaturesError.value = false
+  // Reset all errors
+  Object.keys(errors.value).forEach(key => {
+    errors.value[key] = !formData.value[key]
+  })
 
-  // Validate inputs
-  if (!formData.value.productOverview) {
-    showOverviewError.value = true
-  }
-  if (!formData.value.keyFeatures) {
-    showFeaturesError.value = true
-  }
-
-  if (!formData.value.productOverview || !formData.value.keyFeatures) {
+  // Check if any errors exist
+  if (Object.values(errors.value).some(error => error)) {
     return
   }
   

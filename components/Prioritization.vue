@@ -55,6 +55,27 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
+            Prioritization Method
+            <span class="text-sm font-normal text-neutral-500 block mt-1">
+              Select the framework to use for prioritization
+            </span>
+          </label>
+          <select
+            v-model="formData.method"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none"
+          >
+            <option 
+              v-for="(label, key) in methodOptions" 
+              :key="key" 
+              :value="key"
+            >
+              {{ label }}
+            </option>
+          </select>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+          <label class="block text-base font-semibold text-neutral-900 mb-2">
             Features/Initiatives
             <span class="text-sm font-normal text-neutral-500 block mt-1">
               List the features or initiatives to prioritize
@@ -123,9 +144,17 @@ import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
+const methodOptions = {
+  RICE: "RICE (Reach, Impact, Confidence, Effort)",
+  MOSCOW: "MoSCoW (Must, Should, Could, Won't have)",
+  VALUE_EFFORT: "Value vs Effort Matrix",
+  KANO: "Kano Model"
+}
+
 const formData = ref({
   features: '',
-  goals: ''
+  goals: '',
+  method: 'RICE' // Default method
 })
 
 const isLoading = ref(false)
@@ -164,17 +193,18 @@ const generatePrioritization = async () => {
   response.value = ''
   
   try {
-    // Check credits first
     const canProceed = await checkAndConsumeCredit()
     if (!canProceed) {
       isLoading.value = false
       return
     }
 
-    // If credit check passes, proceed with generation
     const res = await fetch('/api/prioritization', {
       method: 'POST',
-      body: JSON.stringify(formData.value),
+      body: JSON.stringify({
+        items: formData.value.features,
+        method: formData.value.method
+      }),
       headers: {
         'Content-Type': 'application/json'
       }

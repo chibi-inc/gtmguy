@@ -55,13 +55,13 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Test Objective
+            Test Goal
             <span class="text-sm font-normal text-neutral-500 block mt-1">
               What are you trying to achieve with this test?
             </span>
           </label>
           <textarea
-            v-model="formData.objective"
+            v-model="formData.goal"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showObjectiveError }"
@@ -71,29 +71,29 @@
           ></textarea>
           <!-- Error Message -->
           <p v-if="showObjectiveError" class="mt-2 text-sm text-red-600">
-            Please specify your test objective
+            Please specify your test goal
           </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Current Metrics
+            Product Details
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What are your current metrics for this test area?
+              What are the relevant details about your product for this test?
             </span>
           </label>
           <textarea
-            v-model="formData.currentMetrics"
+            v-model="formData.productDetails"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showMetricsError }"
-            placeholder="e.g., Current signup rate is 2.5% with 10,000 monthly visitors..."
+            placeholder="e.g., Current product features, target audience, existing metrics..."
             @input="showMetricsError = false"
             required
           ></textarea>
           <!-- Error Message -->
           <p v-if="showMetricsError" class="mt-2 text-sm text-red-600">
-            Please provide your current metrics
+            Please provide product details
           </p>
         </div>
       </div>
@@ -124,8 +124,8 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  objective: '',
-  currentMetrics: ''
+  goal: '',
+  productDetails: ''
 })
 
 const isLoading = ref(false)
@@ -145,14 +145,14 @@ const handleSubmit = async () => {
   showMetricsError.value = false
 
   // Validate inputs
-  if (!formData.value.objective) {
+  if (!formData.value.goal) {
     showObjectiveError.value = true
   }
-  if (!formData.value.currentMetrics) {
+  if (!formData.value.productDetails) {
     showMetricsError.value = true
   }
 
-  if (!formData.value.objective || !formData.value.currentMetrics) {
+  if (!formData.value.goal || !formData.value.productDetails) {
     return
   }
   

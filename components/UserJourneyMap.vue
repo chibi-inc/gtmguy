@@ -55,45 +55,43 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            User Persona
+            Product Description
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your target user persona
+              Describe the product or service in detail
             </span>
           </label>
           <textarea
-            v-model="formData.userPersona"
+            v-model="formData.productDescription"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            :class="{ 'border-red-300': showPersonaError }"
-            placeholder="e.g., Sarah, a 32-year-old product manager who needs to coordinate with remote teams..."
-            @input="showPersonaError = false"
+            :class="{ 'border-red-300': showProductError }"
+            placeholder="e.g., A project management tool that helps teams collaborate and track progress..."
+            @input="showProductError = false"
             required
           ></textarea>
-          <!-- Error Message -->
-          <p v-if="showPersonaError" class="mt-2 text-sm text-red-600">
-            Please describe your user persona
+          <p v-if="showProductError" class="mt-2 text-sm text-red-600">
+            Please provide a product description
           </p>
         </div>
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            User Goals
+            User Persona
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What are the user's main goals and tasks?
+              Describe the target user for this journey
             </span>
           </label>
           <textarea
-            v-model="formData.userGoals"
+            v-model="formData.userType"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            :class="{ 'border-red-300': showGoalsError }"
-            placeholder="e.g., Efficiently manage project timelines, collaborate with team members, track progress..."
-            @input="showGoalsError = false"
+            :class="{ 'border-red-300': showUserError }"
+            placeholder="e.g., Product Manager working in a remote team..."
+            @input="showUserError = false"
             required
           ></textarea>
-          <!-- Error Message -->
-          <p v-if="showGoalsError" class="mt-2 text-sm text-red-600">
-            Please specify the user's goals
+          <p v-if="showUserError" class="mt-2 text-sm text-red-600">
+            Please specify the user type
           </p>
         </div>
       </div>
@@ -124,14 +122,14 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  userPersona: '',
-  userGoals: ''
+  productDescription: '',
+  userType: ''
 })
 
 const isLoading = ref(false)
 const response = ref('')
-const showPersonaError = ref(false)
-const showGoalsError = ref(false)
+const showProductError = ref(false)
+const showUserError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
 const handleUpgrade = () => {
@@ -141,18 +139,18 @@ const handleUpgrade = () => {
 
 const handleSubmit = async () => {
   // Reset errors
-  showPersonaError.value = false
-  showGoalsError.value = false
+  showProductError.value = false
+  showUserError.value = false
 
   // Validate inputs
-  if (!formData.value.userPersona) {
-    showPersonaError.value = true
+  if (!formData.value.productDescription) {
+    showProductError.value = true
   }
-  if (!formData.value.userGoals) {
-    showGoalsError.value = true
+  if (!formData.value.userType) {
+    showUserError.value = true
   }
 
-  if (!formData.value.userPersona || !formData.value.userGoals) {
+  if (!formData.value.productDescription || !formData.value.userType) {
     return
   }
   
@@ -172,7 +170,7 @@ const generateJourneyMap = async () => {
     }
 
     // If credit check passes, proceed with generation
-    const res = await fetch('/api/user-journey', {
+    const res = await fetch('/api/journey', {
       method: 'POST',
       body: JSON.stringify(formData.value),
       headers: {

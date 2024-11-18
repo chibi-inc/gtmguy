@@ -57,15 +57,15 @@
           <label class="block text-base font-semibold text-neutral-900 mb-2">
             Product Description
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your product and its key features
+              Describe your product
             </span>
           </label>
           <textarea
-            v-model="formData.productDescription"
+            v-model="formData.product"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showDescriptionError }"
-            placeholder="e.g., A SaaS platform for team collaboration with real-time features..."
+            placeholder="e.g., A SaaS platform for team collaboration..."
             @input="showDescriptionError = false"
             required
           ></textarea>
@@ -77,23 +77,23 @@
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Launch Timeline
+            Key Features
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              When do you plan to launch?
+              List the main features of your product
             </span>
           </label>
           <textarea
-            v-model="formData.launchTimeline"
+            v-model="formData.keyFeatures"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showTimelineError }"
-            placeholder="e.g., Planning to launch in Q2 2024 with a beta phase starting in March..."
+            placeholder="e.g., Real-time collaboration, File sharing, Team chat..."
             @input="showTimelineError = false"
             required
           ></textarea>
           <!-- Error Message -->
           <p v-if="showTimelineError" class="mt-2 text-sm text-red-600">
-            Please specify your launch timeline
+            Please specify your product's key features
           </p>
         </div>
       </div>
@@ -124,8 +124,8 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productDescription: '',
-  launchTimeline: ''
+  product: '',
+  keyFeatures: ''
 })
 
 const isLoading = ref(false)
@@ -145,14 +145,14 @@ const handleSubmit = async () => {
   showTimelineError.value = false
 
   // Validate inputs
-  if (!formData.value.productDescription) {
+  if (!formData.value.product) {
     showDescriptionError.value = true
   }
-  if (!formData.value.launchTimeline) {
+  if (!formData.value.keyFeatures) {
     showTimelineError.value = true
   }
 
-  if (!formData.value.productDescription || !formData.value.launchTimeline) {
+  if (!formData.value.product || !formData.value.keyFeatures) {
     return
   }
   

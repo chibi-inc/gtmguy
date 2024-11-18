@@ -7,12 +7,12 @@ export default defineEventHandler(async (event) => {
     apiKey: config.openaiApiKey
   });
 
-  const { productDescription, targetMarket } = await readBody(event);
+  const { productDescription, marketContext } = await readBody(event);
 
   const prompt = `As a Go-to-Market strategy expert, create a comprehensive GTM strategy based on the following information:
 
 Product Description: ${productDescription}
-Target Market: ${targetMarket}
+Market Context: ${marketContext}
 
 Please provide a detailed GTM strategy including:
 1. Market Entry Strategy

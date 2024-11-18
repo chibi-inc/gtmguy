@@ -61,7 +61,7 @@
             </span>
           </label>
           <textarea
-            v-model="formData.productDescription"
+            v-model="formData.productDetails"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showDescriptionError }"
@@ -83,7 +83,7 @@
             </span>
           </label>
           <textarea
-            v-model="formData.targetAudience"
+            v-model="formData.targetCustomer"
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showAudienceError }"
@@ -124,8 +124,8 @@ import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
 const formData = ref({
-  productDescription: '',
-  targetAudience: ''
+  productDetails: '',
+  targetCustomer: ''
 })
 
 const isLoading = ref(false)
@@ -145,14 +145,14 @@ const handleSubmit = async () => {
   showAudienceError.value = false
 
   // Validate inputs
-  if (!formData.value.productDescription) {
+  if (!formData.value.productDetails) {
     showDescriptionError.value = true
   }
-  if (!formData.value.targetAudience) {
+  if (!formData.value.targetCustomer) {
     showAudienceError.value = true
   }
 
-  if (!formData.value.productDescription || !formData.value.targetAudience) {
+  if (!formData.value.productDetails || !formData.value.targetCustomer) {
     return
   }
   
