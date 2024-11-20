@@ -1,12 +1,12 @@
 <template>
   <footer class="bg-stone-50/50 border-t border-stone-200">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 py-16">
         <!-- Brand Column -->
-        <div class="space-y-4">
-          <NuxtLink to="/" class="flex items-center">
-            <div class="text-black p-1.5 rounded-lg flex items-center">
-              <Icon name="ph:rocket-duotone" class="text-xl" />
+        <div class="space-y-4 md:col-span-2">
+          <NuxtLink to="/" class="flex items-center gap-3">
+            <div class="bg-neutral-900 text-white p-1.5 rounded-lg">
+              <Icon name="ph:rocket-launch-duotone" class="text-xl" />
             </div>
             <span class="text-neutral-900 font-semibold">GTMGuy</span>
           </NuxtLink>
@@ -18,7 +18,7 @@
               <Icon name="ph:twitter-logo-duotone" class="text-xl" />
             </a>
             <a href="#" class="text-neutral-600 hover:text-neutral-900 transition-colors">
-              <Icon name="ph:linkedin-logo-duotone" class="text-xl" />
+              <Icon name="ph:github-logo-duotone" class="text-xl" />
             </a>
           </div>
         </div>
@@ -34,7 +34,10 @@
               <a href="/#pricing-section" class="text-neutral-600 hover:text-neutral-900 transition-colors">Pricing</a>
             </li>
             <li>
-              <a href="/#benefits-section" class="text-neutral-600 hover:text-neutral-900 transition-colors">Benefits</a>
+              <NuxtLink to="/blog" class="text-neutral-600 hover:text-neutral-900 transition-colors">Blog</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/friends" class="text-neutral-600 hover:text-neutral-900 transition-colors">Friends</NuxtLink>
             </li>
           </ul>
         </div>
@@ -50,7 +53,7 @@
               <NuxtLink to="/terms" class="text-neutral-600 hover:text-neutral-900 transition-colors">Terms of Service</NuxtLink>
             </li>
             <li>
-              <a href="mailto:support@gtmguy.ai" class="text-neutral-600 hover:text-neutral-900 transition-colors">Contact</a>
+              <a href="mailto:support@gtmguy.com" class="text-neutral-600 hover:text-neutral-900 transition-colors">Contact</a>
             </li>
           </ul>
         </div>
@@ -59,6 +62,9 @@
       <div class="border-t border-stone-200 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <p class="text-sm text-neutral-600">&copy; {{ new Date().getFullYear() }} GTMGuy. All rights reserved.</p>
+          <div class="flex items-center gap-4 text-sm text-neutral-600">
+            <span>Made with ❤️</span>
+          </div>
         </div>
       </div>
     </div>
