@@ -1,7 +1,22 @@
 <template>
   <div class="flex min-h-screen bg-gradient-to-br from-stone-100 to-stone-200">
-    <!-- Fixed Sidebar -->
-    <aside class="fixed inset-y-0 left-0 w-72 bg-white/50 backdrop-blur-sm border-r border-stone-200">
+    <!-- Mobile Header (new) -->
+    <div class="lg:hidden fixed top-0 left-0 right-0 bg-white/50 backdrop-blur-sm border-b border-stone-200 z-20">
+      <div class="flex items-center justify-between p-4">
+        <div class="flex items-center gap-3">
+          <Icon name="ph:rocket-duotone" class="text-2xl text-sky-600" />
+          <h1 class="text-xl font-bold text-neutral-900">GTMGuy</h1>
+        </div>
+        <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="text-neutral-600">
+          <Icon :name="isMobileMenuOpen ? 'ph:x-bold' : 'ph:list-bold'" class="text-2xl" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Modified Sidebar -->
+    <aside 
+      :class="`${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed inset-y-0 left-0 w-72 bg-white/50 backdrop-blur-sm border-r border-stone-200 transition-transform duration-200 z-10`"
+    >
       <div class="flex flex-col h-full p-6">
         <!-- Header -->
         <div class="mb-6">
@@ -42,24 +57,24 @@
       </div>
     </aside>
 
-    <!-- Main Content Area with Navbar -->
-    <main class="flex-1 ml-72">
-      <!-- Add Navbar -->
-      <nav class="bg-white/50 backdrop-blur-sm border-b border-stone-200 px-8 py-4">
+    <!-- Modified Main Content Area -->
+    <main class="flex-1 lg:ml-72 mt-16 lg:mt-0">
+      <!-- Modified Navbar -->
+      <nav class="bg-white/50 backdrop-blur-sm border-b border-stone-200 px-4 lg:px-8 py-4">
         <div class="flex justify-between items-center">
           <!-- Credits display -->
-          <div class="flex items-center gap-4">
-            <div class="bg-stone-50 border border-stone-200 rounded-lg px-4 py-2 flex items-center gap-3">
-              <div class="flex items-center gap-2 text-sm text-neutral-600">
+          <div class="flex items-center gap-4 overflow-x-auto">
+            <div class="bg-stone-50 border border-stone-200 rounded-lg px-3 lg:px-4 py-2 flex items-center gap-2 lg:gap-3">
+              <div class="flex items-center gap-2 text-sm text-neutral-600 whitespace-nowrap">
                 <Icon name="ph:lightning-duotone" class="text-lg" />
-                <span>{{ credits }} reports remaining</span>
+                <span>{{ credits }}</span>reports left
               </div>
               <button 
                 @click="handleUpgrade"
-                class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors flex items-center gap-1"
+                class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors flex items-center gap-1 whitespace-nowrap"
               >
-                Upgrade to Pro
-                <Icon name="ph:arrow-right-duotone" class="text-lg" />
+                Upgrade
+                <Icon name="ph:arrow-right-duotone" class="text-lg hidden lg:block" />
               </button>
             </div>
           </div>
@@ -82,8 +97,8 @@
         </div>
       </nav>
 
-      <!-- Existing content -->
-      <div class="max-w-6xl mx-auto p-8">
+      <!-- Modified content container -->
+      <div class="max-w-6xl mx-auto p-4 lg:p-8">
         <div class="mb-6">
           <h2 class="text-2xl font-bold text-neutral-900">{{ menuItems[activeItem].label }}</h2>
           <p class="text-neutral-600 mt-1">{{ getDescription(activeItem) }}</p>
@@ -211,6 +226,23 @@ onMounted(async () => {
     await fetchOrCreateUserAccount()
   }
   document.addEventListener('click', closeDropdown)
+
+  // Close mobile menu when route changes
+  watch(() => activeItem.value, () => {
+    isMobileMenuOpen.value = false
+  })
+  
+  // Close mobile menu when clicking outside
+  const handleClickOutside = (event) => {
+    if (isMobileMenuOpen.value && !event.target.closest('aside') && !event.target.closest('button')) {
+      isMobileMenuOpen.value = false
+    }
+  }
+  
+  document.addEventListener('click', handleClickOutside)
+  onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside)
+  })
 })
 
 onUnmounted(() => {
@@ -262,6 +294,9 @@ const handleUpgrade = () => {
   // Implement upgrade logic
   console.log('Upgrade clicked')
 }
+
+// Add to existing imports
+const isMobileMenuOpen = ref(false)
 </script>
 
 <style>
@@ -281,5 +316,12 @@ const handleUpgrade = () => {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Add to existing styles */
+@media (max-width: 1024px) {
+  body {
+    overflow-x: hidden;
+  }
 }
 </style>

@@ -13,7 +13,7 @@
             rel="noopener noreferrer"
             class="text-sky-600 hover:text-sky-700 transition-colors"
           >
-            backlink squad
+          squad
           </a> 
           ✨
         </p>

@@ -30,7 +30,7 @@
               :disabled="isLoading"
               class="w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2">
               <Icon name="ph:sparkle-duotone" class="text-xl" />
-              {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
+              {{ user?.value ? 'Go to App →' : isLoading ? 'Loading...' : 'Try it for Free →' }}
             </button>
             <a href="#features" class="w-full sm:w-auto px-6 py-4 text-neutral-900 hover:bg-white/75 rounded-xl transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2 group">
               <Icon name="ph:magic-wand-duotone" class="text-xl" />
@@ -357,6 +357,11 @@ const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
 const signInWithGoogle = async () => {
+  if (user.value) {
+    await router.push('/app')
+    return
+  }
+
   errorMessage.value = ''
   isLoading.value = true
 
@@ -380,12 +385,6 @@ const signInWithGoogle = async () => {
     isLoading.value = false
   }
 }
-
-onMounted(async () => {
-  if (user.value) {
-    await router.push('/app')
-  }
-})
 
 const { setSeo } = useSeo()
 
