@@ -98,9 +98,9 @@
         
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Business Goals
+            Relevant Context
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              What are your main business objectives?
+              What are the key factors to consider?
             </span>
           </label>
           <textarea
@@ -108,13 +108,13 @@
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showGoalsError }"
-            placeholder="e.g., Increase user engagement, improve retention, expand market share..."
+            placeholder="e.g., Current market conditions, team capacity, technical constraints..."
             @input="showGoalsError = false"
             required
           ></textarea>
           <!-- Error Message -->
           <p v-if="showGoalsError" class="mt-2 text-sm text-red-600">
-            Please specify your business goals
+            Please provide relevant context
           </p>
         </div>
       </div>
@@ -203,7 +203,8 @@ const generatePrioritization = async () => {
       method: 'POST',
       body: JSON.stringify({
         items: formData.value.features,
-        method: formData.value.method
+        method: formData.value.method,
+        context: formData.value.goals
       }),
       headers: {
         'Content-Type': 'application/json'

@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     apiKey: config.openaiApiKey
   });
 
-  const { items, method } = await readBody(event);
+  const { items, method, context } = await readBody(event);
 
   const methodPrompts = {
     RICE: "Use the RICE (Reach, Impact, Confidence, Effort) framework",
@@ -19,6 +19,7 @@ export default defineEventHandler(async (event) => {
   const prompt = `As a Product Strategy Expert, prioritize these items using ${methodPrompts[method]}:
 
 Items to Prioritize: ${items}
+Additional context: ${context}
 
 Please provide:
 1. Prioritized List

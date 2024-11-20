@@ -67,9 +67,9 @@
             <div class="bg-stone-50 border border-stone-200 rounded-lg px-3 lg:px-4 py-2 flex items-center gap-2 lg:gap-3">
               <div class="flex items-center gap-2 text-sm text-neutral-600 whitespace-nowrap">
                 <Icon name="ph:lightning-duotone" class="text-lg" />
-                <span>{{ credits }}</span>reports left
+                <span>{{ isLifetimePlan ? '🎉 unlimited' : credits }} reports {{ isLifetimePlan ? '' : 'left' }}</span>
               </div>
-              <button 
+              <button  v-if="!isLifetimePlan"
                 @click="handleUpgrade"
                 class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors flex items-center gap-1 whitespace-nowrap"
               >
@@ -265,16 +265,21 @@ async function fetchOrCreateUserAccount() {
 // Add credits state and fetching
 const credits = ref(0)
 
-// Function to fetch credits
+// Add lifetime plan state
+const isLifetimePlan = ref(false)
+
+// Update the fetch credits function
 const fetchCredits = async () => {
   try {
     const { data, error } = await supabase
       .from('accounts')
-      .select('credits')
+      .select('credits, lifetime_plan')
       .eq('user', user.value.id)
       .single()
 
     if (error) throw error
+    
+    isLifetimePlan.value = data?.lifetime_plan || false
     credits.value = data?.credits || 0
   } catch (error) {
     console.error('Error fetching credits:', error)
