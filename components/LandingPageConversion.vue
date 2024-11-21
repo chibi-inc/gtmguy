@@ -65,16 +65,17 @@
             type="url"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none"
             :class="{
-              'border-red-300': validationStates.url.dirty && !validationStates.url.valid,
+              'border-red-300': validationStates.url.error,
               'border-green-300': validationStates.url.dirty && validationStates.url.valid
             }"
             placeholder="e.g., https://example.com/landing-page"
             @input="handleUrlInput"
+            @blur="handleUrlBlur"
             required
           />
           <!-- Error Message -->
           <p 
-            v-if="validationStates.url.dirty && validationStates.url.error" 
+            v-if="validationStates.url.error" 
             class="mt-2 text-sm text-red-600"
           >
             {{ validationStates.url.error }}
@@ -106,6 +107,7 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
+import { useUrlValidation } from '~/composables/useUrlValidation'
 
 const formData = ref({
   url: ''
@@ -115,8 +117,9 @@ const isLoading = ref(false)
 const response = ref('')
 const showUrlError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { validateUrl } = useUrlValidation()
 
-// Add validation states
+// Update validation states
 const validationStates = ref({
   url: {
     dirty: false,
@@ -125,25 +128,22 @@ const validationStates = ref({
   }
 })
 
-// Update URL validation function
-const validateUrl = (url) => {
-  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
-  
-  if (!url) {
-    return { valid: false, error: 'URL is required' }
-  }
-  if (!urlPattern.test(url)) {
-    return { valid: false, error: 'Please enter a valid URL' }
-  }
-  return { valid: true, error: '' }
-}
-
-// Add validation handler
+// Update handleUrlInput to validate on each input
 const handleUrlInput = () => {
   validationStates.value.url.dirty = true
   const { valid, error } = validateUrl(formData.value.url)
   validationStates.value.url.valid = valid
   validationStates.value.url.error = error
+}
+
+// Add blur handler for additional validation
+const handleUrlBlur = () => {
+  if (!validationStates.value.url.dirty) {
+    validationStates.value.url.dirty = true
+    const { valid, error } = validateUrl(formData.value.url)
+    validationStates.value.url.valid = valid
+    validationStates.value.url.error = error
+  }
 }
 
 const handleUpgrade = () => {
@@ -185,15 +185,11 @@ const analyzeLandingPage = async () => {
 }
 
 const handleSubmit = async () => {
-  // Reset validation state
-  validationStates.value.url.dirty = true
-  validationStates.value.url.error = ''
-  validationStates.value.url.valid = false
-
-  // Validate URL
+  // Validate URL before submission
   const { valid, error } = validateUrl(formData.value.url)
   validationStates.value.url.valid = valid
   validationStates.value.url.error = error
+  validationStates.value.url.dirty = true
   
   if (!valid) return
   

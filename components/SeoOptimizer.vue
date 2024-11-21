@@ -55,23 +55,30 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Page URL
+            Website URL
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Enter the full URL of the page you want to analyze
+              Enter the full URL of your website
             </span>
           </label>
           <input
             v-model="formData.url"
             type="url"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none"
-            :class="{ 'border-red-300': showError }"
-            placeholder="e.g., https://example.com/page"
-            @input="showError = false"
+            :class="{
+              'border-red-300': validationStates.url.error,
+              'border-green-300': validationStates.url.dirty && validationStates.url.valid
+            }"
+            placeholder="e.g., https://example.com"
+            @input="handleUrlInput"
+            @blur="handleUrlBlur"
             required
           />
           <!-- Error Message -->
-          <p v-if="showError" class="mt-2 text-sm text-red-600">
-            Please enter a valid URL
+          <p 
+            v-if="validationStates.url.error" 
+            class="mt-2 text-sm text-red-600"
+          >
+            {{ validationStates.url.error }}
           </p>
         </div>
       </div>
@@ -100,6 +107,7 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
+import { useUrlValidation } from '~/composables/useUrlValidation'
 
 const formData = ref({
   url: ''
@@ -109,26 +117,46 @@ const isLoading = ref(false)
 const response = ref('')
 const showError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { validateUrl } = useUrlValidation()
+
+// Validation states
+const validationStates = ref({
+  url: {
+    dirty: false,
+    valid: false,
+    error: ''
+  }
+})
 
 const handleUpgrade = () => {
   showUpgradeModal.value = false
   // Implement upgrade logic
 }
 
-const isValidUrl = (url) => {
-  try {
-    new URL(url)
-    return true
-  } catch {
-    return false
+const handleUrlInput = () => {
+  validationStates.value.url.dirty = true
+  const { valid, error } = validateUrl(formData.value.url)
+  validationStates.value.url.valid = valid
+  validationStates.value.url.error = error
+}
+
+const handleUrlBlur = () => {
+  if (!validationStates.value.url.dirty) {
+    validationStates.value.url.dirty = true
+    const { valid, error } = validateUrl(formData.value.url)
+    validationStates.value.url.valid = valid
+    validationStates.value.url.error = error
   }
 }
 
 const handleSubmit = async () => {
-  if (!formData.value.url || !isValidUrl(formData.value.url)) {
-    showError.value = true
-    return
-  }
+  // Validate URL before submission
+  const { valid, error } = validateUrl(formData.value.url)
+  validationStates.value.url.valid = valid
+  validationStates.value.url.error = error
+  validationStates.value.url.dirty = true
+  
+  if (!valid) return
   
   await analyzeSeo()
 }
