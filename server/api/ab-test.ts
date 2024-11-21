@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
   const { goal, productDetails } = await readBody(event);
 
-  const prompt = `As an A/B Testing expert, create a comprehensive test plan based on the following information:
+  const prompt = `As an A/B Testing expert for SaaS, create a comprehensive test plan based on the following information:
 
 Goal: ${goal}
 Product Details: ${productDetails}
@@ -21,8 +21,7 @@ Please provide a detailed A/B test plan including:
 4. Test Duration
 5. Sample Size Requirements
 6. Implementation Plan
-7. Risk Assessment
-8. Analysis Framework
+7. Analysis Framework
 
 Format the response in a clear, structured way using markdown.`;
 

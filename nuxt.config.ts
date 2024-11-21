@@ -26,15 +26,15 @@ export default defineNuxtConfig({
         depth: 3,
         searchDepth: 3
       },
-      remarkPlugins: ['remark-gfm'],
-      rehypePlugins: ['rehype-slug']
+      remarkPlugins: ['remark-gfm', 'remark-math'],
+      rehypePlugins: ['rehype-slug', ['rehype-katex', { throwOnError: false }]]
     },
     highlight: {
       theme: 'github-light'
     }
   },
   sitemap: {
-    hostname: 'https://gtmguy.ai',
+    siteUrl: 'https://gtmguy.ai',
   },
   supabase: {
     redirect: false,
@@ -58,6 +58,31 @@ export default defineNuxtConfig({
       },
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
+    }
+  },
+  nitro: {
+    typescript: {
+      tsConfig: {
+        compilerOptions: {
+          // Existing options...
+        }
+      }
+    }
+  },
+  hooks: {
+    'builder:watch': (event, path) => {
+      if (event === 'add' || event === 'change') {
+        // Ignore specific warnings
+        process.removeAllListeners('warning')
+        process.on('warning', (warning) => {
+          if (warning.name === 'ExperimentalWarning' && 
+              warning.message.includes('CommonJS module') && 
+              warning.message.includes('supports-color')) {
+            return
+          }
+          console.warn(warning)
+        })
+      }
     }
   }
 })

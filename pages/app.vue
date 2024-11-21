@@ -5,7 +5,7 @@
       <div class="flex items-center justify-between p-4">
         <div class="flex items-center gap-3">
           <Icon name="ph:rocket-duotone" class="text-2xl text-sky-600" />
-          <h1 class="text-xl font-bold text-neutral-900">GTMGuy</h1>
+          <NuxtLink to="/" class="text-xl font-bold text-neutral-900">GTMGuy</NuxtLink>
         </div>
         <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="text-neutral-600">
           <Icon :name="isMobileMenuOpen ? 'ph:x-bold' : 'ph:list-bold'" class="text-2xl" />
@@ -22,7 +22,7 @@
         <div class="mb-6">
           <div class="flex items-center gap-3 mb-2">
             <Icon name="ph:rocket-duotone" class="text-3xl text-sky-600" />
-            <h1 class="text-2xl font-bold text-neutral-900">GTMGuy</h1>
+            <NuxtLink to="/" class="text-2xl font-bold text-neutral-900">GTMGuy</NuxtLink>
           </div>
           <p class="text-sm text-neutral-600">Your AI-Powered Product & Marketing Suite
         </p>
@@ -30,19 +30,26 @@
 
         <!-- Navigation -->
         <nav class="flex-1">
-          <ul class="grid grid-cols-1 gap-1.5">
+          <ul class="grid grid-cols-1">
             <li v-for="(item, index) in menuItems" :key="index">
-              <button 
-                :class="getMenuItemClasses(index)"
-                @click="activeItem = index"
-              >
-                <Icon 
-                  :name="item.icon" 
-                  class="text-lg shrink-0" 
-                  :class="activeItem === index ? 'text-sky-600' : 'text-neutral-600'" 
-                />
-                <span class="truncate">{{ item.label }}</span>
-              </button>
+              <template v-if="item.type === 'header'">
+                <div :class="getMenuItemClasses(item, index)">
+                  {{ item.label }}
+                </div>
+              </template>
+              <template v-else>
+                <button 
+                  :class="getMenuItemClasses(item, index)"
+                  @click="activeItem = menuItems.filter(i => !i.type).indexOf(item)"
+                >
+                  <Icon 
+                    :name="item.icon" 
+                    class="text-lg shrink-0" 
+                    :class="activeItem === menuItems.filter(i => !i.type).indexOf(item) ? 'text-sky-600' : 'text-neutral-600'" 
+                  />
+                  <span class="truncate">{{ item.label }}</span>
+                </button>
+              </template>
             </li>
           </ul>
         </nav>
@@ -100,7 +107,9 @@
       <!-- Modified content container -->
       <div class="max-w-6xl mx-auto p-4 lg:p-8">
         <div class="mb-6">
-          <h2 class="text-2xl font-bold text-neutral-900">{{ menuItems[activeItem].label }}</h2>
+          <h2 class="text-2xl font-bold text-neutral-900">
+            {{ menuItems.filter(i => !i.type)[activeItem].label }}
+          </h2>
           <p class="text-neutral-600 mt-1">{{ getDescription(activeItem) }}</p>
         </div>
         <div class="rounded-xl border border-stone-200 bg-white/50 backdrop-blur-sm p-6 shadow-sm">
@@ -132,47 +141,73 @@ import SeoOptimizer from '~/components/SeoOptimizer.vue'
 const activeItem = ref(0)
 
 const menuItems = [
-  { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
-  { label: 'Copy Generator', icon: 'ph:pencil-duotone', component: CopyOptimizer },
-  { label: 'GTM Strategy', icon: 'ph:target-duotone', component: GtmStrategy },
-  { label: 'Ideal Customer Profile', icon: 'ph:user-duotone', component: ICP },
-  { label: 'Launch Plan', icon: 'ph:rocket-launch-duotone', component: ProductLaunchPlan },
-  { label: 'Metrics and KPI', icon: 'ph:chart-line-up-duotone', component: MetricsKpi },
+  // Product Features
+  { 
+    label: 'Product',
+    type: 'header'
+  },
   { label: 'MVP Generator', icon: 'ph:cube-duotone', component: MvpGenerator },
   { label: 'PRD Generator', icon: 'ph:file-text-duotone', component: PrdGenerator },
   { label: 'Prioritization', icon: 'ph:list-numbers-duotone', component: Prioritization },
   { label: 'Research Plan', icon: 'ph:magnifying-glass-duotone', component: UserResearchPlan },
   { label: 'SWOT Analysis', icon: 'ph:chart-pie-slice-duotone', component: SwotAnalysis },
   { label: 'User Journey Map', icon: 'ph:map-trifold-duotone', component: UserJourneyMap },
+  
+  // Marketing Features
+  { 
+    label: 'Marketing',
+    type: 'header'
+  },
+  { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
+  { label: 'GTM Strategy', icon: 'ph:target-duotone', component: GtmStrategy },
+  { label: 'Ideal Customer Profile', icon: 'ph:user-duotone', component: ICP },
   { label: 'Landing Page Conversion', icon: 'ph:browser-duotone', component: LandingPageConversion },
-  { label: 'SEO Optimizer', icon: 'ph:google-logo-duotone', component: SeoOptimizer }
+  { label: 'Landing Page Copy', icon: 'ph:pencil-duotone', component: CopyOptimizer },
+  { label: 'Launch Plan', icon: 'ph:rocket-launch-duotone', component: ProductLaunchPlan },
+  { label: 'Metrics and KPI', icon: 'ph:chart-line-up-duotone', component: MetricsKpi },
+  { label: 'SEO Analyser', icon: 'ph:google-logo-duotone', component: SeoOptimizer }
 ]
 
-const currentComponent = computed(() => menuItems[activeItem.value].component)
-
-const getMenuItemClasses = (index) => ({
-  'w-full text-left px-3 py-2 rounded-lg text-neutral-700 hover:bg-stone-200 transition-all duration-200 flex items-center gap-2 text-sm': true,
-  'text-neutral-900 bg-stone-200 font-medium': activeItem.value === index
+const currentComponent = computed(() => {
+  const activeMenuItem = menuItems.filter(item => !item.type)[activeItem.value]
+  return activeMenuItem?.component
 })
 
-const getDescription = (index) => {
-  const descriptions = {
-    0: "Design and track A/B tests for your product",
-    1: "Generate copy for target customers",
-    2: "Plan and execute your go-to-market strategy",
-    3: "Define and analyze your Ideal Customer Profile",
-    4: "Plan and execute your product launch",
-    5: "Improve metrics and KPIs",
-    6: "Generate MVP features and requirements",
-    7: "Generate comprehensive Product Requirements Documents",
-    8: "Prioritize features and initiatives",
-    9: "Create comprehensive user research plans",
-    10: "Analyze strengths, weaknesses, opportunities, and threats",
-    11: "Map out your user's journey and touchpoints",
-    12: "Optimize landing pages for better conversion rates",
-    13: "Optimize your website's SEO"
+const getMenuItemClasses = (item, index) => {
+  if (item.type === 'header') {
+    return 'text-xs font-semibold text-neutral-500 uppercase tracking-wider px-3 py-2'
   }
-  return descriptions[index]
+  
+  const nonHeaderIndex = menuItems.filter(i => !i.type).indexOf(item)
+  
+  return {
+    'w-full text-left px-3 py-2 rounded-lg text-neutral-700 hover:bg-stone-200 transition-all duration-200 flex items-center gap-2 text-sm': true,
+    'text-neutral-900 bg-stone-200 font-medium': activeItem.value === nonHeaderIndex
+  }
+}
+
+const getDescription = (index) => {
+  const nonHeaderItems = menuItems.filter(item => !item.type)
+  const activeMenuItem = nonHeaderItems[index]
+  
+  const descriptions = {
+    'A/B Test Planner': "Design and track A/B tests for your product",
+    'Landing Page Copy': "Generate copy for your entire landing page",
+    'GTM Strategy': "Plan and execute your go-to-market strategy",
+    'Ideal Customer Profile': "Define and analyze your Ideal Customer Profile",
+    'Launch Plan': "Plan and execute your product launch",
+    'Metrics and KPI': "Improve metrics and KPIs",
+    'MVP Generator': "Generate MVP features and requirements",
+    'PRD Generator': "Generate comprehensive Product Requirements Documents",
+    'Prioritization': "Prioritize features and initiatives",
+    'Research Plan': "Create comprehensive user research plans",
+    'SWOT Analysis': "Analyze strengths, weaknesses, opportunities, and threats",
+    'User Journey Map': "Map out your user's journey and touchpoints",
+    'Landing Page Conversion': "Optimize landing pages for better conversion rates",
+    'SEO Analyser': "Analyse your website's SEO"
+  }
+  
+  return descriptions[activeMenuItem?.label] || ''
 }
 
 // Set SEO metadata with noindex
@@ -255,6 +290,7 @@ async function fetchOrCreateUserAccount() {
       method: 'POST',
       body: {
         user_id: user.value.id,
+        email: user.value.email,
       }
     })
   } catch (error) {

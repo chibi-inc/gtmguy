@@ -1,28 +1,32 @@
 <template>
-  <div v-if="content" class="mt-8 space-y-6">
+  <div v-if="content" class="mt-8 space-y-6" ref="responseContainer">
     <div class="border-t border-stone-200 pt-8">
       <!-- Response Header -->
-      <div class="flex items-center justify-end mb-6">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-2 text-neutral-600">
+          <Icon name="ph:chat-circle-text-duotone" class="text-lg" />
+          <span class="font-medium">GTMGuy</span>
+        </div>
         <div class="flex items-center gap-3">
           <button
             @click="copyToClipboard"
-            class="px-3 py-1.5 text-neutral-600 hover:text-neutral-900 flex items-center gap-2 text-sm transition-colors"
+            class="px-3 py-1.5 text-neutral-600 hover:text-neutral-900 flex items-center gap-2 text-sm transition-colors rounded-md hover:bg-stone-50"
           >
             <Icon :name="copied ? 'ph:check-duotone' : 'ph:copy-duotone'" class="text-lg" />
             {{ copied ? 'Copied!' : 'Copy' }}
           </button>
           <button
             @click="$emit('clear')"
-            class="px-3 py-1.5 text-neutral-600 hover:text-neutral-900 flex items-center gap-2 text-sm transition-colors"
+            class="px-3 py-1.5 text-neutral-600 hover:text-neutral-900 flex items-center gap-2 text-sm transition-colors rounded-md hover:bg-stone-50"
           >
             <Icon name="ph:x-duotone" class="text-lg" />
-            Clear
+            Clear 
           </button>
         </div>
       </div>
 
       <!-- Content -->
-      <div class="bg-white rounded-xl border border-stone-200 p-6 shadow-sm">
+      <div class="bg-white rounded-xl border border-stone-200 p-6 shadow-sm hover:shadow-md transition-shadow">
         <div class="prose prose-stone max-w-none">
           <div v-html="markdownToHtml(content)"></div>
         </div>
@@ -32,7 +36,7 @@
       <div class="mt-4 flex justify-end">
         <button
           @click="regenerate"
-          class="flex items-center gap-2 text-sky-600 hover:text-sky-700 transition-colors text-sm"
+          class="flex items-center gap-2 text-sky-600 hover:text-sky-700 transition-colors text-sm px-3 py-1.5 rounded-md hover:bg-sky-50"
         >
           <Icon name="ph:arrows-counter-clockwise-duotone" class="text-lg" />
           Regenerate
@@ -43,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import { marked } from 'marked'
 
 const props = defineProps({
@@ -73,6 +77,21 @@ const copyToClipboard = async () => {
   }
 }
 
+const responseContainer = ref(null)
+
+watch(() => props.content, async (newContent) => {
+  if (newContent) {
+    // Wait for the next tick and DOM update
+    await nextTick()
+    // Increase delay slightly to ensure content is fully rendered
+    setTimeout(() => {
+      responseContainer.value?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'  // Changed from 'start' to 'center' for better UX
+      })
+    }, 200)  // Increased from 100ms to 200ms
+  }
+})
 
 const regenerate = () => {
   emit('regenerate')
@@ -84,10 +103,10 @@ const regenerate = () => {
   @apply text-neutral-700;
 }
 .prose h1, .prose h2, .prose h3 {
-  @apply text-neutral-900 font-semibold;
+  @apply text-neutral-900 font-semibold tracking-tight;
 }
 .prose h1 {
-  @apply text-2xl mb-6;
+  @apply text-2xl mb-6 border-b border-stone-200 pb-4;
 }
 .prose h2 {
   @apply text-xl mb-4 mt-8;
@@ -111,10 +130,10 @@ const regenerate = () => {
   @apply border-l-4 border-stone-200 pl-4 italic my-4;
 }
 .prose code {
-  @apply bg-stone-100 px-1.5 py-0.5 rounded text-sm font-mono;
+  @apply bg-stone-100 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800;
 }
 .prose pre {
-  @apply bg-stone-100 p-4 rounded-lg my-4 overflow-x-auto;
+  @apply bg-stone-100 p-4 rounded-lg my-4 overflow-x-auto shadow-sm;
 }
 .prose table {
   @apply w-full border-collapse my-4;

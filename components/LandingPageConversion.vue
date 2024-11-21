@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto">
+  <div class="max-w-3xl mx-auto">
     <!-- Loading Overlay -->
     <div 
       v-if="isLoading"
@@ -64,25 +64,31 @@
             v-model="formData.url"
             type="url"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none"
-            :class="{ 'border-red-300': showUrlError }"
+            :class="{
+              'border-red-300': validationStates.url.dirty && !validationStates.url.valid,
+              'border-green-300': validationStates.url.dirty && validationStates.url.valid
+            }"
             placeholder="e.g., https://example.com/landing-page"
-            @input="showUrlError = false"
+            @input="handleUrlInput"
             required
           />
           <!-- Error Message -->
-          <p v-if="showUrlError" class="mt-2 text-sm text-red-600">
-            Please enter a valid URL
+          <p 
+            v-if="validationStates.url.dirty && validationStates.url.error" 
+            class="mt-2 text-sm text-red-600"
+          >
+            {{ validationStates.url.error }}
           </p>
         </div>
       </div>
 
       <button
         type="submit"
-        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70"
-        :disabled="isLoading || !formData.url"
+        class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
+        :disabled="isLoading"
       >
-        <Icon name="ph:chart-line-up-duotone" class="text-xl" />
-        Analyze Landing Page
+        <Icon name="ph:browser-duotone" class="text-xl" />
+        {{ isLoading ? 'Analyzing...' : 'Analyze Landing Page' }}
       </button>
     </form>
 
@@ -110,18 +116,42 @@ const response = ref('')
 const showUrlError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
+// Add validation states
+const validationStates = ref({
+  url: {
+    dirty: false,
+    valid: false,
+    error: ''
+  }
+})
+
+// Update URL validation function
+const validateUrl = (url) => {
+  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
+  
+  if (!url) {
+    return { valid: false, error: 'URL is required' }
+  }
+  if (!urlPattern.test(url)) {
+    return { valid: false, error: 'Please enter a valid URL' }
+  }
+  return { valid: true, error: '' }
+}
+
+// Add validation handler
+const handleUrlInput = () => {
+  validationStates.value.url.dirty = true
+  const { valid, error } = validateUrl(formData.value.url)
+  validationStates.value.url.valid = valid
+  validationStates.value.url.error = error
+}
+
 const handleUpgrade = () => {
   showUpgradeModal.value = false
   // Implement upgrade logic
 }
 
 const analyzeLandingPage = async () => {
-  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
-  if (!formData.value.url || !urlPattern.test(formData.value.url)) {
-    showUrlError.value = true
-    return
-  }
-
   isLoading.value = true
   response.value = ''
   
@@ -155,15 +185,17 @@ const analyzeLandingPage = async () => {
 }
 
 const handleSubmit = async () => {
-  // Reset error
-  showUrlError.value = false
+  // Reset validation state
+  validationStates.value.url.dirty = true
+  validationStates.value.url.error = ''
+  validationStates.value.url.valid = false
 
-  // Validate URL format
-  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
-  if (!formData.value.url || !urlPattern.test(formData.value.url)) {
-    showUrlError.value = true
-    return
-  }
+  // Validate URL
+  const { valid, error } = validateUrl(formData.value.url)
+  validationStates.value.url.valid = valid
+  validationStates.value.url.error = error
+  
+  if (!valid) return
   
   await analyzeLandingPage()
 }

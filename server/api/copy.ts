@@ -9,29 +9,34 @@ export default defineEventHandler(async (event) => {
 
   const { productDetails, targetCustomer } = await readBody(event);
 
-  const prompt = `As a Marketing Copy Expert, generate 5 different marketing copy versions for this product and target customer:
+  const prompt = `As a Landing Page Copywriting Expert, create compelling copy sections for this product's landing page:
 
 Product Details: ${productDetails}
 Target Customer: ${targetCustomer}
 
-Rules:
-1. Each version should be concise and impactful (2-3 sentences)
-2. Focus on making the language appealing to the target customer
-3. Each version should have a distinct approach:
-   - Version 1: Focus on benefits and value proposition
-   - Version 2: Emphasize emotional connection
-   - Version 3: Highlight social proof and credibility
-   - Version 4: Use problem-solution framework
-   - Version 5: Focus on urgency and FOMO
+Generate the following landing page sections:
+1. Headline (max 10 words, attention-grabbing)
+2. Sub-headline (1 sentence, supports main headline)
+3. Hero Section Copy (2-3 sentences, main value proposition)
+4. Feature Highlights (3 key features with brief benefit statements)
+5. Social Proof Section (suggested testimonial angle + trust indicators)
+6. Call-to-Action Phrases (3 variations)
+
+Writing Guidelines:
+- Use clear, benefit-driven language
+- Maintain consistent voice and tone for the target audience
+- Focus on solving customer pain points
+- Include power words and emotional triggers
+- Keep copy scannable and web-friendly
 
 Please provide:
-1. Five Copy Versions (numbered 1-5)
-2. Key Features Highlighted in Each
-3. Psychological Triggers Used
-4. Tone and Voice Analysis
-5. Call-to-Action Recommendations
+1. All copy sections (clearly labeled)
+2. Tone and Voice Analysis
+3. Primary Keywords Used
+4. Key Emotional Triggers
+5. A/B Testing Recommendations
 
-Format the response in a clear, structured way using markdown, with the copy versions appearing first.`;
+Format the response in markdown, with the copy sections appearing first.`;
 
   try {
     const completion = await openai.chat.completions.create({
@@ -39,7 +44,7 @@ Format the response in a clear, structured way using markdown, with the copy ver
       messages: [
         { 
           role: 'system', 
-          content: 'You are a Marketing Copy Expert specializing in customer-focused messaging. You are known for creating compelling, concise copy that resonates with specific target audiences.' 
+          content: 'You are a Landing Page Copywriting Expert who specializes in conversion-focused web copy. You excel at creating compelling headlines, clear value propositions, and persuasive calls-to-action that drive results.' 
         },
         { role: 'user', content: prompt }
       ],

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto">
+  <div class="max-w-3xl mx-auto">
     <!-- ... loading overlay and upgrade modal remain the same ... -->
 
     <form @submit.prevent="handleSubmit" class="space-y-8">

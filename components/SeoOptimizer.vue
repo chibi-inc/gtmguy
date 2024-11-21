@@ -81,7 +81,7 @@
         class="w-full py-3 px-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-200 font-medium flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:hover:bg-sky-500"
         :disabled="isLoading"
       >
-        <Icon name="ph:magnifying-glass-duotone" class="text-xl" />
+        <Icon name="ph:google-logo-duotone" class="text-xl" />
         {{ isLoading ? 'Analyzing...' : 'Analyze SEO' }}
       </button>
     </form>
