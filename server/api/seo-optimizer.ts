@@ -1,5 +1,6 @@
 import OpenAI from 'openai'
 import { fetchPageContent } from '../utils/pageFetcher'
+import { JSDOM } from 'jsdom'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
@@ -13,12 +14,42 @@ export default defineEventHandler(async (event) => {
   // Fetch the actual page content
   const pageContent = await fetchPageContent(url)
 
-  const prompt = `As an SEO expert, analyze this URL and its content to provide comprehensive recommendations:
+  // Extract HTML elements
+  const dom = new JSDOM(pageContent)
+  const document = dom.window.document
+
+  // Extract tags
+  const imgTags = Array.from(document.getElementsByTagName('img'))
+    .map(img => ({
+      src: img.getAttribute('src'),
+      alt: img.getAttribute('alt')
+    }))
+
+  const aTags = Array.from(document.getElementsByTagName('a'))
+    .map(a => ({
+      href: a.getAttribute('href'),
+      text: a.textContent?.trim()
+    }))
+
+  const h1Tags = Array.from(document.getElementsByTagName('h1'))
+    .map(h1 => h1.textContent?.trim())
+
+  const prompt = `As an SEO expert, analyze this URL, its content, and the following extracted elements:
 
 URL: ${url}
 
 Current Page Content:
 ${pageContent ? pageContent.substring(0, 2000) + '...' : 'Unable to fetch page content'}
+
+Extracted Elements:
+H1 Tags Found:
+${JSON.stringify(h1Tags, null, 2)}
+
+Images Found:
+${JSON.stringify(imgTags, null, 2)}
+
+Links Found:
+${JSON.stringify(aTags, null, 2)}
 
 Please analyze the current implementation and provide detailed recommendations in these areas:
 
@@ -49,15 +80,18 @@ Please analyze the current implementation and provide detailed recommendations i
    - Content formatting analysis
    - Mobile optimization suggestions
 
-6. Internal Linking
-   - Current structure analysis
-   - Anchor text recommendations
-   - Navigation improvement suggestions
+6. Image Accessibility
+   - List all <img> tags found
+   - Identify images missing alt text
+   - Evaluate quality of existing alt text
+   - Provide specific recommendations for each image
 
-7. Multimedia Optimization
-   - Current image implementation
-   - Alt text analysis
-   - Media placement strategy
+7. Internal Linking Structure
+   - List all <a> tags with href attributes
+   - Identify which links point to the same domain (${new URL(url).hostname})
+   - Analyze anchor text quality
+   - Flag any broken or empty links
+   - Evaluate internal link distribution
 
 8. Featured Snippet Optimization
    - Current snippet eligibility

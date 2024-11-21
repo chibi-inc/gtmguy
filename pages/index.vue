@@ -41,8 +41,8 @@
           <div class="mt-12 pt-8 border-t border-neutral-200/50 animate-fade-in-up delay-400">
             <div class="max-w-md mx-auto bg-stone-50/80 backdrop-blur-sm rounded-xl p-6 border border-stone-200">
               <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Icon name="ph:smiley-duotone" class="text-2xl text-white" />
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Icon name="ph:smiley-duotone" class="text-2xl text-green-500" />
                 </div>
                 <div class="text-left">
                   <p class="text-neutral-700 italic mb-2">
@@ -58,43 +58,46 @@
     </section>
 
     <!-- Why GTMGuy Section -->
-    <section class="py-6 relative overflow-hidden">
+    <section class="py-16 sm:py-24 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sky-50/10 to-transparent"></div>
       <div class="max-w-7xl mx-auto px-6 relative">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div class="space-y-8">
             <span class="text-sky-600 font-medium">Why GTMGuy?</span>
-            <h2 class="text-4xl font-bold text-neutral-900">Stop Struggling with Go-to-Market Strategy</h2>
+            <h2 class="text-4xl font-bold text-neutral-900">Your AI Co-Pilot for Product Success</h2>
             <div class="space-y-6">
               <div class="flex gap-4">
                 <div class="flex-shrink-0 w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center">
-                  <Icon name="ph:timer-duotone" class="text-2xl text-sky-600" />
+                  <Icon name="ph:robot-duotone" class="text-2xl text-sky-600" />
                 </div>
                 <div>
-                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">From Weeks to Minutes</h3>
-                  <p class="text-neutral-700">Stop spending weeks on strategy documents. GTMGuy helps you generate professional GTM assets in minutes using AI.</p>
+                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">AI-Powered Excellence</h3>
+                  <p class="text-neutral-700">Advanced AI technology that understands market dynamics, customer behavior, and successful GTM patterns to generate tailored strategies.</p>
                 </div>
               </div>
+              
               <div class="flex gap-4">
                 <div class="flex-shrink-0 w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
-                  <Icon name="ph:brain-duotone" class="text-2xl text-sky-600" />
+                  <Icon name="ph:toolbox-duotone" class="text-2xl text-sky-600" />
                 </div>
                 <div>
-                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">Expert-Level Strategy</h3>
-                  <p class="text-neutral-700">Access battle-tested frameworks and strategies used by successful companies, powered by advanced AI.</p>
+                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">Complete GTM Suite</h3>
+                  <p class="text-neutral-700">9+ specialized tools covering everything from ICP creation to launch planning, SEO optimization, and user research - all in one platform.</p>
                 </div>
               </div>
+              
               <div class="flex gap-4">
                 <div class="flex-shrink-0 w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
-                  <Icon name="ph:currency-circle-dollar-duotone" class="text-2xl text-sky-600" />
+                  <Icon name="ph:lightning-duotone" class="text-2xl text-sky-600" />
                 </div>
                 <div>
-                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">Fraction of the Cost</h3>
-                  <p class="text-neutral-700">Save thousands on consultants and agencies. Get professional GTM strategy at a fraction of the traditional cost.</p>
+                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">10x Faster Execution</h3>
+                  <p class="text-neutral-700">Transform months of planning into minutes. Generate comprehensive strategies, analyze markets, and create launch plans instantly.</p>
                 </div>
               </div>
             </div>
           </div>
+          
           <div class="lg:pl-12">
             <div class="bg-white rounded-2xl border border-stone-200 p-8 space-y-8">
               <div class="space-y-4">
@@ -102,21 +105,22 @@
                   <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
                   </div>
-                  <p class="text-neutral-900"><span class="font-semibold">No templates or guesswork</span> - AI-powered strategy tailored to your product</p>
+                  <p class="text-neutral-900"><span class="font-semibold">Data-Driven Insights</span> - AI analyzes market trends and successful patterns</p>
                 </div>
                 <div class="flex items-center gap-4">
                   <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
                   </div>
-                  <p class="text-neutral-900"><span class="font-semibold">Complete GTM toolkit</span> - Everything from ICPs to launch plans in one place</p>
+                  <p class="text-neutral-900"><span class="font-semibold">Proven Frameworks</span> - Built on battle-tested GTM strategies</p>
                 </div>
                 <div class="flex items-center gap-4">
                   <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
                   </div>
-                  <p class="text-neutral-900"><span class="font-semibold">Continuous updates</span> - Strategy that evolves with your product and market</p>
+                  <p class="text-neutral-900"><span class="font-semibold">Regular Updates</span> - New features and improvements every month</p>
                 </div>
               </div>
+              
               <div class="border-t border-stone-200 pt-8">
                 <div class="bg-neutral-50 rounded-xl p-6">
                   <div class="flex items-start gap-4">
@@ -124,8 +128,8 @@
                       <Icon name="ph:rocket-duotone" class="text-2xl text-white" />
                     </div>
                     <div>
-                      <h4 class="font-semibold text-neutral-900 mb-1">Limited Time Launch Offer</h4>
-                      <p class="text-neutral-700 text-sm">Get lifetime access to unlimited strategies for just $199. Start with 10 free strategies to try it out.</p>
+                      <h4 class="font-semibold text-neutral-900 mb-1">Launch Special Offer</h4>
+                      <p class="text-neutral-700 text-sm">Get lifetime access to all tools for just $69. Start with 10 free generations today.</p>
                     </div>
                   </div>
                   <button 
@@ -137,6 +141,50 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add new Ideal Customers Section -->
+    <section class="py-24 bg-white border-y border-stone-200">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <span class="text-sky-600 font-medium mb-2 block">Perfect For</span>
+          <h2 class="text-4xl font-bold text-neutral-900 mb-6">Who Uses GTMGuy?</h2>
+          <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
+            Whether you're launching a new product or scaling an existing one, GTMGuy helps teams of all sizes go to market faster.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
+            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:rocket-launch-duotone" class="text-2xl text-sky-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Startup Founders</h3>
+            <p class="text-neutral-700">
+              Get professional-grade GTM strategies at founder-friendly prices. Perfect for pre-seed to Series A startups.
+            </p>
+          </div>
+          
+          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
+            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:buildings-duotone" class="text-2xl text-sky-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Product Teams</h3>
+            <p class="text-neutral-700">
+              Streamline your product launches and GTM planning. Ideal for product managers and marketing teams.
+            </p>
+          </div>
+          
+          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
+            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:briefcase-duotone" class="text-2xl text-sky-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Consultants</h3>
+            <p class="text-neutral-700">
+              Deliver high-quality GTM strategies to clients faster. Perfect for independent consultants and agencies.
+            </p>
           </div>
         </div>
       </div>
@@ -281,7 +329,7 @@
               </div>
               <div class="mb-8">
                 <div class="flex items-baseline gap-2">
-                  <span class="text-3xl font-bold">$199</span>
+                  <span class="text-3xl font-bold">$69</span>
                   <span class="text-neutral-300">one-time payment</span>
                 </div>
                 <p class="text-sm text-neutral-300 mt-1">Lifetime access, unlimited value</p>
@@ -434,7 +482,7 @@ const features = [
     description: 'Get AI-powered insights on your landing page conversion potential and actionable improvement suggestions.'
   },
   {
-    title: 'SEO Optimizer',
+    title: 'SEO Analyser',
     icon: 'ph:google-logo-duotone',
     description: 'Analyze and optimize your content for search engines with AI-driven recommendations and keywords.'
   },
@@ -482,6 +530,17 @@ const benefits = [
     description: 'Get AI-powered insights based on best practices and proven frameworks in the industry.'
   }
 ]
+
+// Add Crisp Chat initialization
+onMounted(() => {
+  window.$crisp = []
+  window.CRISP_WEBSITE_ID = "3448ab9c-c0d3-4622-9cf8-d83d0b7f29b5"
+  
+  const script = document.createElement('script')
+  script.src = "https://client.crisp.chat/l.js"
+  script.async = true
+  document.head.appendChild(script)
+})
 </script>
 
 <style>

@@ -5,8 +5,8 @@
         <!-- Brand Column -->
         <div class="space-y-4 md:col-span-2">
           <NuxtLink to="/" class="flex items-center gap-3">
-            <div class="bg-neutral-900 text-white p-1.5 rounded-lg">
-              <Icon name="ph:rocket-launch-duotone" class="text-xl" />
+            <div class="bg-neutral-900 text-white p-1.5 rounded-lg flex items-center justify-center">
+              <Icon name="ph:rocket-duotone" class="text-xl" />
             </div>
             <span class="text-neutral-900 font-semibold">GTMGuy</span>
           </NuxtLink>

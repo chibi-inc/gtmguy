@@ -9,6 +9,13 @@
         </div>
         <div class="flex items-center gap-3">
           <button
+            @click="downloadMarkdown"
+            class="px-3 py-1.5 text-neutral-600 hover:text-neutral-900 flex items-center gap-2 text-sm transition-colors rounded-md hover:bg-stone-50"
+          >
+            <Icon name="ph:download-duotone" class="text-lg" />
+            Download
+          </button>
+          <button
             @click="copyToClipboard"
             class="px-3 py-1.5 text-neutral-600 hover:text-neutral-900 flex items-center gap-2 text-sm transition-colors rounded-md hover:bg-stone-50"
           >
@@ -95,6 +102,18 @@ watch(() => props.content, async (newContent) => {
 
 const regenerate = () => {
   emit('regenerate')
+}
+
+const downloadMarkdown = () => {
+  const blob = new Blob([props.content], { type: 'text/markdown' })
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'gtmguy-response.md'
+  document.body.appendChild(a)
+  a.click()
+  window.URL.revokeObjectURL(url)
+  document.body.removeChild(a)
 }
 </script>
 

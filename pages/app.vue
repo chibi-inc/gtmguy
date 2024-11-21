@@ -338,6 +338,22 @@ const handleUpgrade = () => {
 
 // Add to existing imports
 const isMobileMenuOpen = ref(false)
+onMounted(() => {
+  window.$crisp = []
+  window.CRISP_WEBSITE_ID = "3448ab9c-c0d3-4622-9cf8-d83d0b7f29b5"
+  
+  const script = document.createElement('script')
+  script.src = "https://client.crisp.chat/l.js"
+  script.async = true
+  document.head.appendChild(script)
+
+  // Set up Crisp user email when script loads
+  script.onload = () => {
+    if (user.value?.email) {
+      window.$crisp.push(["set", "user:email", user.value.email])
+    }
+  }
+})
 </script>
 
 <style>
