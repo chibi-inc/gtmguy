@@ -147,6 +147,11 @@ const isValidInputs = computed(() => {
   return blogContent.value.length > 100 && validateUrl(sitemapUrl.value)
 })
 
+const handleUpgrade = () => {
+  showUpgradeModal.value = false
+  // Implement upgrade logic
+}
+
 async function analyzeBlogForLinks() {
   // Reset errors
   showProductError.value = false
@@ -164,17 +169,18 @@ async function analyzeBlogForLinks() {
     return
   }
 
-  // Credit check
-  const canProceed = await checkAndConsumeCredit()
-  if (!canProceed) {
-    showUpgradeModal.value = true
-    return
-  }
+  isProcessing.value = true
+  suggestions.value = []
+  error.value = ''
 
   try {
-    isProcessing.value = true
-    error.value = ''
-    
+    // Check credits first
+    const canProceed = await checkAndConsumeCredit()
+    if (!canProceed) {
+      isProcessing.value = false
+      return
+    }
+
     const response = await $fetch('/api/internal-links', {
       method: 'POST',
       body: {
