@@ -42,13 +42,10 @@ export default defineEventHandler(async (event: H3Event) => {
     const suggestions = await generateInternalLinkSuggestions(blogContent, urls)
     console.log(`Generated ${suggestions.length} link suggestions`)
     
-    const enhancedContent = applyLinksToContent(blogContent, suggestions)
-
     return {
       success: true,
       data: {
         suggestions,
-        enhancedContent,
         linkSummary: generateLinkSummaryTable(suggestions)
       },
       message: 'Internal link suggestions generated successfully'
@@ -91,7 +88,7 @@ async function generateInternalLinkSuggestions(blogContent: string, urls: string
       },
       {
         role: "user",
-        content: `Blog Content: ${blogContent.substring(0, 2000)}...
+        content: `Blog Content: ${blogContent.substring(0, 3000)}...
         
         Available URLs to link to:
         ${urls.join('\n')}`
@@ -117,20 +114,4 @@ function generateLinkSummaryTable(suggestions: any[]) {
     context: `${suggestion.contextMatch}%`,
     reason: suggestion.reason
   }))
-}
-
-function applyLinksToContent(content: string, suggestions: any[]) {
-  console.log(`Applying ${suggestions.length} links to content`)
-  let enhancedContent = content
-  
-  const sortedSuggestions = [...suggestions].sort(
-    (a, b) => b.originalText.length - a.originalText.length
-  )
-  
-  sortedSuggestions.forEach(suggestion => {
-    const regex = new RegExp(`\\b${suggestion.originalText}\\b`, 'g')
-    const markdownLink = `[${suggestion.originalText}](${suggestion.targetUrl})`
-    enhancedContent = enhancedContent.replace(regex, markdownLink)
-  })
-  return enhancedContent
 } 

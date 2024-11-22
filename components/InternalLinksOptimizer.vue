@@ -122,43 +122,12 @@
       </button>
     </form>
 
-    <!-- Results Section -->
-    <div v-if="suggestions.length" class="mt-8">
-      <BaseDivider class="my-6" />
-      
-      <div class="space-y-6">
-        <h3 class="text-xl font-semibold text-gray-900">Suggested Internal Links</h3>
-        
-        <div v-for="(suggestion, index) in suggestions" 
-             :key="index"
-             class="p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors duration-200">
-          <div class="space-y-3">
-            <div>
-              <div class="font-medium text-gray-700">Original Text:</div>
-              <div class="text-gray-600 mt-1 text-sm">"{{ suggestion.originalText }}"</div>
-            </div>
-            
-            <div>
-              <div class="font-medium text-gray-700">Suggested Link:</div>
-              <a :href="suggestion.targetUrl"
-                 target="_blank"
-                 class="text-blue-600 hover:text-blue-800 text-sm mt-1 block">
-                {{ suggestion.targetUrl }}
-              </a>
-            </div>
-
-            <div>
-              <div class="font-medium text-gray-700">Reason:</div>
-              <div class="text-gray-600 mt-1 text-sm">{{ suggestion.reason }}</div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <BaseChip>Relevance: {{ suggestion.relevanceScore }}%</BaseChip>
-              <BaseChip>Context Match: {{ suggestion.contextMatch }}%</BaseChip>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div v-if="suggestions.length" class="mt-8 space-y-8">
+      <SuggestedLinks 
+        :suggestions="suggestions" 
+        @clear="clearResults"
+        @regenerate="analyzeBlogForLinks"
+      />
     </div>
   </div>
 </template>
@@ -167,6 +136,7 @@
 import { ref, computed } from 'vue'
 import { useUrlValidation } from '~/composables/useUrlValidation'
 import { useCredits } from '~/composables/useCredits'
+import SuggestedLinks from '~/components/SuggestedLinks.vue'
 
 interface Suggestion {
   originalText: string
@@ -256,15 +226,20 @@ async function analyzeBlogForLinks() {
 
     if (response.success) {
       suggestions.value = response.data.suggestions
-      console.log('Received suggestions:', suggestions.value) // Debug log
+      console.log('Received suggestions:', suggestions.value)
     } else {
       throw new Error(response.message || 'Failed to generate suggestions')
     }
   } catch (e: any) {
     error.value = e.message || 'An error occurred while analyzing'
-    console.error('Error in analyzeBlogForLinks:', e) // Debug log
+    console.error('Error in analyzeBlogForLinks:', e)
   } finally {
     isProcessing.value = false
   }
+}
+
+// Add clear function
+const clearResults = () => {
+  suggestions.value = []
 }
 </script> 
