@@ -50,6 +50,7 @@
       @clear="response = ''"
       @regenerate="analyzePage"
     />
+    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
   </div>
 </template>
 
@@ -57,6 +58,7 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
+import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 const formData = ref({
   url: ''
@@ -66,11 +68,6 @@ const isLoading = ref(false)
 const response = ref('')
 const showError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
-
-const handleUpgrade = () => {
-  showUpgradeModal.value = false
-  // Implement upgrade logic
-}
 
 const isValidUrl = (url) => {
   try {

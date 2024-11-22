@@ -14,7 +14,7 @@
     </div>
 
     <!-- Upgrade Modal -->
-    <div 
+    <!-- <div 
       v-if="showUpgradeModal"
       class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
     >
@@ -43,7 +43,8 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
 
     <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
@@ -122,6 +123,7 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
+import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 const formData = ref({
   goal: '',
@@ -134,10 +136,6 @@ const showObjectiveError = ref(false)
 const showMetricsError = ref(false)
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
 
-const handleUpgrade = () => {
-  showUpgradeModal.value = false
-  // Implement upgrade logic
-}
 
 const handleSubmit = async () => {
   // Reset errors
