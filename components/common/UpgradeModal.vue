@@ -36,7 +36,7 @@
 
               <div class="mb-8">
                 <div class="flex items-baseline gap-2">
-                  <span class="text-3xl font-bold">$69</span>
+                  <span class="text-3xl font-bold">${{ price }}</span>
                   <span class="text-neutral-300">one-time payment</span>
                 </div>
                 <p class="text-sm text-neutral-300 mt-1">
@@ -95,6 +95,7 @@
 
 <script setup>
 defineEmits(['close'])
+const { data: price } = await useFetch('/api/fetch-price')
 </script>
 
 <style scoped>
