@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto">
+  <div class="max-w-3xl mx-auto">
     <!-- Loading Overlay -->
     <div 
       v-if="isProcessing"
@@ -64,21 +64,14 @@
           <textarea
             v-model="blogContent"
             rows="6"
-            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none"
-            :class="{
-              'border-red-300': validationStates.content.error,
-              'border-green-300': validationStates.content.dirty && validationStates.content.valid
-            }"
+            class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
+            :class="{ 'border-red-300': showProductError }"
             placeholder="Enter your blog content..."
-            @input="handleContentInput"
-            @blur="handleContentBlur"
+            @input="showProductError = false"
             required
           />
-          <p 
-            v-if="validationStates.content.error" 
-            class="mt-2 text-sm text-red-600"
-          >
-            {{ validationStates.content.error }}
+          <p v-if="showProductError" class="mt-2 text-sm text-red-600">
+            Please provide blog content (minimum 100 characters)
           </p>
         </div>
 
@@ -94,20 +87,13 @@
             v-model="sitemapUrl"
             type="url"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none"
-            :class="{
-              'border-red-300': validationStates.url.error,
-              'border-green-300': validationStates.url.dirty && validationStates.url.valid
-            }"
+            :class="{ 'border-red-300': showUrlError }"
             placeholder="https://example.com/sitemap.xml"
-            @input="handleUrlInput"
-            @blur="handleUrlBlur"
+            @input="showUrlError = false"
             required
           />
-          <p 
-            v-if="validationStates.url.error" 
-            class="mt-2 text-sm text-red-600"
-          >
-            {{ validationStates.url.error }}
+          <p v-if="showUrlError" class="mt-2 text-sm text-red-600">
+            Please provide a valid sitemap URL
           </p>
         </div>
       </div>
@@ -151,6 +137,8 @@ const sitemapUrl = ref('')
 const isProcessing = ref(false)
 const error = ref('')
 const suggestions = ref<Suggestion[]>([])
+const showProductError = ref(false)
+const showUrlError = ref(false)
 
 const { validateUrl } = useUrlValidation()
 const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
@@ -159,55 +147,26 @@ const isValidInputs = computed(() => {
   return blogContent.value.length > 100 && validateUrl(sitemapUrl.value)
 })
 
-// Add validation states
-const validationStates = ref({
-  content: {
-    dirty: false,
-    valid: false,
-    error: ''
-  },
-  url: {
-    dirty: false,
-    valid: false,
-    error: ''
-  }
-})
-
-// Add validation handlers
-const handleContentInput = () => {
-  validationStates.value.content.dirty = true
-  validationStates.value.content.valid = blogContent.value.length > 100
-  validationStates.value.content.error = blogContent.value.length <= 100 ? 'Content must be at least 100 characters' : ''
-}
-
-const handleContentBlur = () => {
-  if (!validationStates.value.content.dirty) {
-    validationStates.value.content.dirty = true
-    handleContentInput()
-  }
-}
-
-const handleUrlInput = () => {
-  validationStates.value.url.dirty = true
-  const { valid, error } = validateUrl(sitemapUrl.value)
-  validationStates.value.url.valid = valid
-  validationStates.value.url.error = error
-}
-
-const handleUrlBlur = () => {
-  if (!validationStates.value.url.dirty) {
-    validationStates.value.url.dirty = true
-    handleUrlInput()
-  }
-}
-
-const handleUpgrade = () => {
-  showUpgradeModal.value = false
-  // Implement upgrade logic
-}
-
 async function analyzeBlogForLinks() {
-  if (!await checkAndConsumeCredit()) {
+  // Reset errors
+  showProductError.value = false
+  showUrlError.value = false
+
+  // Validate inputs
+  if (!blogContent.value || blogContent.value.length <= 100) {
+    showProductError.value = true
+  }
+  if (!sitemapUrl.value || !validateUrl(sitemapUrl.value)) {
+    showUrlError.value = true
+  }
+
+  if (showProductError.value || showUrlError.value) {
+    return
+  }
+
+  // Credit check
+  const canProceed = await checkAndConsumeCredit()
+  if (!canProceed) {
     showUpgradeModal.value = true
     return
   }

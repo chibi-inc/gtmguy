@@ -7,7 +7,6 @@ const openai = new OpenAI({
 })
 
 export default defineEventHandler(async (event: H3Event) => {
-  console.log('Processing internal links request')
   const body = await readBody(event)
   const { blogContent, sitemapUrl } = body
 
@@ -19,7 +18,6 @@ export default defineEventHandler(async (event: H3Event) => {
   }
 
   try {
-    console.log('Fetching sitemap from:', sitemapUrl)
     const xmlText = await fetchPageContent(sitemapUrl)
     const urlRegex = /(https?:\/\/[^\s<>"']+)/g
     const urlMatches = xmlText.match(urlRegex)
@@ -36,11 +34,7 @@ export default defineEventHandler(async (event: H3Event) => {
       throw new Error('No valid URLs found. Please check the content format.')
     }
 
-    console.log(`Found ${urls.length} valid URLs in sitemap`)
-    
-    console.log('Generating internal link suggestions')
     const suggestions = await generateInternalLinkSuggestions(blogContent, urls)
-    console.log(`Generated ${suggestions.length} link suggestions`)
     
     return {
       success: true,
@@ -51,7 +45,6 @@ export default defineEventHandler(async (event: H3Event) => {
       message: 'Internal link suggestions generated successfully'
     }
   } catch (error: any) {
-    console.error('Error processing internal links:', error)
     throw createError({
       statusCode: error.status || 500,
       message: error.message || 'Failed to generate internal link suggestions'
@@ -60,7 +53,6 @@ export default defineEventHandler(async (event: H3Event) => {
 })
 
 async function generateInternalLinkSuggestions(blogContent: string, urls: string[]) {
-  console.log('Calling OpenAI API for link suggestions')
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
@@ -97,7 +89,6 @@ async function generateInternalLinkSuggestions(blogContent: string, urls: string
     response_format: { type: "json_object" }
   })
 
-  console.log('Processing OpenAI response')
   const result = JSON.parse(completion.choices[0].message.content || '{"suggestions": []}')
   return result.suggestions.map((suggestion: any) => ({
     ...suggestion,
