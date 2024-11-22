@@ -48,8 +48,8 @@
     <form @submit.prevent="analyzeBlogForLinks" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
-        <h3 class="text-lg font-semibold text-neutral-900 mb-2">Internal Links Optimizer</h3>
-        <p class="text-neutral-600">Optimize your content's internal linking structure using AI</p>
+        <h3 class="text-lg font-semibold text-neutral-900 mb-2">Internal Link Builder</h3>
+        <p class="text-neutral-600">Build your content's internal linking structure using AI</p>
       </div>
 
       <div class="space-y-6">
