@@ -136,6 +136,7 @@ import Prioritization from '~/components/Prioritization.vue'
 import PrdGenerator from '~/components/PrdGenerator.vue'
 import LandingPageConversion from '~/components/LandingPageConversion.vue'
 import SeoOptimizer from '~/components/SeoOptimizer.vue'
+import InternalLinksOptimizer from '~/components/InternalLinksOptimizer.vue'
 
 
 const activeItem = ref(0)
@@ -161,6 +162,7 @@ const menuItems = [
   { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
   { label: 'GTM Strategy', icon: 'ph:target-duotone', component: GtmStrategy },
   { label: 'Ideal Customer Profile', icon: 'ph:user-duotone', component: ICP },
+  { label: 'Internal Link Builder', icon:'ph:link-duotone', component: InternalLinksOptimizer},
   { label: 'Landing Page Conversion', icon: 'ph:browser-duotone', component: LandingPageConversion },
   { label: 'Landing Page Copy', icon: 'ph:pencil-duotone', component: CopyOptimizer },
   { label: 'Launch Plan', icon: 'ph:rocket-launch-duotone', component: ProductLaunchPlan },
@@ -195,6 +197,7 @@ const getDescription = (index) => {
     'Landing Page Copy': "Generate copy for your entire landing page",
     'GTM Strategy': "Plan and execute your go-to-market strategy",
     'Ideal Customer Profile': "Define and analyze your Ideal Customer Profile",
+    'Internal Link Builder': 'Build internal links in one click',
     'Launch Plan': "Plan and execute your product launch",
     'Metrics and KPI': "Improve metrics and KPIs",
     'MVP Generator': "Generate MVP features and requirements",
