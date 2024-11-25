@@ -140,6 +140,7 @@ import PrdGenerator from '~/components/PrdGenerator.vue'
 import LandingPageConversion from '~/components/LandingPageConversion.vue'
 import SeoOptimizer from '~/components/SeoOptimizer.vue'
 import UpgradeModal from '~/components/common/UpgradeModal.vue'
+import InternalLinksOptimizer from '~/components/InternalLinksOptimizer.vue'
 
 
 const activeItem = ref(0)

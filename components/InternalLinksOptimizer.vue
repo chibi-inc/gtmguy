@@ -14,36 +14,7 @@
     </div>
 
     <!-- Upgrade Modal -->
-    <div 
-      v-if="showUpgradeModal"
-      class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
-    >
-      <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-xl max-w-md w-full mx-4">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Icon name="ph:warning-duotone" class="text-3xl text-neutral-900" />
-          </div>
-          <h3 class="text-xl font-bold text-neutral-900 mb-2">No Credits Remaining</h3>
-          <p class="text-neutral-600 mb-6">
-            Upgrade to our Lifetime Pro plan to get unlimited generations and premium features.
-          </p>
-          <div class="space-y-3">
-            <button
-              @click="handleUpgrade"
-              class="w-full py-3 px-4 bg-neutral-900 text-white rounded-xl hover:bg-neutral-800 transition-all duration-200 font-medium"
-            >
-              Upgrade to Pro
-            </button>
-            <button
-              @click="showUpgradeModal = false"
-              class="w-full py-3 px-4 bg-stone-100 text-neutral-700 rounded-xl hover:bg-stone-200 transition-all duration-200 font-medium"
-            >
-              Maybe Later
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
 
     <form @submit.prevent="analyzeBlogForLinks" class="space-y-8">
       <!-- Form Header -->
@@ -111,6 +82,7 @@
     <div v-if="suggestions.length" class="mt-8 space-y-8">
       <SuggestedLinks 
         :suggestions="suggestions" 
+        :enhanced-content="blogContent"
         @clear="clearResults"
         @regenerate="analyzeBlogForLinks"
       />
@@ -123,6 +95,7 @@ import { ref, computed } from 'vue'
 import { useUrlValidation } from '~/composables/useUrlValidation'
 import { useCredits } from '~/composables/useCredits'
 import SuggestedLinks from '~/components/SuggestedLinks.vue'
+import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 interface Suggestion {
   originalText: string
@@ -147,10 +120,6 @@ const isValidInputs = computed(() => {
   return blogContent.value.length > 100 && validateUrl(sitemapUrl.value)
 })
 
-const handleUpgrade = () => {
-  showUpgradeModal.value = false
-  // Implement upgrade logic
-}
 
 async function analyzeBlogForLinks() {
   // Reset errors
@@ -181,7 +150,15 @@ async function analyzeBlogForLinks() {
       return
     }
 
-    const response = await $fetch('/api/internal-links', {
+    interface ApiResponse {
+      success: boolean
+      data: {
+        suggestions: Suggestion[]
+      }
+      message?: string
+    }
+
+    const response = await $fetch<ApiResponse>('/api/internal-links', {
       method: 'POST',
       body: {
         blogContent: blogContent.value,
