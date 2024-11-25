@@ -36,9 +36,6 @@
             <li>
               <NuxtLink to="/blog" class="text-neutral-600 hover:text-neutral-900 transition-colors">Blog</NuxtLink>
             </li>
-            <li>
-              <NuxtLink to="/friends" class="text-neutral-600 hover:text-neutral-900 transition-colors">Friends</NuxtLink>
-            </li>
           </ul>
         </div>
 
@@ -51,6 +48,9 @@
             </li>
             <li>
               <NuxtLink to="/terms" class="text-neutral-600 hover:text-neutral-900 transition-colors">Terms of Service</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/refund" class="text-neutral-600 hover:text-neutral-900 transition-colors">Refund Policy</NuxtLink>
             </li>
             <li>
               <a href="mailto:support@gtmguy.com" class="text-neutral-600 hover:text-neutral-900 transition-colors">Contact</a>
