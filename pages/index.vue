@@ -436,7 +436,7 @@ const signInWithGoogle = async () => {
 
 const { setSeo } = useSeo()
 
-const { data: price } = await useFetch('/api/fetch-price')
+const { data: price } = await useFetch('/api/payments/fetch-price')
 
 // Set SEO metadata
 setSeo({
