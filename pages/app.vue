@@ -77,12 +77,15 @@
                 <span>{{ isLifetimePlan ? '🎉 unlimited' : credits }} reports {{ isLifetimePlan ? '' : 'left' }}</span>
               </div>
               <button  v-if="!isLifetimePlan"
-                @click="handleUpgrade"
+                @click="showUpgradeModal = true"
                 class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors flex items-center gap-1 whitespace-nowrap"
               >
                 Upgrade
                 <Icon name="ph:arrow-right-duotone" class="text-lg hidden lg:block" />
               </button>
+              <UpgradeModal v-if="showUpgradeModal"
+                @close="showUpgradeModal = false"
+              />
             </div>
           </div>
 
@@ -136,9 +139,12 @@ import Prioritization from '~/components/Prioritization.vue'
 import PrdGenerator from '~/components/PrdGenerator.vue'
 import LandingPageConversion from '~/components/LandingPageConversion.vue'
 import SeoOptimizer from '~/components/SeoOptimizer.vue'
+import UpgradeModal from '~/components/common/UpgradeModal.vue'
+import InternalLinksOptimizer from '~/components/InternalLinksOptimizer.vue'
 
 
 const activeItem = ref(0)
+const showUpgradeModal = ref(false)
 
 const menuItems = [
   // Product Features
@@ -161,6 +167,7 @@ const menuItems = [
   { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
   { label: 'GTM Strategy', icon: 'ph:target-duotone', component: GtmStrategy },
   { label: 'Ideal Customer Profile', icon: 'ph:user-duotone', component: ICP },
+  { label: 'Link Builder', icon:'ph:link-duotone', component: InternalLinksOptimizer},
   { label: 'Landing Page Conversion', icon: 'ph:browser-duotone', component: LandingPageConversion },
   { label: 'Landing Page Copy', icon: 'ph:pencil-duotone', component: CopyOptimizer },
   { label: 'Launch Plan', icon: 'ph:rocket-launch-duotone', component: ProductLaunchPlan },
@@ -195,6 +202,7 @@ const getDescription = (index) => {
     'Landing Page Copy': "Generate copy for your entire landing page",
     'GTM Strategy': "Plan and execute your go-to-market strategy",
     'Ideal Customer Profile': "Define and analyze your Ideal Customer Profile",
+    'Link Builder': 'Build links in one click',
     'Launch Plan': "Plan and execute your product launch",
     'Metrics and KPI': "Improve metrics and KPIs",
     'MVP Generator': "Generate MVP features and requirements",
@@ -330,11 +338,6 @@ watch(user, async (newUser) => {
   }
 }, { immediate: true })
 
-// Add upgrade handler
-const handleUpgrade = () => {
-  // Implement upgrade logic
-  console.log('Upgrade clicked')
-}
 
 // Add to existing imports
 const isMobileMenuOpen = ref(false)

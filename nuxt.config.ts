@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindTypography from '@tailwindcss/typography';
+
 export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2024-04-03',
@@ -12,6 +14,11 @@ export default defineNuxtConfig({
     '@nuxt/fonts'
   ],
   css: ['~/assets/main.css'],
+  tailwindcss: {
+    config: {
+        plugins: [tailwindTypography],
+    }
+  },
   runtimeConfig: {
     openaiApiKey: process.env.OPENAI_API_KEY,
     supabase: {
