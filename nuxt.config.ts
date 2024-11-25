@@ -25,6 +25,11 @@ export default defineNuxtConfig({
       url: process.env.SUPABASE_URL,
       serviceKey: process.env.SUPABASE_SERVICE_KEY,
       key: process.env.SUPABASE_KEY,
+    },
+    paddle: {
+      clientToken: process.env.PADDLE_CLIENT_TOKEN,
+      priceId: process.env.PADDLE_PRICE_ID,
+      apiKey: process.env.PADDLE_SECRET_KEY
     }
   },
   content: {
