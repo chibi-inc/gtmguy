@@ -1,22 +1,35 @@
 import { defineEventHandler } from 'h3'
 import { serverSupabaseServiceRole, serverSupabaseUser } from "#supabase/server"
+import { z } from 'zod'
+
+const bodySchema = z.object({
+    status: z.string(),
+    customer_email: z.string(),
+    customer_id: z.string(),
+    transaction_id: z.string()
+})
 
 export default defineEventHandler(async (event) => {
     const supabase = serverSupabaseServiceRole(event);
-    const payment_details = await readBody(event)
+    const body = await readBody(event)
+    const { status, customer_email, customer_id, transaction_id } = bodySchema.parse(body)
+
     try {
-        if(payment_details.name === 'checkout.completed'){
-            const checkout_details = payment_details.data
+        if(status === 'checkout.completed'){
             try {
                 // Get the session user and verify if the email matches the checkout email
                 const user = await serverSupabaseUser(event)
                 if (!user) throw new Error('User not found')
 
-                if (user.email === checkout_details.customer.email) {
+                if (user.email === customer_email) {
                     // Update the user's account to lifetime plan
                     const { data: accountData, error: accountError } = await supabase
                         .from('accounts')
-                        .update({ lifetime_plan: true })
+                        .update({ 
+                            lifetime_plan: true, 
+                            customer_id: customer_id, 
+                            transaction_id: transaction_id 
+                        })
                         .eq('user', user.id)
                         .select()
 
