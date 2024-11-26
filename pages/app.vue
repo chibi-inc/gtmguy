@@ -85,6 +85,7 @@
               </button>
               <UpgradeModal v-if="showUpgradeModal"
                 @close="showUpgradeModal = false"
+                @update-lifetime-plan="updateLifetimePlan"
               />
             </div>
           </div>
@@ -357,6 +358,10 @@ onMounted(() => {
     }
   }
 })
+
+const updateLifetimePlan = (value) => {
+  isLifetimePlan.value = value
+}
 </script>
 
 <style>
