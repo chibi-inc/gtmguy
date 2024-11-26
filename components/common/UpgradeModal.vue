@@ -2,12 +2,8 @@
   <Teleport to="body">
     <Transition name="modal">
       <div class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-100">
-        <div 
-          class="max-w-[500px] w-[90%] rounded-2xl overflow-hidden"
-          role="dialog"
-          aria-labelledby="modalTitle"
-          aria-describedby="modalDescription"
-        >
+        <div class="max-w-[500px] w-[90%] rounded-2xl overflow-hidden" role="dialog" aria-labelledby="modalTitle"
+          aria-describedby="modalDescription">
           <div class="bg-gradient-to-br from-neutral-900 to-stone-900 p-8 text-white relative">
             <!-- Gradient Orbs -->
             <div class="absolute inset-0">
@@ -47,41 +43,42 @@
               <ul class="space-y-4 mb-8">
                 <li class="flex items-center gap-3 text-neutral-200">
                   <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>Everything in Free Trial</span>
                 </li>
                 <li class="flex items-center gap-3 text-neutral-200">
                   <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>Unlimited reports</span>
                 </li>
                 <li class="flex items-center gap-3 text-neutral-200">
                   <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>Priority support</span>
                 </li>
                 <li class="flex items-center gap-3 text-neutral-200">
                   <svg class="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>Lifetime updates</span>
                 </li>
               </ul>
 
               <div class="flex gap-3">
-                <button
-                  @click="$emit('close')" 
-                  class="flex-1 px-4 py-3 text-neutral-300 bg-white/10 hover:bg-white/20 rounded-xl font-medium transition-all duration-200"
-                >
+                <button @click="$emit('close')"
+                  class="flex-1 px-4 py-3 text-neutral-300 bg-white/10 hover:bg-white/20 rounded-xl font-medium transition-all duration-200">
                   Maybe Later
                 </button>
-                <button 
+                <button
                   class="flex-1 px-4 py-3 bg-white text-neutral-900 rounded-xl font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
-                  @click="$emit('close')"
-                >
+                  @click="handlePayment">
                   Make Payment
                 </button>
               </div>
@@ -94,8 +91,56 @@
 </template>
 
 <script setup>
+
+
+import { initializePaddle } from '@paddle/paddle-js'
+const Paddle = ref(null)
+const config = useRuntimeConfig()
+
 defineEmits(['close'])
-const { data: price } = await useFetch('/api/fetch-price')
+
+const { data: price } = await useFetch('/api/payments/fetch-price')
+
+const handlePayment = () => {
+  if (!Paddle.value) {
+    console.error('Paddle is not initialized')
+    return
+  }
+
+  Paddle.value.Checkout.open({
+    items: [{ 
+      priceId: config.public.priceId, 
+      quantity: 1 
+    }],
+    customer: { email: useSupabaseUser().value.email }
+  })
+}
+
+const verifyPayment = async (data) => {
+  
+  console.log("Verifying payment", data)
+  $fetch('/api/payments/verify-payment', {
+    method: 'POST',
+    body: data
+  }).then(res => {
+    Paddle.value.Checkout.close()
+    // window.location.href = '/app'
+  })
+}
+
+onMounted(async () => {
+  const paddleInstance = await initializePaddle({
+    environment: 'sandbox',
+    token: config.public.clientToken,
+    eventCallback: function (data) {
+      console.log("Paddle event", data)
+      if(data.name == 'checkout.completed'){
+        verifyPayment(data)
+      }
+    }
+  })
+  Paddle.value = paddleInstance
+})
 </script>
 
 <style scoped>
