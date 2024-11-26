@@ -12,7 +12,16 @@ const bodySchema = z.object({
 export default defineEventHandler(async (event) => {
     const supabase = serverSupabaseServiceRole(event);
     const body = await readBody(event)
-    const { status, customer_email, customer_id, transaction_id } = bodySchema.parse(body)
+
+    const bodyParseResult = bodySchema.safeParse(body)
+
+    if (!bodyParseResult.success) {
+      throw createError({
+        status: 400,
+        message: bodyParseResult.error.toString()
+      })
+    }
+    const { status, customer_email, customer_id, transaction_id } = bodyParseResult.data
 
     try {
         if(status === 'checkout.completed'){

@@ -5,6 +5,7 @@ export default defineEventHandler(async () => {
   const PRICE_ID = process.env.PADDLE_PRICE_ID
   const PADDLE_API_KEY = process.env.PADDLE_SECRET_KEY
   const PADDLE_URL = process.env.PADDLE_URL
+
   try {
     const response = await fetch(`${PADDLE_URL}/prices/${PRICE_ID}`, {
       headers: {

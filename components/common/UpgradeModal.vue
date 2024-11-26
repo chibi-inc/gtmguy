@@ -109,7 +109,7 @@ const handlePayment = () => {
 
   Paddle.value.Checkout.open({
     items: [{ 
-      priceId: config.public.priceId, 
+      priceId: config.public.paddlePriceId, 
       quantity: 1 
     }],
     customer: { email: useSupabaseUser().value.email }
@@ -136,7 +136,7 @@ const verifyPayment = async (data) => {
 onMounted(async () => {
   const paddleInstance = await initializePaddle({
     environment: 'sandbox',
-    token: config.public.clientToken,
+    token: config.public.paddleClientToken,
     eventCallback: function (data) {
       if(data.name == 'checkout.completed'){
         verifyPayment(data)
