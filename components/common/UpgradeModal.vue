@@ -117,11 +117,15 @@ const handlePayment = () => {
 }
 
 const verifyPayment = async (data) => {
-  
-  console.log("Verifying payment", data)
+
   $fetch('/api/payments/verify-payment', {
     method: 'POST',
-    body: data
+    body: {
+      status: data.name,
+      customer_email: data.data.customer.email,
+      customer_id: data.data.customer.id,
+      transaction_id: data.data.transaction_id
+    }
   }).then(res => {
     Paddle.value.Checkout.close()
     emit('updateLifetimePlan', true)
