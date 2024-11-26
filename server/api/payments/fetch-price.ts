@@ -1,11 +1,9 @@
 import { defineEventHandler } from 'h3'
 
-const config = useRuntimeConfig()
-
 export default defineEventHandler(async () => {
   // Replace with your actual Paddle price ID
-  const PRICE_ID = config.paddle.priceId
-  const PADDLE_API_KEY = config.paddle.apiKey
+  const PRICE_ID = process.env.PADDLE_PRICE_ID
+  const PADDLE_API_KEY = process.env.PADDLE_SECRET_KEY
   try {
     const response = await fetch(`https://sandbox-api.paddle.com/prices/${PRICE_ID}`, {
       headers: {

@@ -92,29 +92,10 @@
 
 <script setup>
 
-const config = useRuntimeConfig()
+
 import { initializePaddle } from '@paddle/paddle-js'
 const Paddle = ref(null)
-
-onMounted(async () => {
-  const paddleInstance = await initializePaddle({
-    environment: 'sandbox',
-    token: config.paddle.clientToken,
-    eventCallback: function (data) {
-      if (data.event === 'checkout.completed') {
-        $fetch('/api/payment/verify-payment', {
-          method: 'POST',
-          body: data
-        }).then(res => {
-          window.location.href = '/app'
-        })
-      }
-    }
-  })
-  Paddle.value = paddleInstance
-})
-
-
+const config = useRuntimeConfig()
 
 defineEmits(['close'])
 
@@ -128,14 +109,38 @@ const handlePayment = () => {
 
   Paddle.value.Checkout.open({
     items: [{ 
-      priceId: config.paddle.priceId, 
+      priceId: config.public.priceId, 
       quantity: 1 
     }],
     customer: { email: useSupabaseUser().value.email }
   })
-
-
 }
+
+const verifyPayment = async (data) => {
+  
+  console.log("Verifying payment", data)
+  $fetch('/api/payments/verify-payment', {
+    method: 'POST',
+    body: data
+  }).then(res => {
+    Paddle.value.Checkout.close()
+    // window.location.href = '/app'
+  })
+}
+
+onMounted(async () => {
+  const paddleInstance = await initializePaddle({
+    environment: 'sandbox',
+    token: config.public.clientToken,
+    eventCallback: function (data) {
+      console.log("Paddle event", data)
+      if(data.name == 'checkout.completed'){
+        verifyPayment(data)
+      }
+    }
+  })
+  Paddle.value = paddleInstance
+})
 </script>
 
 <style scoped>
