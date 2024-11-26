@@ -4,8 +4,9 @@ export default defineEventHandler(async () => {
   // Replace with your actual Paddle price ID
   const PRICE_ID = process.env.PADDLE_PRICE_ID
   const PADDLE_API_KEY = process.env.PADDLE_SECRET_KEY
+  const PADDLE_URL = process.env.PADDLE_URL
   try {
-    const response = await fetch(`https://sandbox-api.paddle.com/prices/${PRICE_ID}`, {
+    const response = await fetch(`${PADDLE_URL}/prices/${PRICE_ID}`, {
       headers: {
         'Authorization': `Bearer ${PADDLE_API_KEY}`,
         'Content-Type': 'application/json'
