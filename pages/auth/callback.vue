@@ -31,9 +31,13 @@
 // Handle the callback
 const user = useSupabaseUser()
 
+if (window) {
+  window.__user = user
+}
+
 watch(user, (newUser) => {
   if (newUser) {
     navigateTo('/app')
   }
-}, { immediate: true })
+}, { deep: true, immediate: true })
 </script>

@@ -114,18 +114,6 @@
         <span>Clear</span>
       </button>
     </div>
-
-    <!-- Enhanced Content Preview -->
-    <div v-if="enhancedContent" class="bg-white rounded-lg border border-neutral-200 p-6">
-      <div class="mb-4">
-        <h4 class="text-lg font-semibold text-neutral-900">Enhanced Content</h4>
-        <p class="text-sm text-neutral-600 mt-1">Content with suggested internal links applied</p>
-      </div>
-      <div 
-        class="prose prose-neutral max-w-none"
-        v-html="formattedContent"
-      ></div>
-    </div>
   </div>
 </template>
 
@@ -142,7 +130,6 @@ interface Suggestion {
 
 const props = defineProps<{
   suggestions: Suggestion[]
-  enhancedContent: string
 }>()
 
 defineEmits(['clear', 'regenerate'])
@@ -151,13 +138,6 @@ const averageRelevance = computed(() => {
   if (!props.suggestions.length) return 0
   const avg = props.suggestions.reduce((acc, curr) => acc + curr.relevanceScore, 0) / props.suggestions.length
   return Math.round(avg)
-})
-
-const formattedContent = computed(() => {
-  return props.enhancedContent.replace(
-    /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" class="text-sky-500 hover:text-sky-600 hover:underline">$1</a>'
-  )
 })
 
 function getScoreClass(score: number) {

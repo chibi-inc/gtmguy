@@ -179,6 +179,7 @@ const generatePrd = async () => {
   
   try {
     // Check credits first
+    // TODO(Andrew Audit): Move credit consumption to be part of the API call itself
     const canProceed = await checkAndConsumeCredit()
     if (!canProceed) {
       isLoading.value = false

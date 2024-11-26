@@ -10,7 +10,6 @@ function isLocalhost(url: string): boolean {
     /^(https?:\/\/)?0\.0\.0\.0/i,
     /^(https?:\/\/)?.*\.localhost/i
   ]
-  
   try {
     const parsedUrl = new URL(url)
     return localhostPatterns.some(pattern => pattern.test(parsedUrl.hostname))
@@ -31,14 +30,19 @@ export async function fetchPageContent(url: string) {
       throw new Error('Localhost URLs are not allowed')
     }
 
-    const response = await fetch(url)
+    // NOTE(Andrew Audit): Redirect disabled to prevent CSRF attacks
+    const response = await fetch(url, { redirect: "error" })
     const html = await response.text()
     
-    const dom = new JSDOM(html, {
-      url: url,
-      runScripts: 'dangerously',
-      resources: 'usable'
-    })
+    // const dom = new JSDOM(html, {
+    //   url: url,
+    //   runScripts: 'dangerously',
+    //   resources: 'usable'
+    // })
+    //
+    // NOTE(Andrew Audit): Disabled JS and resource loading for security concerns
+    // If script/resource loading is needed, we have to think about some sandboxed solution
+    const dom = new JSDOM(html)
 
     // Wait for potential dynamic content
     await new Promise(resolve => setTimeout(resolve, 2000))
