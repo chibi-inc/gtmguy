@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     public: {
       paddleClientToken: process.env.PADDLE_CLIENT_TOKEN,
       paddlePriceId: process.env.PADDLE_PRICE_ID,
+      paddleEnvironment: process.env.PADDLE_ENVIRONMENT,
     }
   },
   content: {

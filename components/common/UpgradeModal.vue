@@ -91,33 +91,33 @@
 </template>
 
 <script setup>
-
-
 import { initializePaddle } from '@paddle/paddle-js'
-const Paddle = ref(null)
+
+const paddle = ref(null)
 const config = useRuntimeConfig()
 
 const emit = defineEmits(['close', 'updateLifetimePlan'])
 
 const { data: price } = await useFetch('/api/payments/fetch-price')
 
+const user = useSupabaseUser()
+
 const handlePayment = () => {
-  if (!Paddle.value) {
+  if (!paddle.value) {
     console.error('Paddle is not initialized')
     return
   }
 
-  Paddle.value.Checkout.open({
+  paddle.value.Checkout.open({
     items: [{ 
       priceId: config.public.paddlePriceId, 
       quantity: 1 
     }],
-    customer: { email: useSupabaseUser().value.email }
+    customer: { email: user.value.email }
   })
 }
 
 const verifyPayment = async (data) => {
-
   $fetch('/api/payments/verify-payment', {
     method: 'POST',
     body: {
@@ -127,7 +127,7 @@ const verifyPayment = async (data) => {
       transaction_id: data.data.transaction_id
     }
   }).then(res => {
-    Paddle.value.Checkout.close()
+    paddle.value.Checkout.close()
     emit('updateLifetimePlan', true)
     window.location.href = '/app'
   })
@@ -135,7 +135,7 @@ const verifyPayment = async (data) => {
 
 onMounted(async () => {
   const paddleInstance = await initializePaddle({
-    environment: 'sandbox',
+    environment: config.public.paddleEnvironment,
     token: config.public.paddleClientToken,
     eventCallback: function (data) {
       if(data.name == 'checkout.completed'){
@@ -143,7 +143,8 @@ onMounted(async () => {
       }
     }
   })
-  Paddle.value = paddleInstance
+
+  paddle.value = paddleInstance
 })
 </script>
 
