@@ -14,12 +14,12 @@
             AI-powered go-to-market tools to help you launch products with confidence.
           </p>
           <div class="flex items-center gap-4">
-            <a href="#" class="text-neutral-600 hover:text-neutral-900 transition-colors">
+            <NuxtLink to="https://x.com/thetronjohnson" class="text-neutral-600 hover:text-neutral-900 transition-colors">
               <Icon name="ph:twitter-logo-duotone" class="text-xl" />
-            </a>
-            <a href="#" class="text-neutral-600 hover:text-neutral-900 transition-colors">
-              <Icon name="ph:github-logo-duotone" class="text-xl" />
-            </a>
+            </NuxtLink>
+            <NuxtLink href="https://www.linkedin.com/in/kiranjohns" class="text-neutral-600 hover:text-neutral-900 transition-colors">
+              <Icon name="ph:linkedin-logo-duotone" class="text-xl" />
+            </NuxtLink>
           </div>
         </div>
 
@@ -53,7 +53,7 @@
               <NuxtLink to="/refund" class="text-neutral-600 hover:text-neutral-900 transition-colors">Refund Policy</NuxtLink>
             </li>
             <li>
-              <a href="mailto:support@gtmguy.com" class="text-neutral-600 hover:text-neutral-900 transition-colors">Contact</a>
+              <a href="mailto:support@gtmguy.ai" class="text-neutral-600 hover:text-neutral-900 transition-colors">Contact</a>
             </li>
           </ul>
         </div>
