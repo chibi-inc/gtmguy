@@ -21,15 +21,15 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     openaiApiKey: process.env.OPENAI_API_KEY,
+    paddleApiKey: process.env.PADDLE_SECRET_KEY,
     supabase: {
       url: process.env.SUPABASE_URL,
       serviceKey: process.env.SUPABASE_SERVICE_KEY,
       key: process.env.SUPABASE_KEY,
     },
-    paddle: {
+    public: {
       clientToken: process.env.PADDLE_CLIENT_TOKEN,
       priceId: process.env.PADDLE_PRICE_ID,
-      apiKey: process.env.PADDLE_SECRET_KEY
     }
   },
   content: {

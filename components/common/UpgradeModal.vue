@@ -97,7 +97,7 @@ import { initializePaddle } from '@paddle/paddle-js'
 const Paddle = ref(null)
 const config = useRuntimeConfig()
 
-defineEmits(['close'])
+const emit = defineEmits(['close', 'updateLifetimePlan'])
 
 const { data: price } = await useFetch('/api/payments/fetch-price')
 
@@ -124,7 +124,8 @@ const verifyPayment = async (data) => {
     body: data
   }).then(res => {
     Paddle.value.Checkout.close()
-    // window.location.href = '/app'
+    emit('updateLifetimePlan', true)
+    window.location.href = '/app'
   })
 }
 
@@ -133,7 +134,6 @@ onMounted(async () => {
     environment: 'sandbox',
     token: config.public.clientToken,
     eventCallback: function (data) {
-      console.log("Paddle event", data)
       if(data.name == 'checkout.completed'){
         verifyPayment(data)
       }
