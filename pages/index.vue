@@ -9,30 +9,32 @@
       <!-- Enhanced Decorative Elements -->
       <div class="absolute inset-0 overflow-hidden">
         <div class="absolute top-20 left-10 w-96 h-96 bg-sky-100/20 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-stone-200/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div
+          class="absolute bottom-20 right-10 w-96 h-96 bg-stone-200/30 rounded-full blur-3xl animate-pulse delay-1000">
+        </div>
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
         <div class="max-w-3xl mx-auto text-center">
-          <span class="px-4 py-1.5 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-800 text-white text-sm font-medium inline-flex items-center gap-2 mb-6 sm:mb-8">
+          <span
+            class="px-4 py-1.5 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-800 text-white text-sm font-medium inline-flex items-center gap-2 mb-6 sm:mb-8">
             <Icon name="ph:sparkle-duotone" class="text-lg" />
-            AI-Powered Go-to-Market Tools
+            Save 100+ Hours on Product & Marketing
           </span>
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-neutral-900 mb-6 sm:mb-8 leading-tight">
-            Go to Market in <span class="text-gradient">Seconds</span>, Not Months
+            Your AI Product Manager & <span class="text-gradient">Marketing Team</span>
           </h1>
           <p class="text-lg sm:text-xl text-neutral-700 mb-8 sm:mb-10 leading-relaxed">
-            Optimize your landing page, improve SEO, generate product strategies, launch plans, user research, and more in <span class="font-semibold">seconds</span>.
+            Stop spending weeks on product strategy, GTM plans, and marketing content. Get AI-powered insights and deliverables for your entire product lifecycle in <span class="font-semibold">minutes</span>.
           </p>
           <!-- Mobile-optimized CTA buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-            <button 
-              @click="signInWithGoogle"
-              :disabled="isLoading"
+            <button @click="signInWithGoogle" :disabled="isLoading"
               class="w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2">
               <Icon name="ph:sparkle-duotone" class="text-xl" />
               {{ user?.value ? 'Go to App →' : isLoading ? 'Loading...' : 'Try it for Free →' }}
             </button>
-            <a href="#features" class="w-full sm:w-auto px-6 py-4 text-neutral-900 hover:bg-white/75 rounded-xl transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2 group">
+            <a href="#features"
+              class="w-full sm:w-auto px-6 py-4 text-neutral-900 hover:bg-white/75 rounded-xl transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2 group">
               <Icon name="ph:magic-wand-duotone" class="text-xl" />
               See All Tools
             </a>
@@ -72,32 +74,35 @@
                 </div>
                 <div>
                   <h3 class="text-xl font-semibold text-neutral-900 mb-2">AI-Powered Excellence</h3>
-                  <p class="text-neutral-700">Advanced AI technology that understands market dynamics, customer behavior, and successful GTM patterns to generate tailored strategies.</p>
+                  <p class="text-neutral-700">Advanced AI technology that understands market dynamics, customer
+                    behavior, and successful GTM patterns to generate tailored strategies.</p>
                 </div>
               </div>
-              
+
               <div class="flex gap-4">
                 <div class="flex-shrink-0 w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
                   <Icon name="ph:toolbox-duotone" class="text-2xl text-sky-600" />
                 </div>
                 <div>
                   <h3 class="text-xl font-semibold text-neutral-900 mb-2">Complete GTM Suite</h3>
-                  <p class="text-neutral-700">9+ specialized tools covering everything from ICP creation to launch planning, SEO optimization, and user research - all in one platform.</p>
+                  <p class="text-neutral-700">10+ specialized tools covering everything from ICP creation to launch
+                    planning, SEO optimization, and user research - all in one platform.</p>
                 </div>
               </div>
-              
+
               <div class="flex gap-4">
                 <div class="flex-shrink-0 w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
                   <Icon name="ph:lightning-duotone" class="text-2xl text-sky-600" />
                 </div>
                 <div>
                   <h3 class="text-xl font-semibold text-neutral-900 mb-2">10x Faster Execution</h3>
-                  <p class="text-neutral-700">Transform months of planning into minutes. Generate comprehensive strategies, analyze markets, and create launch plans instantly.</p>
+                  <p class="text-neutral-700">Transform months of planning into minutes. Generate comprehensive
+                    strategies, analyze markets, and create launch plans instantly.</p>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <div class="lg:pl-12">
             <div class="bg-white rounded-2xl border border-stone-200 p-8 space-y-8">
               <div class="space-y-4">
@@ -105,22 +110,25 @@
                   <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
                   </div>
-                  <p class="text-neutral-900"><span class="font-semibold">Data-Driven Insights</span> - AI analyzes market trends and successful patterns</p>
+                  <p class="text-neutral-900"><span class="font-semibold">Data-Driven Insights</span> - AI analyzes
+                    market trends and successful patterns</p>
                 </div>
                 <div class="flex items-center gap-4">
                   <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
                   </div>
-                  <p class="text-neutral-900"><span class="font-semibold">Proven Frameworks</span> - Built on battle-tested GTM strategies</p>
+                  <p class="text-neutral-900"><span class="font-semibold">Proven Frameworks</span> - Built on
+                    battle-tested GTM strategies</p>
                 </div>
                 <div class="flex items-center gap-4">
                   <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
                   </div>
-                  <p class="text-neutral-900"><span class="font-semibold">Regular Updates</span> - New features and improvements every month</p>
+                  <p class="text-neutral-900"><span class="font-semibold">Regular Updates</span> - New features and
+                    improvements every month</p>
                 </div>
               </div>
-              
+
               <div class="border-t border-stone-200 pt-8">
                 <div class="bg-neutral-50 rounded-xl p-6">
                   <div class="flex items-start gap-4">
@@ -129,62 +137,17 @@
                     </div>
                     <div>
                       <h4 class="font-semibold text-neutral-900 mb-1">Launch Special Offer</h4>
-                      <p class="text-neutral-700 text-sm">Get lifetime access to all tools for just $69. Start with 10 free generations today.</p>
+                      <p class="text-neutral-700 text-sm">Get lifetime access to all tools for just $69. Start with 10
+                        free generations today.</p>
                     </div>
                   </div>
-                  <button 
-                    @click="signInWithGoogle"
-                    :disabled="isLoading"
+                  <button @click="signInWithGoogle" :disabled="isLoading"
                     class="mt-6 w-full bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
                     {{ isLoading ? 'Loading...' : 'Try All Tools Free →' }}
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Add new Ideal Customers Section -->
-    <section class="py-24 bg-white border-y border-stone-200">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <span class="text-sky-600 font-medium mb-2 block">Perfect For</span>
-          <h2 class="text-4xl font-bold text-neutral-900 mb-6">Who Uses GTMGuy?</h2>
-          <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
-            Whether you're launching a new product or scaling an existing one, GTMGuy helps teams of all sizes go to market faster.
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
-            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
-              <Icon name="ph:rocket-launch-duotone" class="text-2xl text-sky-600" />
-            </div>
-            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Startup Founders</h3>
-            <p class="text-neutral-700">
-              Get professional-grade GTM strategies at founder-friendly prices. Perfect for pre-seed to Series A startups.
-            </p>
-          </div>
-          
-          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
-            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
-              <Icon name="ph:buildings-duotone" class="text-2xl text-sky-600" />
-            </div>
-            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Product Teams</h3>
-            <p class="text-neutral-700">
-              Streamline your product launches and GTM planning. Ideal for product managers and marketing teams.
-            </p>
-          </div>
-          
-          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
-            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
-              <Icon name="ph:briefcase-duotone" class="text-2xl text-sky-600" />
-            </div>
-            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Consultants</h3>
-            <p class="text-neutral-700">
-              Deliver high-quality GTM strategies to clients faster. Perfect for independent consultants and agencies.
-            </p>
           </div>
         </div>
       </div>
@@ -201,13 +164,60 @@
           </p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          <div v-for="feature in features" :key="feature.title" 
+          <div v-for="feature in features" :key="feature.title"
             class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:border-neutral-900/10 transition-all duration-300 group hover:shadow-xl hover:shadow-stone-900/5 hover:-translate-y-1">
-            <div class="w-12 h-12 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <div
+              class="w-12 h-12 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
               <Icon :name="feature.icon" class="text-2xl" />
             </div>
             <h3 class="text-xl font-semibold text-neutral-900 mb-3">{{ feature.title }}</h3>
             <p class="text-neutral-700 leading-relaxed">{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add new Ideal Customers Section -->
+    <section class="py-24 bg-white border-y border-stone-200">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <span class="text-sky-600 font-medium mb-2 block">Perfect For</span>
+          <h2 class="text-4xl font-bold text-neutral-900 mb-6">Who Uses GTMGuy?</h2>
+          <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
+            Whether you're launching a new product or scaling an existing one, GTMGuy helps teams of all sizes go to
+            market faster.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
+            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:rocket-launch-duotone" class="text-2xl text-sky-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Startup Founders</h3>
+            <p class="text-neutral-700">
+              Get professional-grade GTM strategies at founder-friendly prices. Perfect for pre-seed to Series A
+              startups.
+            </p>
+          </div>
+
+          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
+            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:buildings-duotone" class="text-2xl text-sky-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Product Teams</h3>
+            <p class="text-neutral-700">
+              Streamline your product launches and GTM planning. Ideal for product managers and marketing teams.
+            </p>
+          </div>
+
+          <div class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-200">
+            <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:briefcase-duotone" class="text-2xl text-sky-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Consultants</h3>
+            <p class="text-neutral-700">
+              Deliver high-quality GTM strategies to clients faster. Perfect for independent consultants and agencies.
+            </p>
           </div>
         </div>
       </div>
@@ -224,9 +234,10 @@
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div v-for="benefit in benefits" :key="benefit.title" 
+          <div v-for="benefit in benefits" :key="benefit.title"
             class="text-center group bg-stone-50 p-8 rounded-xl border border-stone-200 hover:border-neutral-900/10 transition-all duration-200 hover:shadow-xl hover:shadow-stone-900/5">
-            <div class="w-16 h-16 bg-neutral-900 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
+            <div
+              class="w-16 h-16 bg-neutral-900 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
               <Icon :name="benefit.icon" class="text-3xl" />
             </div>
             <h3 class="text-xl font-semibold text-neutral-900 mb-3">{{ benefit.title }}</h3>
@@ -243,7 +254,8 @@
           <span class="text-sky-600 font-medium mb-2 block">Early Access</span>
           <h2 class="text-4xl font-bold text-neutral-900 mb-4">Join the GTM Revolution</h2>
           <p class="text-lg text-neutral-700 max-w-2xl mx-auto">
-            Join early adopters who are already creating winning go-to-market strategies in record time. No more endless meetings and spreadsheets.
+            Join early adopters who are already creating winning go-to-market strategies in record time. No more endless
+            meetings and spreadsheets.
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
@@ -275,7 +287,8 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           <!-- Free Trial -->
-          <div class="bg-white rounded-2xl border border-stone-200 p-8 hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-200">
+          <div
+            class="bg-white rounded-2xl border border-stone-200 p-8 hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-200">
             <div class="flex justify-between items-start mb-6">
               <div>
                 <h3 class="text-2xl font-bold text-neutral-900 mb-2">Free Trial</h3>
@@ -301,16 +314,15 @@
                 <span>No credit card required</span>
               </li>
             </ul>
-            <button 
-              @click="signInWithGoogle"
-              :disabled="isLoading"
+            <button @click="signInWithGoogle" :disabled="isLoading"
               class="w-full bg-neutral-900 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
               {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
             </button>
           </div>
 
           <!-- Lifetime Pro -->
-          <div class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 text-white relative overflow-hidden hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-200">
+          <div
+            class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 text-white relative overflow-hidden hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-200">
             <div class="absolute inset-0">
               <div class="absolute top-0 left-0 w-64 h-64 bg-sky-400/10 rounded-full blur-3xl"></div>
               <div class="absolute bottom-0 right-0 w-64 h-64 bg-stone-400/10 rounded-full blur-3xl"></div>
@@ -352,9 +364,7 @@
                   <span>Lifetime updates</span>
                 </li>
               </ul>
-              <button 
-                @click="signInWithGoogle"
-                :disabled="isLoading"
+              <button @click="signInWithGoogle" :disabled="isLoading"
                 class="w-full bg-white text-neutral-900 rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
                 {{ isLoading ? 'Loading...' : 'Get Unlimited Access →' }}
               </button>
@@ -367,19 +377,21 @@
     <!-- CTA Section -->
     <section class="py-16 sm:py-24">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <div class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 sm:p-16 text-center text-white relative overflow-hidden">
+        <div
+          class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 sm:p-16 text-center text-white relative overflow-hidden">
           <div class="absolute inset-0">
             <div class="absolute top-0 left-0 w-96 h-96 bg-sky-400/10 rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-stone-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            <div
+              class="absolute bottom-0 right-0 w-96 h-96 bg-stone-400/10 rounded-full blur-3xl animate-pulse delay-1000">
+            </div>
           </div>
           <div class="relative">
             <h2 class="text-5xl font-bold mb-6">Ready to Transform Your GTM Strategy?</h2>
             <p class="text-xl text-neutral-300 mb-10 max-w-2xl mx-auto">
-              Join early adopters who are already creating winning go-to-market strategies in record time. No more endless meetings and spreadsheets.
+              Join early adopters who are already creating winning go-to-market strategies in record time. No more
+              endless meetings and spreadsheets.
             </p>
-            <button 
-              @click="signInWithGoogle"
-              :disabled="isLoading"
+            <button @click="signInWithGoogle" :disabled="isLoading"
               class="inline-flex items-center gap-2 px-10 py-4 bg-white text-neutral-900 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium group">
               <Icon name="ph:sparkle-duotone" class="text-xl transition-transform group-hover:rotate-12" />
               {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
@@ -537,7 +549,7 @@ const benefits = [
 onMounted(() => {
   window.$crisp = []
   window.CRISP_WEBSITE_ID = "3448ab9c-c0d3-4622-9cf8-d83d0b7f29b5"
-  
+
   const script = document.createElement('script')
   script.src = "https://client.crisp.chat/l.js"
   script.async = true
@@ -552,8 +564,13 @@ onMounted(() => {
 
 /* Add animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInUp {
@@ -561,6 +578,7 @@ onMounted(() => {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
