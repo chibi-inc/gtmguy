@@ -2,25 +2,17 @@
   <div class="min-h-screen bg-stone-50">
     <TheNavbar />
     
-    <article class="max-w-3xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-24">
-      <div v-if="post">
-        <!-- Back Link -->
-        <div class="mb-8 sm:mb-12">
-          <NuxtLink 
-            to="/blog"
-            class="inline-flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors group text-sm"
-          >
-            <Icon name="ph:arrow-left-duotone" class="group-hover:-translate-x-0.5 transition-transform" />
-            Back to Blog
-          </NuxtLink>
-        </div>
-
-        <!-- Post Header -->
-        <header class="mb-8 sm:mb-12">
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 sm:mb-6 leading-tight">{{ post.title }}</h1>
-          <p class="text-lg sm:text-xl text-neutral-600 leading-relaxed mb-6 sm:mb-8">{{ post.description }}</p>
+    <main>
+      <article itemscope itemtype="http://schema.org/BlogPosting" class="max-w-3xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-24">
+        <header>
+          <h1 itemprop="headline" class="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 sm:mb-6 leading-tight">
+            {{ post.title }}
+          </h1>
+          <p itemprop="description" class="text-lg sm:text-xl text-neutral-600 leading-relaxed mb-6 sm:mb-8">
+            {{ post.description }}
+          </p>
           <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-neutral-600">
-            <div class="flex items-center gap-2">
+            <div itemprop="author" itemscope itemtype="http://schema.org/Person" class="flex items-center gap-2">
               <div class="w-8 sm:w-10 h-8 sm:h-10 bg-neutral-900 rounded-full flex items-center justify-center text-white">
                 <Icon name="ph:user-duotone" class="text-lg" />
               </div>
@@ -30,14 +22,12 @@
               </div>
             </div>
             <div class="hidden sm:block w-px h-8 bg-neutral-200"></div>
-            <div class="flex items-center gap-2">
-              <Icon name="ph:calendar-duotone" class="text-lg" />
-              <span>{{ formatDate(post.date) }}</span>
-            </div>
+            <time itemprop="datePublished" :datetime="post.date" class="flex items-center gap-2">
+              {{ formatDate(post.date) }}
+            </time>
           </div>
         </header>
 
-        <!-- Featured Image -->
         <div class="mb-10 sm:mb-16 -mx-4 sm:mx-0">
           <img 
             v-if="post.image" 
@@ -47,12 +37,10 @@
           />
         </div>
 
-        <!-- Content -->
         <div class="prose prose-sm sm:prose-base md:prose-lg max-w-none">
           <ContentRenderer :value="post" />
         </div>
 
-        <!-- Back to Blog -->
         <div class="mt-12 text-center">
           <NuxtLink 
             to="/blog"
@@ -62,59 +50,126 @@
             Back to Blog
           </NuxtLink>
         </div>
-      </div>
-    </article>
+      </article>
+    </main>
 
     <TheFooter />
   </div>
 </template>
 
 <script setup>
+import { useHead } from '#head'
 const route = useRoute()
-const { setSeo } = useSeo()
 const { data: post } = await useAsyncData('post', () => queryContent(route.path).findOne())
 
-// Set SEO metadata and structured data based on post content
-watch(post, (newPost) => {
-  if (newPost) {
-    setSeo({
-      title: newPost.title,
-      description: newPost.description,
-      image: newPost.image,
-      url: `https://gtmguy.ai${route.path}`, // Replace with your domain
-      type: 'article',
-    })
+// Enhanced SEO setup for blog posts
+const setupSEO = (post) => {
+  if (!post) return
 
-    // Add structured data
-    useHead({
-      script: [
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": newPost.title,
-            "description": newPost.description,
-            "image": newPost.image,
-            "datePublished": newPost.date,
-            "author": {
-              "@type": "Person",
-              "name": newPost.author
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "GTMGuy",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://gtmguy.ai/logo.png" // Add your logo URL
-              }
+  const postUrl = `https://gtmguy.ai${route.path}`
+  const postImage = post.image || 'https://gtmguy.ai/og-image.png'
+
+  useHead({
+    title: `${post.title} | GTMGuy Blog`,
+    meta: [
+      { name: 'description', content: post.description },
+      // Open Graph
+      { property: 'og:title', content: post.title },
+      { property: 'og:description', content: post.description },
+      { property: 'og:image', content: postImage },
+      { property: 'og:url', content: postUrl },
+      { property: 'og:type', content: 'article' },
+      // Twitter
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: post.title },
+      { name: 'twitter:description', content: post.description },
+      { name: 'twitter:image', content: postImage },
+      // Article specific meta tags
+      { property: 'article:published_time', content: post.date },
+      { property: 'article:author', content: post.author },
+      { property: 'article:section', content: post.category || 'Product Management' },
+      { name: 'keywords', content: `${post.tags?.join(', ')}, product management, GTM strategy, marketing` },
+    ],
+    // Enhanced Article structured data
+    script: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": postUrl
+          },
+          "headline": post.title,
+          "description": post.description,
+          "image": postImage,
+          "datePublished": post.date,
+          "dateModified": post.lastUpdated || post.date,
+          "author": {
+            "@type": "Person",
+            "name": post.author
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "GTMGuy",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://gtmguy.ai/logo.png"
             }
-          })
-        }
-      ]
-    })
-  }
+          },
+          "keywords": post.tags?.join(', '),
+          "articleBody": post.description
+        })
+      }
+    ],
+    link: [
+      // Canonical URL
+      { rel: 'canonical', href: postUrl },
+    ]
+  })
+}
+
+// Watch for post changes and update SEO
+watch(() => post.value, (newPost) => {
+  setupSEO(newPost)
 }, { immediate: true })
+
+// Add schema breadcrumbs
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gtmguy.ai"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://gtmguy.ai/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": post.value?.title,
+      "item": `https://gtmguy.ai${route.path}`
+    }
+  ]
+}
+
+// Add breadcrumb schema to head
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify(breadcrumbSchema)
+    }
+  ]
+})
 
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString('en-US', {

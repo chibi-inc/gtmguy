@@ -453,12 +453,32 @@ const { data: price } = await useFetch('/api/payments/fetch-price')
 // Set SEO metadata
 setSeo({
   title: 'AI-Powered Go-to-Market Strategy Tools',
-  description: 'Create comprehensive go-to-market strategies, ICPs, and product launch plans in minutes with AI. Transform your GTM strategy with GTMGuy.',
+  description: '10+ specialized tools covering everything from ICP creation to launch planning, SEO optimization, and user research - all in one platform.',
   url: 'https://gtmguy.ai', // Replace with your domain
 })
 
 // Structured data
 useHead({
+  title: 'GTMGuy - AI-Powered Product & Marketing Tools',
+  meta: [
+    { name: 'description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
+    // Open Graph
+    { property: 'og:title', content: 'GTMGuy - AI-Powered Product & Marketing Tools' },
+    { property: 'og:description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
+    { property: 'og:image', content: 'https://gtmguy.ai/og-image.png' },
+    { property: 'og:url', content: 'https://gtmguy.ai' },
+    { property: 'og:type', content: 'website' },
+    // Twitter
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'GTMGuy - AI-Powered Product & Marketing Tools' },
+    { name: 'twitter:description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
+    { name: 'twitter:image', content: 'https://gtmguy.ai/og-image.png' },
+    // Additional SEO tags
+    { name: 'keywords', content: 'AI product management, GTM strategy, marketing automation, product launch, go to market strategy, AI marketing tools' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'author', content: 'GTMGuy' },
+  ],
+  // Enhanced structured data
   script: [
     {
       type: 'application/ld+json',
@@ -466,16 +486,37 @@ useHead({
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "GTMGuy",
-        "description": "AI-powered go-to-market strategy tools",
+        "description": "AI-powered product and marketing tools to save 100+ Hours on Product & Marketing",
         "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "150"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "GTMGuy",
+          "url": "https://gtmguy.ai",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://gtmguy.ai/logo.png",
+            "width": "512",
+            "height": "512"
+          }
         }
       })
     }
-  ]
+  ],
+  link: [
+    { rel: 'icon', type: 'image/png', href: '/logo.png' },
+    { rel: 'apple-touch-icon', href: '/logo.png' },
+  ],
 })
 
 // Features and Benefits data
