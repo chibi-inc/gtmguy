@@ -468,11 +468,14 @@ useHead({
     { property: 'og:image', content: 'https://gtmguy.ai/og-image.png' },
     { property: 'og:url', content: 'https://gtmguy.ai' },
     { property: 'og:type', content: 'website' },
-    // Twitter
+    // Twitter Cards - Updated
     { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:site', content: '@thetronjohnson' }, // Add your Twitter handle
+    { name: 'twitter:creator', content: '@thetronjohnson' }, // Add your Twitter handle
     { name: 'twitter:title', content: 'GTMGuy - AI-Powered Product & Marketing Tools' },
     { name: 'twitter:description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
     { name: 'twitter:image', content: 'https://gtmguy.ai/og-image.png' },
+    { name: 'twitter:image:alt', content: 'GTMGuy AI-Powered Product & Marketing Tools Preview' }, // Add alt text for accessibility
     // Additional SEO tags
     { name: 'keywords', content: 'AI product management, GTM strategy, marketing automation, product launch, go to market strategy, AI marketing tools' },
     { name: 'robots', content: 'index, follow' },
