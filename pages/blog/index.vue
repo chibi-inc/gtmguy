@@ -5,7 +5,7 @@
     <div class="max-w-7xl mx-auto px-6 pt-32 pb-24">
       <div class="max-w-3xl mx-auto text-center mb-16">
         <span class="text-sky-600 font-medium mb-4 block">Blog</span>
-        <h1 class="text-5xl font-bold text-neutral-900 mb-6">GTM Insights</h1>
+        <h1 class="text-5xl font-bold text-neutral-900 mb-6">GTMGuy Blog</h1>
         <p class="text-xl text-neutral-700">
           Expert insights and guides on go-to-market strategy and product launches
         </p>

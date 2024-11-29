@@ -26,9 +26,9 @@
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Product/Company Description
+            Product/Feature Description
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Describe your product or company
+              Describe your product or feature
             </span>
           </label>
           <textarea

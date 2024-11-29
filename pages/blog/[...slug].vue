@@ -43,7 +43,7 @@
             v-if="post.image" 
             :src="post.image" 
             :alt="post.title"
-            class="w-full aspect-[16/9] sm:aspect-[21/9] object-cover sm:rounded-2xl shadow-lg"
+            class="w-full aspect-[16/9] sm:aspect-[21/9] object-cover sm:rounded-2xl"
           />
         </div>
 
