@@ -66,11 +66,17 @@ const { data: post } = await useAsyncData('post', () => queryContent(route.path)
 const setupSEO = (post) => {
   if (!post) return
 
-  const postUrl = `https://gtmguy.ai${route.path}`
-  const postImage = post.image || 'https://gtmguy.ai/og-image.png'
+  const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://gtmguy.ai'
+  const postUrl = `${siteUrl}${route.path}`
+  const postImage = post.image ? (post.image.startsWith('http') ? post.image : `${siteUrl}${post.image}`) : `${siteUrl}/og-image.png`
 
   useHead({
     title: `${post.title} | GTMGuy Blog`,
+    link: [
+      { rel: 'icon', type: 'image/png', href: '/logo.png' },
+      { rel: 'apple-touch-icon', href: '/logo.png' },
+      { rel: 'canonical', href: postUrl },
+    ],
     meta: [
       { name: 'description', content: post.description },
       // Open Graph
@@ -81,9 +87,14 @@ const setupSEO = (post) => {
       { property: 'og:type', content: 'article' },
       // Twitter
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: post.title },
+      { name: 'twitter:site', content: '@thetronjohnson' },
+      { name: 'twitter:creator', content: '@thetronjohnson' },
+      { name: 'twitter:title', content: `${post.title} | GTMGuy Blog` },
       { name: 'twitter:description', content: post.description },
       { name: 'twitter:image', content: postImage },
+      { name: 'twitter:image:alt', content: post.title },
+      { name: 'twitter:image:width', content: '1200' },
+      { name: 'twitter:image:height', content: '630' },
       // Article specific meta tags
       { property: 'article:published_time', content: post.date },
       { property: 'article:author', content: post.author },
@@ -115,7 +126,9 @@ const setupSEO = (post) => {
             "name": "GTMGuy",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://gtmguy.ai/logo.png"
+              "url": "https://gtmguy.ai/logo.png",
+              "width": "512",
+              "height": "512"
             }
           },
           "keywords": post.tags?.join(', '),
@@ -123,10 +136,6 @@ const setupSEO = (post) => {
         })
       }
     ],
-    link: [
-      // Canonical URL
-      { rel: 'canonical', href: postUrl },
-    ]
   })
 }
 

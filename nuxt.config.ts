@@ -34,6 +34,7 @@ export default defineNuxtConfig({
       paddleClientToken: process.env.PADDLE_CLIENT_TOKEN,
       paddlePriceId: process.env.PADDLE_PRICE_ID,
       paddleEnvironment: process.env.PADDLE_ENVIRONMENT,
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://gtmguy.ai'
     }
   },
   content: {
