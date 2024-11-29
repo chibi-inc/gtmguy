@@ -474,7 +474,7 @@ useHead({
     { name: 'twitter:creator', content: '@thetronjohnson' },
     { name: 'twitter:title', content: 'GTMGuy - AI-Powered Product & Marketing Tools' },
     { name: 'twitter:description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
-    { name: 'twitter:image', content: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://gtmguy.ai'}/og-image.png` },
+    { name: 'twitter:image', content: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://gtmguy.ai'}/og-image.png?` },
     { name: 'twitter:image:alt', content: 'GTMGuy AI-Powered Product & Marketing Tools Preview' },
     // Ensure image dimensions
     { name: 'twitter:image:width', content: '1200' },
