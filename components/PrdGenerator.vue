@@ -154,7 +154,7 @@ const errors = ref({
 const isLoading = ref(false)
 const response = ref('')
 
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 
 const handleSubmit = async () => {
   // Reset all errors

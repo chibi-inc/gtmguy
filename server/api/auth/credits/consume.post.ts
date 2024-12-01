@@ -12,7 +12,7 @@ export default defineEventHandler(async (event: H3Event) => {
     // Check current credits
     const { data: account, error: checkError } = await supabase
       .from('accounts')
-      .select('credits')
+      .select('credits, credits_last_reset')
       .eq('user', user_id)
       .single();
 
@@ -25,11 +25,31 @@ export default defineEventHandler(async (event: H3Event) => {
     if (!account || account.credits <= 0) {
       return { 
         success: false, 
-        message: 'No credits remaining. Please upgrade to continue.',
-        shouldUpgrade: true
+        message: 'No credits remaining for this month!',
+        // shouldUpgrade: true
       };
     }
 
+    // If the last reset is the month before, reset the credits to 100
+    // Edit the last reset to the current date
+
+    if (account.credits_last_reset < getUtcStartOfMonth()) {
+      const { error: resetError } = await supabase
+        .from('accounts')
+        .update({ credits: 99, credits_last_reset: getUtcStartOfMonth() })
+        .eq('user', user_id);
+
+      if (resetError) {
+        console.error('Error resetting credits:', resetError);
+        return { success: false, message: 'Failed to reset credits.' };
+      }
+
+      return { 
+        success: true, 
+        remainingCredits: 99
+        };
+    }
+  
     // Decrement credits
     const { error: updateError } = await supabase
       .from('accounts')

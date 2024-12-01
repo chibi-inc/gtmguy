@@ -103,7 +103,7 @@ const isLoading = ref(false)
 const response = ref('')
 const showObjectivesError = ref(false)
 const showUsersError = ref(false)
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 
 const handleSubmit = async () => {
   // Reset errors

@@ -130,10 +130,8 @@ import PrdGenerator from '~/components/PrdGenerator.vue'
 import LandingPageConversion from '~/components/LandingPageConversion.vue'
 import SeoOptimizer from '~/components/SeoOptimizer.vue'
 import InternalLinksOptimizer from '~/components/InternalLinksOptimizer.vue'
-
-
+import getUtcStartOfMonth from '~/server/utils/getUtcStartOfMonth'
 const activeItem = ref(0)
-const showUpgradeModal = ref(false)
 
 const menuItems = [
   // Product Features
@@ -309,23 +307,25 @@ async function fetchOrCreateUserAccount() {
 // Add credits state and fetching
 const credits = ref(0)
 
-// Remove lifetime plan state for now
-// const isLifetimePlan = ref(false)
-
 // Update the fetch credits function
 const fetchCredits = async () => {
   try {
     const { data, error } = await supabase
       .from('accounts')
-      .select('credits')
+      .select('credits, credits_last_reset')
       .eq('user', user.value.id)
       .single()
 
     if (error) throw error
     
-    // Remove lifetime plan check for now
-    // isLifetimePlan.value = data?.lifetime_plan || false
-    credits.value = data?.credits || 0
+    // If it's a new month, show 100 credits
+    const startOfMonth = getUtcStartOfMonth()
+    
+    if (data?.credits_last_reset < startOfMonth) {
+      credits.value = 100  // Show 100 credits at start of month
+    } else {
+      credits.value = data?.credits || 0
+    }
   } catch (error) {
     console.error('Error fetching credits:', error)
   }

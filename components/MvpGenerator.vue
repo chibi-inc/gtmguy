@@ -98,7 +98,7 @@ const isLoading = ref(false)
 const response = ref('')
 const showProblemError = ref(false)
 const showFunctionalitiesError = ref(false)
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 
 
 

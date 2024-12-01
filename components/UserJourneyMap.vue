@@ -100,7 +100,7 @@ const isLoading = ref(false)
 const response = ref('')
 const showProductError = ref(false)
 const showUserError = ref(false)
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 
 
 const handleSubmit = async () => {

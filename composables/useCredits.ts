@@ -1,7 +1,5 @@
 export const useCredits = () => {
   const user = useSupabaseUser()
-  const showUpgradeModal = ref(false)
-  const supabase = useSupabaseClient()
 
   const checkAndConsumeCredit = async () => {
     try {
@@ -37,10 +35,10 @@ export const useCredits = () => {
       const creditResult = await creditCheck.json()
 
       if (!creditResult.success) {
-        if (creditResult.shouldUpgrade) {
-          showUpgradeModal.value = true
-          return false
-        }
+        // if (creditResult.shouldUpgrade) {
+        //   .value = true
+        //   return false
+        // }
         throw new Error(creditResult.message)
       }
 
@@ -52,7 +50,7 @@ export const useCredits = () => {
   }
 
   return {
-    checkAndConsumeCredit,
-    showUpgradeModal
+    checkAndConsumeCredit
+    // 
   }
 } 

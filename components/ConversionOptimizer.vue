@@ -65,7 +65,7 @@ const formData = ref({
 const isLoading = ref(false)
 const response = ref('')
 const showError = ref(false)
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 
 const isValidUrl = (url) => {
   try {

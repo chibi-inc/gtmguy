@@ -111,7 +111,7 @@ const showProductError = ref(false)
 const showUrlError = ref(false)
 
 const { validateUrl } = useUrlValidation()
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 
 const isValidInputs = computed(() => {
   return blogContent.value.length > 100 && validateUrl(sitemapUrl.value)
