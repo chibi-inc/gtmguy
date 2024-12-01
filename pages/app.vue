@@ -76,17 +76,6 @@
                 <Icon name="ph:lightning-duotone" class="text-lg" />
                 <span>{{ isLifetimePlan ? '🎉 unlimited' : credits }} reports {{ isLifetimePlan ? '' : 'left' }}</span>
               </div>
-              <button  v-if="!isLifetimePlan"
-                @click="showUpgradeModal = true"
-                class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors flex items-center gap-1 whitespace-nowrap"
-              >
-                Upgrade
-                <Icon name="ph:arrow-right-duotone" class="text-lg hidden lg:block" />
-              </button>
-              <UpgradeModal v-if="showUpgradeModal"
-                @close="showUpgradeModal = false"
-                @update-lifetime-plan="updateLifetimePlan"
-              />
             </div>
           </div>
 
@@ -140,7 +129,6 @@ import Prioritization from '~/components/Prioritization.vue'
 import PrdGenerator from '~/components/PrdGenerator.vue'
 import LandingPageConversion from '~/components/LandingPageConversion.vue'
 import SeoOptimizer from '~/components/SeoOptimizer.vue'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 import InternalLinksOptimizer from '~/components/InternalLinksOptimizer.vue'
 
 

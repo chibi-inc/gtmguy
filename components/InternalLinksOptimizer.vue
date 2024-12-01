@@ -13,8 +13,6 @@
       </div>
     </div>
 
-    <!-- Upgrade Modal -->
-    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
 
     <form @submit.prevent="analyzeBlogForLinks" class="space-y-8">
       <!-- Form Header -->
@@ -95,7 +93,6 @@ import { ref, computed } from 'vue'
 import { useUrlValidation } from '~/composables/useUrlValidation'
 import { useCredits } from '~/composables/useCredits'
 import SuggestedLinks from '~/components/SuggestedLinks.vue'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 interface Suggestion {
   originalText: string

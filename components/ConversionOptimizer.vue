@@ -50,7 +50,6 @@
       @clear="response = ''"
       @regenerate="analyzePage"
     />
-    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
   </div>
 </template>
 
@@ -58,7 +57,6 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 const formData = ref({
   url: ''

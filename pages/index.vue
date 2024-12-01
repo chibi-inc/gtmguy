@@ -282,23 +282,23 @@
           <span class="text-sky-600 font-medium mb-2 block">Simple Pricing</span>
           <h2 class="text-5xl font-bold text-neutral-900 mb-6">Start For Free, Scale When Ready</h2>
           <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
-            Try GTMGuy for free with our trial. Upgrade to lifetime access when you're ready.
+            GTMGuy is free to use!
           </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+        <div class="flex flex-col gap-6 sm:gap-8 max-w-xl mx-auto">
           <!-- Free Trial -->
           <div
             class="bg-white rounded-2xl border border-stone-200 p-8 hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-200">
-            <div class="flex justify-between items-start mb-6">
+            <div class="flex justify-between items-center mb-6">
               <div>
-                <h3 class="text-2xl font-bold text-neutral-900 mb-2">Free Trial</h3>
+                <h3 class="text-2xl font-bold text-neutral-900 mb-2">Fully Free</h3>
                 <p class="text-neutral-700">Best to try out GTMGuy</p>
               </div>
               <span class="bg-stone-100 text-neutral-900 px-4 py-1 rounded-full text-sm font-medium">Free</span>
             </div>
             <div class="mb-8">
-              <div class="text-5xl font-bold text-neutral-900 mb-1">10</div>
-              <p class="text-neutral-700">Reports total</p>
+              <div class="text-5xl font-bold text-neutral-900 mb-1">100</div>
+              <p class="text-neutral-700">Reports/month</p>
             </div>
             <ul class="space-y-4 mb-8">
               <li class="flex items-center gap-3 text-neutral-700">
@@ -318,57 +318,6 @@
               class="w-full bg-neutral-900 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
               {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
             </button>
-          </div>
-
-          <!-- Lifetime Pro -->
-          <div
-            class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 text-white relative overflow-hidden hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-200">
-            <div class="absolute inset-0">
-              <div class="absolute top-0 left-0 w-64 h-64 bg-sky-400/10 rounded-full blur-3xl"></div>
-              <div class="absolute bottom-0 right-0 w-64 h-64 bg-stone-400/10 rounded-full blur-3xl"></div>
-            </div>
-            <div class="relative">
-              <div class="flex justify-between items-start mb-6">
-                <div>
-                  <h3 class="text-2xl font-bold mb-2">Lifetime Pro</h3>
-                  <p class="text-neutral-300">Best value for serious users</p>
-                </div>
-                <span class="bg-white/20 text-white px-4 py-1 rounded-full text-sm font-medium">Limited Time</span>
-              </div>
-              <div class="mb-8">
-                <div class="text-5xl font-bold mb-1">∞</div>
-                <p class="text-neutral-300">Unlimited reports forever</p>
-              </div>
-              <div class="mb-8">
-                <div class="flex items-baseline gap-2">
-                  <span class="text-3xl font-bold"> ${{ price }}</span>
-                  <span class="text-neutral-300">one-time payment</span>
-                </div>
-                <p class="text-sm text-neutral-300 mt-1">Lifetime access, unlimited value</p>
-              </div>
-              <ul class="space-y-4 mb-8">
-                <li class="flex items-center gap-3 text-neutral-200">
-                  <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
-                  <span>Everything in Free Trial</span>
-                </li>
-                <li class="flex items-center gap-3 text-neutral-200">
-                  <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
-                  <span>Unlimited reports</span>
-                </li>
-                <li class="flex items-center gap-3 text-neutral-200">
-                  <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
-                  <span>Priority support</span>
-                </li>
-                <li class="flex items-center gap-3 text-neutral-200">
-                  <Icon name="ph:check-circle-duotone" class="text-xl text-sky-400" />
-                  <span>Lifetime updates</span>
-                </li>
-              </ul>
-              <button @click="signInWithGoogle" :disabled="isLoading"
-                class="w-full bg-white text-neutral-900 rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-                {{ isLoading ? 'Loading...' : 'Get Unlimited Access →' }}
-              </button>
-            </div>
           </div>
         </div>
       </div>
