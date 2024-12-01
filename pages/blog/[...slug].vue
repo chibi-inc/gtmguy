@@ -58,7 +58,6 @@
 </template>
 
 <script setup>
-import { useHead } from '#head'
 const route = useRoute()
 const { data: post } = await useAsyncData('post', () => queryContent(route.path).findOne())
 
