@@ -155,6 +155,7 @@ const isLoading = ref(false)
 const response = ref('')
 
 const { checkAndConsumeCredit  } = useCredits()
+const emit = defineEmits(['updateCredits'])
 
 const handleSubmit = async () => {
   // Reset all errors
@@ -182,7 +183,7 @@ const generatePrd = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/prd', {
       method: 'POST',

@@ -104,6 +104,7 @@ const response = ref('')
 const showObjectivesError = ref(false)
 const showUsersError = ref(false)
 const { checkAndConsumeCredit  } = useCredits()
+const emit = defineEmits(['updateCredits'])
 
 const handleSubmit = async () => {
   // Reset errors
@@ -136,7 +137,7 @@ const generateResearchPlan = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/research-plan', {
       method: 'POST',

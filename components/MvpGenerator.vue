@@ -99,6 +99,7 @@ const response = ref('')
 const showProblemError = ref(false)
 const showFunctionalitiesError = ref(false)
 const { checkAndConsumeCredit  } = useCredits()
+const emit = defineEmits(['updateCredits'])
 
 
 
@@ -135,7 +136,7 @@ const generateMvp = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/mvp', {
       method: 'POST',

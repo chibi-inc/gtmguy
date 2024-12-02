@@ -102,6 +102,7 @@ const response = ref('')
 const showGoalError = ref(false)
 const showTimeFrameError = ref(false)
 const { checkAndConsumeCredit  } = useCredits()
+const emit = defineEmits(['updateCredits'])
 
 
 const handleSubmit = async () => {
@@ -135,7 +136,7 @@ const generateMetrics = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/metrics', {
       method: 'POST',

@@ -130,6 +130,7 @@ const response = ref('')
 const showFeaturesError = ref(false)
 const showGoalsError = ref(false)
 const { checkAndConsumeCredit  } = useCredits()
+const emit = defineEmits(['updateCredits'])
 
 const handleSubmit = async () => {
   // Reset errors
@@ -161,7 +162,7 @@ const generatePrioritization = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     const res = await fetch('/api/prioritization', {
       method: 'POST',
       body: JSON.stringify({

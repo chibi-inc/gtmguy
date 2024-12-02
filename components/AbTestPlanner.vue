@@ -102,6 +102,7 @@ const showObjectiveError = ref(false)
 const showMetricsError = ref(false)
 const { checkAndConsumeCredit  } = useCredits()
 
+const emit = defineEmits(['updateCredits'])
 
 const handleSubmit = async () => {
   // Reset errors
@@ -134,6 +135,9 @@ const generateTest = async () => {
       isLoading.value = false
       return
     }
+
+    // If generation is successful, emit to update credits
+    emit('updateCredits')
 
     // If credit check passes, proceed with generation
     const res = await fetch('/api/ab-test', {

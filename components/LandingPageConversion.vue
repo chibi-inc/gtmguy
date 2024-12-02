@@ -85,6 +85,7 @@ const isLoading = ref(false)
 const response = ref('')
 const { checkAndConsumeCredit  } = useCredits()
 const { validateUrl } = useUrlValidation()
+const emit = defineEmits(['updateCredits'])
 
 // Update validation states
 const validationStates = ref({
@@ -124,7 +125,7 @@ const analyzeLandingPage = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/landing-page', {
       method: 'POST',

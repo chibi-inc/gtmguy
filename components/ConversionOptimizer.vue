@@ -62,6 +62,8 @@ const formData = ref({
   url: ''
 })
 
+const emit = defineEmits(['updateCredits'])
+
 const isLoading = ref(false)
 const response = ref('')
 const showError = ref(false)
@@ -96,6 +98,7 @@ const analyzePage = async () => {
       isLoading.value = false
       return
     }
+    emit('updateCredits')
 
     // If credit check passes, proceed with generation
     const res = await fetch('/api/landing-page', {

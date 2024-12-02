@@ -93,6 +93,7 @@ import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 
+const emit = defineEmits(['updateCredits'])
 
 const formData = ref({
   description: '',
@@ -136,7 +137,7 @@ const generateSwot = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/swot', {
       method: 'POST',

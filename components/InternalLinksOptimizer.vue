@@ -109,6 +109,7 @@ const error = ref('')
 const suggestions = ref<Suggestion[]>([])
 const showProductError = ref(false)
 const showUrlError = ref(false)
+const emit = defineEmits(['updateCredits'])
 
 const { validateUrl } = useUrlValidation()
 const { checkAndConsumeCredit  } = useCredits()
@@ -146,7 +147,7 @@ async function analyzeBlogForLinks() {
       isProcessing.value = false
       return
     }
-
+    emit('updateCredits')
     interface ApiResponse {
       success: boolean
       data: {

@@ -86,6 +86,7 @@ const response = ref('')
 const showError = ref(false)
 const { checkAndConsumeCredit  } = useCredits()
 const { validateUrl } = useUrlValidation()
+const emit = defineEmits(['updateCredits'])
 
 // Validation states
 const validationStates = ref({
@@ -135,7 +136,7 @@ const analyzeSeo = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/seo-optimizer', {
       method: 'POST',

@@ -106,7 +106,10 @@
           <p class="text-neutral-600 mt-1">{{ getDescription(activeItem) }}</p>
         </div>
         <div class="rounded-xl border border-stone-200 bg-white/50 backdrop-blur-sm p-6 shadow-sm">
-          <component :is="currentComponent" />
+          <component 
+            :is="currentComponent" 
+            @update-credits="credits--"
+          />
         </div>
       </div>
     </main>
