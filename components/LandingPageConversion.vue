@@ -13,9 +13,6 @@
       </div>
     </div>
 
-    <!-- Upgrade Modal -->
-    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
-
     <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
@@ -79,7 +76,6 @@ import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
 import { useUrlValidation } from '~/composables/useUrlValidation'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 const formData = ref({
   url: ''
@@ -87,8 +83,9 @@ const formData = ref({
 
 const isLoading = ref(false)
 const response = ref('')
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 const { validateUrl } = useUrlValidation()
+const emit = defineEmits(['updateCredits'])
 
 // Update validation states
 const validationStates = ref({
@@ -128,7 +125,7 @@ const analyzeLandingPage = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/landing-page', {
       method: 'POST',

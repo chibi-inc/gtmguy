@@ -13,9 +13,6 @@
       </div>
     </div>
 
-    <!-- Upgrade Modal -->
-    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
-
     <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
@@ -93,7 +90,6 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 const formData = ref({
   productDescription: '',
@@ -104,7 +100,8 @@ const isLoading = ref(false)
 const response = ref('')
 const showProductError = ref(false)
 const showMarketError = ref(false)
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
+const emit = defineEmits(['updateCredits'])
 
 const handleSubmit = async () => {
   // Reset errors
@@ -139,7 +136,7 @@ const generateICP = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/icp', {
       method: 'POST',

@@ -13,9 +13,6 @@
       </div>
     </div>
 
-    <!-- Upgrade Modal -->
-    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
-
     <form @submit.prevent="handleSubmit" class="space-y-8">
       <!-- Form Header -->
       <div class="mb-6">
@@ -114,7 +111,6 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 const methodOptions = {
   RICE: "RICE (Reach, Impact, Confidence, Effort)",
@@ -133,7 +129,8 @@ const isLoading = ref(false)
 const response = ref('')
 const showFeaturesError = ref(false)
 const showGoalsError = ref(false)
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
+const emit = defineEmits(['updateCredits'])
 
 const handleSubmit = async () => {
   // Reset errors
@@ -165,7 +162,7 @@ const generatePrioritization = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     const res = await fetch('/api/prioritization', {
       method: 'POST',
       body: JSON.stringify({

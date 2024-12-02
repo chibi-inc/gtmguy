@@ -13,8 +13,6 @@
       </div>
     </div>
 
-    <!-- Upgrade Modal -->
-    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
 
     <form @submit.prevent="analyzeBlogForLinks" class="space-y-8">
       <!-- Form Header -->
@@ -95,7 +93,6 @@ import { ref, computed } from 'vue'
 import { useUrlValidation } from '~/composables/useUrlValidation'
 import { useCredits } from '~/composables/useCredits'
 import SuggestedLinks from '~/components/SuggestedLinks.vue'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 interface Suggestion {
   originalText: string
@@ -112,9 +109,10 @@ const error = ref('')
 const suggestions = ref<Suggestion[]>([])
 const showProductError = ref(false)
 const showUrlError = ref(false)
+const emit = defineEmits(['updateCredits'])
 
 const { validateUrl } = useUrlValidation()
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 
 const isValidInputs = computed(() => {
   return blogContent.value.length > 100 && validateUrl(sitemapUrl.value)
@@ -149,7 +147,7 @@ async function analyzeBlogForLinks() {
       isProcessing.value = false
       return
     }
-
+    emit('updateCredits')
     interface ApiResponse {
       success: boolean
       data: {

@@ -74,19 +74,8 @@
             <div class="bg-stone-50 border border-stone-200 rounded-lg px-3 lg:px-4 py-2 flex items-center gap-2 lg:gap-3">
               <div class="flex items-center gap-2 text-sm text-neutral-600 whitespace-nowrap">
                 <Icon name="ph:lightning-duotone" class="text-lg" />
-                <span>{{ isLifetimePlan ? '🎉 unlimited' : credits }} reports {{ isLifetimePlan ? '' : 'left' }}</span>
+                <span>{{ credits }} reports left</span>
               </div>
-              <button  v-if="!isLifetimePlan"
-                @click="showUpgradeModal = true"
-                class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors flex items-center gap-1 whitespace-nowrap"
-              >
-                Upgrade
-                <Icon name="ph:arrow-right-duotone" class="text-lg hidden lg:block" />
-              </button>
-              <UpgradeModal v-if="showUpgradeModal"
-                @close="showUpgradeModal = false"
-                @update-lifetime-plan="updateLifetimePlan"
-              />
             </div>
           </div>
 
@@ -117,7 +106,10 @@
           <p class="text-neutral-600 mt-1">{{ getDescription(activeItem) }}</p>
         </div>
         <div class="rounded-xl border border-stone-200 bg-white/50 backdrop-blur-sm p-6 shadow-sm">
-          <component :is="currentComponent" />
+          <component 
+            :is="currentComponent" 
+            @update-credits="credits--"
+          />
         </div>
       </div>
     </main>
@@ -140,12 +132,9 @@ import Prioritization from '~/components/Prioritization.vue'
 import PrdGenerator from '~/components/PrdGenerator.vue'
 import LandingPageConversion from '~/components/LandingPageConversion.vue'
 import SeoOptimizer from '~/components/SeoOptimizer.vue'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 import InternalLinksOptimizer from '~/components/InternalLinksOptimizer.vue'
-
-
+import getUtcStartOfMonth from '~/server/utils/getUtcStartOfMonth'
 const activeItem = ref(0)
-const showUpgradeModal = ref(false)
 
 const menuItems = [
   // Product Features
@@ -321,22 +310,25 @@ async function fetchOrCreateUserAccount() {
 // Add credits state and fetching
 const credits = ref(0)
 
-// Add lifetime plan state
-const isLifetimePlan = ref(false)
-
 // Update the fetch credits function
 const fetchCredits = async () => {
   try {
     const { data, error } = await supabase
       .from('accounts')
-      .select('credits, lifetime_plan')
+      .select('credits, credits_last_reset')
       .eq('user', user.value.id)
       .single()
 
     if (error) throw error
     
-    isLifetimePlan.value = data?.lifetime_plan || false
-    credits.value = data?.credits || 0
+    // If it's a new month, show 100 credits
+    const startOfMonth = getUtcStartOfMonth()
+    
+    if (data?.credits_last_reset < startOfMonth) {
+      credits.value = 100  // Show 100 credits at start of month
+    } else {
+      credits.value = data?.credits || 0
+    }
   } catch (error) {
     console.error('Error fetching credits:', error)
   }
@@ -370,9 +362,9 @@ onMounted(() => {
   }
 })
 
-const updateLifetimePlan = (value) => {
-  isLifetimePlan.value = value
-}
+// const updateLifetimePlan = (value) => {
+//   isLifetimePlan.value = value
+// }
 </script>
 
 <style>

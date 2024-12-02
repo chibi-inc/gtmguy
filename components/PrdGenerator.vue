@@ -13,8 +13,6 @@
       </div>
     </div>
 
-    <!-- Upgrade Modal -->
-    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
 
 
     <form @submit.prevent="handleSubmit" class="space-y-8">
@@ -138,7 +136,6 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 const formData = ref({
   productVision: '',
@@ -157,7 +154,8 @@ const errors = ref({
 const isLoading = ref(false)
 const response = ref('')
 
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
+const emit = defineEmits(['updateCredits'])
 
 const handleSubmit = async () => {
   // Reset all errors
@@ -185,7 +183,7 @@ const generatePrd = async () => {
       isLoading.value = false
       return
     }
-
+    emit('updateCredits')
     // If credit check passes, proceed with generation
     const res = await fetch('/api/prd', {
       method: 'POST',

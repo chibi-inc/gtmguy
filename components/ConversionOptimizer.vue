@@ -50,7 +50,6 @@
       @clear="response = ''"
       @regenerate="analyzePage"
     />
-    <UpgradeModal v-if="showUpgradeModal" @close="showUpgradeModal = false" />
   </div>
 </template>
 
@@ -58,16 +57,17 @@
 import { ref } from 'vue'
 import ResponseSection from '~/components/common/ResponseSection.vue'
 import { useCredits } from '~/composables/useCredits'
-import UpgradeModal from '~/components/common/UpgradeModal.vue'
 
 const formData = ref({
   url: ''
 })
 
+const emit = defineEmits(['updateCredits'])
+
 const isLoading = ref(false)
 const response = ref('')
 const showError = ref(false)
-const { checkAndConsumeCredit, showUpgradeModal } = useCredits()
+const { checkAndConsumeCredit  } = useCredits()
 
 const isValidUrl = (url) => {
   try {
@@ -98,6 +98,7 @@ const analyzePage = async () => {
       isLoading.value = false
       return
     }
+    emit('updateCredits')
 
     // If credit check passes, proceed with generation
     const res = await fetch('/api/landing-page', {
