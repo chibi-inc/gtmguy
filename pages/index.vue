@@ -137,8 +137,7 @@
                     </div>
                     <div>
                       <h4 class="font-semibold text-neutral-900 mb-1">Launch Special Offer</h4>
-                      <p class="text-neutral-700 text-sm">Get lifetime access to all tools for just $69. Start with 10
-                        free generations today.</p>
+                      <p class="text-neutral-700 text-sm">Try out all tools for free. No credit card required.</p>
                     </div>
                   </div>
                   <button @click="signInWithGoogle" :disabled="isLoading"
@@ -303,20 +302,32 @@
             <ul class="space-y-4 mb-8">
               <li class="flex items-center gap-3 text-neutral-700">
                 <Icon name="ph:check-circle-duotone" class="text-xl text-sky-600" />
-                <span>All AI-powered tools</span>
+                <span>ICP Creator</span>
               </li>
               <li class="flex items-center gap-3 text-neutral-700">
                 <Icon name="ph:check-circle-duotone" class="text-xl text-sky-600" />
-                <span>Ideal for testing</span>
+                <span>GTM Strategy</span>
               </li>
               <li class="flex items-center gap-3 text-neutral-700">
                 <Icon name="ph:check-circle-duotone" class="text-xl text-sky-600" />
-                <span>No credit card required</span>
+                <span>Link Builder</span>
+              </li>
+              <li class="flex items-center gap-3 text-neutral-700">
+                <Icon name="ph:check-circle-duotone" class="text-xl text-sky-600" />
+                <span>SEO Analyser</span>
+              </li>
+              <li class="flex items-center gap-3 text-neutral-700">
+                <Icon name="ph:check-circle-duotone" class="text-xl text-sky-600" />
+                <span>User Research Planner</span>
+              </li>
+              <li class="flex items-center gap-3 text-neutral-700">
+                <Icon name="ph:check-circle-duotone" class="text-xl text-sky-600" />
+                <span>And More ...</span>
               </li>
             </ul>
             <button @click="signInWithGoogle" :disabled="isLoading"
               class="w-full bg-neutral-900 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-              {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
+              {{ isLoading ? 'Loading...' : 'Start for Free →' }}
             </button>
           </div>
         </div>
@@ -343,7 +354,7 @@
             <button @click="signInWithGoogle" :disabled="isLoading"
               class="inline-flex items-center gap-2 px-10 py-4 bg-white text-neutral-900 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium group">
               <Icon name="ph:sparkle-duotone" class="text-xl transition-transform group-hover:rotate-12" />
-              {{ isLoading ? 'Loading...' : 'Start Creating for Free →' }}
+              {{ isLoading ? 'Loading...' : 'Start for Free →' }}
             </button>
           </div>
         </div>
@@ -409,6 +420,9 @@ setSeo({
 // Structured data
 useHead({
   title: 'GTMGuy - AI-Powered Product & Marketing Tools',
+  htmlAttrs: {
+    lang: 'en'
+  },
   meta: [
     { name: 'description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
     // Open Graph

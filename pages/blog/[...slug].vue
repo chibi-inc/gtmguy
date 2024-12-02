@@ -71,6 +71,9 @@ const setupSEO = (post) => {
 
   useHead({
     title: `${post.title} | GTMGuy Blog`,
+    htmlAttrs: {
+    lang: 'en'
+   },
     link: [
       { rel: 'icon', type: 'image/png', href: '/logo.png' },
       { rel: 'apple-touch-icon', href: '/logo.png' },
