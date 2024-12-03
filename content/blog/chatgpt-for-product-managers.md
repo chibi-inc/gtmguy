@@ -1,7 +1,7 @@
 ---
 title: "ChatGPT Prompts Every Product Manager Should Know"
 description: "Discover essential ChatGPT prompts to enhance your product management efficiency, from MVP planning to user research. Streamline your workflow and make data-driven decisions."
-date: "2024-03-20"
+date: "2024-12-03"
 author: "Kiran Johns"
 image: "/blog/chatgpt-for-pm.jpg"
 ---
