@@ -10,7 +10,7 @@ image: "/blog/why-i-made-gtmguy.jpg"
 
 Hi, I’m [Kiran](https://x.com/thetronjohnson). I’ve worked in product management and growth for the past three years. In that time, I discovered a recurring theme: there are countless repetitive tasks that often bog down the real work of building and scaling products.  
 
-From drafting user research plans to creating PRDs, building low-effort MVPs to validate problems, and even optimizing landing pages or analyzing SEO performance, I found myself automating much of my work using AI. It wasn’t just about making life easier; it was about getting back the time and energy to focus on execution.  
+From drafting user research plans to creating PRDs, building low-effort MVPs to validate problems, and even optimizing landing pages or analyzing SEO performance, I found myself automating much of my work using AI. Want to learn more about using AI for product management? Check out our guide on [ChatGPT Prompts Every Product Manager Should Know](https://gtmguy.ai/blog/chatgpt-for-product-managers).  
 
 As founders and product folks, we should spend less time figuring out what to do and more time getting things done. That’s why I built [GTMGuy](https://gtmguy.ai)—to help busy founders and product managers prioritize execution over busywork.  
 
@@ -32,7 +32,7 @@ Whether you're in the early stages of product discovery or refining your go-to-m
 
 ### **For Product Management** 📋
 1. **MVP Generator** ⚡
-   Speed matters. Ship your product quickly with the help of GTMGuy’s MVP generator, designed to reduce your time to market.  
+   Speed matters. Ship your product quickly with the help of GTMGuy’s MVP generator, designed to reduce your time to market. Learn more about [effective MVP planning with ChatGPT](https://gtmguy.ai/blog/chatgpt-for-product-managers#1-mvp-planning).  
 
 2. **PRD Generator** 📝
    PRDs aren’t just for engineering—they help align every team. GTMGuy helps you generate clear, concise PRDs that bring everyone on the same page.  
@@ -88,3 +88,9 @@ Your time should be spent creating and gathering feedback, and the fastest way t
 Ready go to market fast? **GTMGuy** is here to help you focus on execution and get things done.  
 
 Start today at [https://gtmguy.ai](https://gtmguy.ai).
+
+---
+
+**Related Reading:**
+- [ChatGPT Prompts Every Product Manager Should Know](https://gtmguy.ai/blog/chatgpt-for-product-managers) - Master AI prompts for product management tasks
+- [Try Our AI Tools](https://gtmguy.ai/app) - Experience our suite of AI-powered tools
