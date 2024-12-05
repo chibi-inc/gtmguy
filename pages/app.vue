@@ -17,24 +17,31 @@
     <aside 
       :class="`${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed inset-y-0 left-0 w-72 bg-white/50 backdrop-blur-sm border-r border-stone-200 transition-transform duration-200 z-10`"
     >
-      <div class="flex flex-col h-full p-6">
-        <!-- Header -->
-        <div class="mb-6">
+      <!-- Main sidebar container with flex and overflow handling -->
+      <div class="flex flex-col h-full">
+        <!-- Fixed Header -->
+        <div class="flex-shrink-0 p-6 pb-4">
           <div class="flex items-center gap-3 mb-2">
             <Icon name="ph:rocket-duotone" class="text-3xl text-sky-600" />
             <NuxtLink to="/" class="text-2xl font-bold text-neutral-900">GTMGuy</NuxtLink>
           </div>
-          <p class="text-sm text-neutral-600">Your AI-Powered Product & Marketing Suite
-        </p>
+          <p class="text-sm text-neutral-600">Your AI-Powered Product & Marketing Suite</p>
         </div>
 
-        <!-- Navigation -->
-        <nav class="flex-1">
-          <ul class="grid grid-cols-1">
+        <!-- Scrollable Navigation -->
+        <nav class="flex-1 overflow-y-auto px-4">
+          <ul class="grid grid-cols-1 gap-0.5">
             <li v-for="(item, index) in menuItems" :key="index">
               <template v-if="item.type === 'header'">
-                <div :class="getMenuItemClasses(item, index)">
-                  {{ item.label }}
+                <div class="flex items-center px-2 py-2 mt-2 first:mt-0">
+                  <div>
+                    <span class="text-xs font-semibold text-sky-500 uppercase tracking-wider block">
+                      {{ item.label }}
+                    </span>
+                    <span class="text-[10px] text-neutral-500 block mt-0.5">
+                      {{ getSectionDescription(item.label) }}
+                    </span>
+                  </div>
                 </div>
               </template>
               <template v-else>
@@ -42,23 +49,31 @@
                   :class="getMenuItemClasses(item, index)"
                   @click="activeItem = menuItems.filter(i => !i.type).indexOf(item)"
                 >
-                  <Icon 
-                    :name="item.icon" 
-                    class="text-lg shrink-0" 
-                    :class="activeItem === menuItems.filter(i => !i.type).indexOf(item) ? 'text-sky-600' : 'text-neutral-600'" 
-                  />
-                  <span class="truncate">{{ item.label }}</span>
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-stone-100 flex items-center justify-center flex-shrink-0 transition-colors duration-200"
+                         :class="{'bg-sky-100': activeItem === menuItems.filter(i => !i.type).indexOf(item)}">
+                      <Icon 
+                        :name="item.icon" 
+                        class="text-base"
+                        :class="activeItem === menuItems.filter(i => !i.type).indexOf(item) ? 'text-sky-600' : 'text-neutral-600'" 
+                      />
+                    </div>
+                    <div class="flex flex-col items-start">
+                      <span class="text-sm font-medium truncate">{{ item.label }}</span>
+                      <span class="text-[10px] text-neutral-500 truncate">{{ getShortDescription(item.label) }}</span>
+                    </div>
+                  </div>
                 </button>
               </template>
             </li>
           </ul>
         </nav>
-        
-        <!-- Footer -->
-        <div class="pt-4 border-t border-stone-200">
+
+        <!-- Fixed Footer -->
+        <div class="flex-shrink-0 p-6 pt-4 border-t border-stone-200">
           <div class="flex items-center gap-2 text-sm text-neutral-600">
             <Icon name="ph:info-duotone" class="text-lg" />
-            <span>Version 1.0.0</span>
+            <span>Version 1.1.0</span>
           </div>
         </div>
       </div>
@@ -137,32 +152,44 @@ import getUtcStartOfMonth from '~/server/utils/getUtcStartOfMonth'
 const activeItem = ref(0)
 
 const menuItems = [
-  // Product Features
+  // Discovery & Strategy
   { 
-    label: 'Product',
+    label: 'Discovery & Strategy',
+    type: 'header'
+  },
+  { label: 'Ideal Customer Profile', icon: 'ph:user-duotone', component: ICP },
+  { label: 'User Research Plan', icon: 'ph:magnifying-glass-duotone', component: UserResearchPlan },
+  { label: 'SWOT Analysis', icon: 'ph:chart-pie-slice-duotone', component: SwotAnalysis },
+  
+  // Product Planning
+  { 
+    label: 'Product Planning',
     type: 'header'
   },
   { label: 'MVP Generator', icon: 'ph:cube-duotone', component: MvpGenerator },
   { label: 'PRD Generator', icon: 'ph:file-text-duotone', component: PrdGenerator },
   { label: 'Prioritization', icon: 'ph:list-numbers-duotone', component: Prioritization },
-  { label: 'Research Plan', icon: 'ph:magnifying-glass-duotone', component: UserResearchPlan },
-  { label: 'SWOT Analysis', icon: 'ph:chart-pie-slice-duotone', component: SwotAnalysis },
   { label: 'User Journey Map', icon: 'ph:map-trifold-duotone', component: UserJourneyMap },
+  { label: 'Metrics and KPI', icon: 'ph:chart-line-up-duotone', component: MetricsKpi },
   
-  // Marketing Features
+  // Launch & GTM
   { 
-    label: 'Marketing',
+    label: 'Launch & GTM',
     type: 'header'
   },
-  { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
   { label: 'GTM Strategy', icon: 'ph:target-duotone', component: GtmStrategy },
-  { label: 'Ideal Customer Profile', icon: 'ph:user-duotone', component: ICP },
-  { label: 'Link Builder', icon:'ph:link-duotone', component: InternalLinksOptimizer},
-  { label: 'Landing Page Conversion', icon: 'ph:browser-duotone', component: LandingPageConversion },
-  { label: 'Landing Page Copy', icon: 'ph:pencil-duotone', component: CopyOptimizer },
   { label: 'Launch Plan', icon: 'ph:rocket-launch-duotone', component: ProductLaunchPlan },
-  { label: 'Metrics and KPI', icon: 'ph:chart-line-up-duotone', component: MetricsKpi },
-  { label: 'SEO Analyser', icon: 'ph:google-logo-duotone', component: SeoOptimizer }
+  
+  // Marketing & Growth
+  { 
+    label: 'Marketing & Growth',
+    type: 'header'
+  },
+  { label: 'Landing Page Copy', icon: 'ph:pencil-duotone', component: CopyOptimizer },
+  { label: 'Landing Page Conversion', icon: 'ph:browser-duotone', component: LandingPageConversion },
+  { label: 'SEO Analyser', icon:'ph:google-logo-duotone', component: SeoOptimizer },
+  { label: 'Link Builder', icon:'ph:link-duotone', component: InternalLinksOptimizer },
+  { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
 ]
 
 const currentComponent = computed(() => {
@@ -171,15 +198,14 @@ const currentComponent = computed(() => {
 })
 
 const getMenuItemClasses = (item, index) => {
-  if (item.type === 'header') {
-    return 'text-xs font-semibold text-neutral-500 uppercase tracking-wider px-3 py-2'
-  }
-  
   const nonHeaderIndex = menuItems.filter(i => !i.type).indexOf(item)
+  const isActive = activeItem.value === nonHeaderIndex
   
   return {
-    'w-full text-left px-3 py-2 rounded-lg text-neutral-700 hover:bg-stone-200 transition-all duration-200 flex items-center gap-2 text-sm': true,
-    'text-neutral-900 bg-stone-200 font-medium': activeItem.value === nonHeaderIndex
+    'w-full text-left px-2 py-1 rounded-lg hover:bg-stone-100 transition-all duration-200 flex items-center': true,
+    'bg-stone-100': isActive,
+    'text-neutral-900': isActive,
+    'text-neutral-700': !isActive
   }
 }
 
@@ -188,21 +214,28 @@ const getDescription = (index) => {
   const activeMenuItem = nonHeaderItems[index]
   
   const descriptions = {
-    'A/B Test Planner': "Design and track A/B tests for your product",
-    'Landing Page Copy': "Generate copy for your entire landing page",
-    'GTM Strategy': "Plan and execute your go-to-market strategy",
-    'Ideal Customer Profile': "Define and analyze your Ideal Customer Profile",
-    'Link Builder': 'Build links in one click',
-    'Launch Plan': "Plan and execute your product launch",
-    'Metrics and KPI': "Improve metrics and KPIs",
-    'MVP Generator': "Generate MVP features and requirements",
-    'PRD Generator': "Generate comprehensive Product Requirements Documents",
-    'Prioritization': "Prioritize features and initiatives",
-    'Research Plan': "Create comprehensive user research plans",
-    'SWOT Analysis': "Analyze strengths, weaknesses, opportunities, and threats",
-    'User Journey Map': "Map out your user's journey and touchpoints",
+    // Discovery & Strategy
+    'Ideal Customer Profile': "Define your target audience with detailed personas and market insights",
+    'User Research Plan': "Create comprehensive research plans to validate assumptions and gather user insights",
+    'SWOT Analysis': "Analyze your product's position in the market with detailed strengths, weaknesses, opportunities, and threats",
+    
+    // Product Planning
+    'MVP Generator': "Define core features and requirements for your minimum viable product",
+    'PRD Generator': "Create detailed product requirement documents that align team objectives",
+    'Prioritization': "Use data-driven frameworks to prioritize features and initiatives",
+    'User Journey Map': "Map out comprehensive user flows and identify optimization opportunities",
+    'Metrics and KPI': "Define key metrics to track product success and growth",
+    
+    // Launch & GTM
+    'GTM Strategy': "Build comprehensive go-to-market strategies for product success",
+    'Launch Plan': "Create detailed launch plans with timelines and success metrics",
+    
+    // Marketing & Growth
+    'Landing Page Copy': "Generate compelling copy that converts visitors into customers",
     'Landing Page Conversion': "Optimize landing pages for better conversion rates",
-    'SEO Analyser': "Analyse your website's SEO"
+    'SEO Analyser': "Improve your website's search engine visibility and performance",
+    'Link Builder': "Create strategic internal links to boost SEO and user engagement",
+    'A/B Test Planner': "Design and track experiments to optimize product performance"
   }
   
   return descriptions[activeMenuItem?.label] || ''
@@ -365,9 +398,76 @@ onMounted(() => {
 // const updateLifetimePlan = (value) => {
 //   isLifetimePlan.value = value
 // }
+
+// Add new helper functions
+const getShortDescription = (label) => {
+  const descriptions = {
+    'Ideal Customer Profile': 'Define target audience',
+    'User Research Plan': 'Plan user research',
+    'SWOT Analysis': 'Analyze market position',
+    'MVP Generator': 'Define core features',
+    'PRD Generator': 'Create product docs',
+    'Prioritization': 'Prioritize features',
+    'User Journey Map': 'Map user flows',
+    'Metrics and KPI': 'Track success metrics',
+    'GTM Strategy': 'Plan market entry',
+    'Launch Plan': 'Plan product launch',
+    'Landing Page Copy': 'Write converting copy',
+    'Landing Page Conversion': 'Optimize conversions',
+    'SEO Analyser': 'Improve SEO',
+    'Link Builder': 'Build internal links',
+    'A/B Test Planner': 'Plan experiments'
+  }
+  return descriptions[label] || ''
+}
+
+const getSectionDescription = (label) => {
+  const descriptions = {
+    'Discovery & Strategy': 'Understand your market',
+    'Product Planning': 'Define your product',
+    'Launch & GTM': 'Launch and go to market',
+    'Marketing & Growth': 'Grow your product and get more users'
+  }
+  return descriptions[label] || ''
+}
 </script>
 
 <style>
+/* Update scrollbar styling */
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.overflow-y-auto:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Add smooth transitions */
+.sidebar-item-enter-active,
+.sidebar-item-leave-active {
+  transition: all 0.3s ease;
+}
+
+.sidebar-item-enter-from,
+.sidebar-item-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
 /* Optional: Add custom scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;

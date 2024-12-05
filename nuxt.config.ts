@@ -1,5 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindTypography from '@tailwindcss/typography';
+import fs from 'fs'
+import path from 'path'
 
 export default defineNuxtConfig({
   ssr: true,
@@ -9,7 +11,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxt/icon',
     '@nuxt/content',
-    '@nuxtjs/sitemap',
     '@nuxtjs/supabase',
     '@nuxt/fonts'
   ],
@@ -49,9 +50,6 @@ export default defineNuxtConfig({
     highlight: {
       theme: 'github-light'
     }
-  },
-  sitemap: {
-    siteUrl: 'https://gtmguy.ai',
   },
   supabase: {
     redirect: false,

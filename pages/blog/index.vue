@@ -99,4 +99,11 @@ const formatDate = (date) => {
     day: 'numeric'
   })
 }
+
+definePageMeta({
+  sitemap: {
+    priority: 0.9,
+    changefreq: 'daily'
+  }
+})
 </script> 

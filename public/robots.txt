@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Allow: /blog/
+Disallow: /app/
+Disallow: /auth/
 
 Sitemap: https://gtmguy.ai/sitemap.xml

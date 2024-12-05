@@ -58,6 +58,13 @@
 </template>
 
 <script setup>
+definePageMeta({
+  sitemap: {
+    priority: 0.8,
+    changefreq: 'weekly'
+  }
+})
+
 const route = useRoute()
 const { data: post } = await useAsyncData('post', () => queryContent(route.path).findOne())
 

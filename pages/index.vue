@@ -18,39 +18,39 @@
           <span
             class="px-4 py-1.5 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-800 text-white text-sm font-medium inline-flex items-center gap-2 mb-6 sm:mb-8">
             <Icon name="ph:sparkle-duotone" class="text-lg" />
-            Save 100+ Hours on Product & Marketing
+            AI-Powered Product Development Suite
           </span>
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-neutral-900 mb-6 sm:mb-8 leading-tight">
-            Your AI Product Manager & <span class="text-gradient">Marketing Team</span>
+            From Product <span class="text-gradient">Discovery</span> to Market <span class="text-gradient">Growth</span>
           </h1>
           <p class="text-lg sm:text-xl text-neutral-700 mb-8 sm:mb-10 leading-relaxed">
-            Stop spending weeks on product strategy, GTM plans, and marketing content. Get AI-powered insights and deliverables for your entire product lifecycle in <span class="font-semibold">minutes</span>.
+            Accelerate your product success with AI-driven insights. From research to launch, optimize every step for faster growth and better results.
           </p>
           <!-- Mobile-optimized CTA buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             <button @click="signInWithGoogle" :disabled="isLoading"
               class="w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2">
-              <Icon name="ph:sparkle-duotone" class="text-xl" />
-              {{ user?.value ? 'Go to App →' : isLoading ? 'Loading...' : 'Try it for Free →' }}
+              <Icon name="ph:rocket-launch-duotone" class="text-xl" />
+              {{ user?.value ? 'Go to Dashboard →' : isLoading ? 'Loading...' : 'Start Your Journey →' }}
             </button>
             <a href="#features"
               class="w-full sm:w-auto px-6 py-4 text-neutral-900 hover:bg-white/75 rounded-xl transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2 group">
-              <Icon name="ph:magic-wand-duotone" class="text-xl" />
-              See All Tools
+              <Icon name="ph:path-duotone" class="text-xl" />
+              See The Process
             </a>
           </div>
           <!-- Social Proof -->
-          <div class="mt-12 pt-8 border-t border-neutral-200/50 animate-fade-in-up delay-400">
+          <div class="mt-12 pt-8 animate-fade-in-up delay-400">
             <div class="max-w-md mx-auto bg-stone-50/80 backdrop-blur-sm rounded-xl p-6 border border-stone-200">
               <div class="flex items-start gap-4">
                 <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Icon name="ph:smiley-duotone" class="text-2xl text-green-500" />
+                  <Icon name="ph:rocket-launch-duotone" class="text-2xl text-green-500" />
                 </div>
                 <div class="text-left">
                   <p class="text-neutral-700 italic mb-2">
-                    "This AI thing just wrote my entire go-to-market strategy while I was getting coffee. Pretty neat!"
+                    "Finally, an AI tool that understands the entire product development lifecycle. Saved us weeks of planning!"
                   </p>
-                  <p class="text-sm text-neutral-600">- Probably a Happy Customer</p>
+                  <p class="text-sm text-neutral-600">- Probably a Product Manager at a Series A Startup</p>
                 </div>
               </div>
             </div>
@@ -58,119 +58,133 @@
         </div>
       </div>
     </section>
-
-    <!-- Why GTMGuy Section -->
-    <section class="py-16 sm:py-24 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sky-50/10 to-transparent"></div>
-      <div class="max-w-7xl mx-auto px-6 relative">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-          <div class="space-y-8">
-            <span class="text-sky-600 font-medium">Why GTMGuy?</span>
-            <h2 class="text-4xl font-bold text-neutral-900">Your AI Co-Pilot for Product Success</h2>
-            <div class="space-y-6">
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center">
-                  <Icon name="ph:robot-duotone" class="text-2xl text-sky-600" />
-                </div>
-                <div>
-                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">AI-Powered Excellence</h3>
-                  <p class="text-neutral-700">Advanced AI technology that understands market dynamics, customer
-                    behavior, and successful GTM patterns to generate tailored strategies.</p>
-                </div>
-              </div>
-
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
-                  <Icon name="ph:toolbox-duotone" class="text-2xl text-sky-600" />
-                </div>
-                <div>
-                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">Complete GTM Suite</h3>
-                  <p class="text-neutral-700">10+ specialized tools covering everything from ICP creation to launch
-                    planning, SEO optimization, and user research - all in one platform.</p>
-                </div>
-              </div>
-
-              <div class="flex gap-4">
-                <div class="flex-shrink-0 w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
-                  <Icon name="ph:lightning-duotone" class="text-2xl text-sky-600" />
-                </div>
-                <div>
-                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">10x Faster Execution</h3>
-                  <p class="text-neutral-700">Transform months of planning into minutes. Generate comprehensive
-                    strategies, analyze markets, and create launch plans instantly.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="lg:pl-12">
-            <div class="bg-white rounded-2xl border border-stone-200 p-8 space-y-8">
-              <div class="space-y-4">
-                <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
-                  </div>
-                  <p class="text-neutral-900"><span class="font-semibold">Data-Driven Insights</span> - AI analyzes
-                    market trends and successful patterns</p>
-                </div>
-                <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
-                  </div>
-                  <p class="text-neutral-900"><span class="font-semibold">Proven Frameworks</span> - Built on
-                    battle-tested GTM strategies</p>
-                </div>
-                <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
-                  </div>
-                  <p class="text-neutral-900"><span class="font-semibold">Regular Updates</span> - New features and
-                    improvements every month</p>
-                </div>
-              </div>
-
-              <div class="border-t border-stone-200 pt-8">
-                <div class="bg-neutral-50 rounded-xl p-6">
-                  <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Icon name="ph:rocket-duotone" class="text-2xl text-white" />
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-neutral-900 mb-1">Launch Special Offer</h4>
-                      <p class="text-neutral-700 text-sm">Try out all tools for free. No credit card required.</p>
-                    </div>
-                  </div>
-                  <button @click="signInWithGoogle" :disabled="isLoading"
-                    class="mt-6 w-full bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-                    {{ isLoading ? 'Loading...' : 'Try All Tools Free →' }}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Features Grid -->
     <section id="features" class="py-24 bg-stone-50/50 backdrop-blur-sm border-y border-stone-200">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-20">
           <span class="text-sky-600 font-medium mb-2 block">Features</span>
-          <h2 class="text-5xl font-bold text-neutral-900 mb-6">All the Tools You Need</h2>
+          <h2 class="text-5xl font-bold text-neutral-900 mb-6">From Discovery to Growth</h2>
           <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
-            Our AI-powered tools help you build, launch, and grow better products faster.
+            A complete suite of AI tools to help you build, launch, and grow your product - following a proven product development lifecycle.
           </p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          <div v-for="feature in features" :key="feature.title"
-            class="bg-stone-50 p-8 rounded-xl border border-stone-200 hover:border-neutral-900/10 transition-all duration-300 group hover:shadow-xl hover:shadow-stone-900/5 hover:-translate-y-1">
-            <div
-              class="w-12 h-12 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-              <Icon :name="feature.icon" class="text-2xl" />
+
+        <!-- Discovery & Strategy -->
+        <div class="space-y-16">
+          <div class="space-y-6">
+            <div class="flex items-center gap-3">
+              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Discovery & Strategy</span>
+              <span class="text-sm text-neutral-500">Understand your market</span>
             </div>
-            <h3 class="text-xl font-semibold text-neutral-900 mb-3">{{ feature.title }}</h3>
-            <p class="text-neutral-700 leading-relaxed">{{ feature.description }}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:user-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Ideal Customer Profile</h3>
+                <p class="text-neutral-600">Define your target audience with detailed personas and market insights.</p>
+              </div>
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:magnifying-glass-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">User Research Plan</h3>
+                <p class="text-neutral-600">Create comprehensive research plans to validate assumptions.</p>
+              </div>
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:chart-pie-slice-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">SWOT Analysis</h3>
+                <p class="text-neutral-600">Analyze your product's position with detailed market insights.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Planning -->
+          <div class="space-y-6">
+            <div class="flex items-center gap-3">
+              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Product Planning</span>
+              <span class="text-sm text-neutral-500">Define your product</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:cube-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">MVP Generator</h3>
+                <p class="text-neutral-600">Define core features for your minimum viable product.</p>
+              </div>
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:file-text-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">PRD Generator</h3>
+                <p class="text-neutral-600">Create detailed product requirement documents that align teams.</p>
+              </div>
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:map-trifold-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">User Journey Map</h3>
+                <p class="text-neutral-600">Map out user flows and identify optimization opportunities.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Launch & GTM -->
+          <div class="space-y-6">
+            <div class="flex items-center gap-3">
+              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Launch & GTM</span>
+              <span class="text-sm text-neutral-500">Launch and go to market</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:target-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">GTM Strategy</h3>
+                <p class="text-neutral-600">Build comprehensive go-to-market strategies for success.</p>
+              </div>
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:rocket-launch-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Launch Plan</h3>
+                <p class="text-neutral-600">Create detailed launch plans with timelines and metrics.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marketing & Growth -->
+          <div class="space-y-6">
+            <div class="flex items-center gap-3">
+              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Marketing & Growth</span>
+              <span class="text-sm text-neutral-500">Grow your product and get more users</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:pencil-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Landing Page Copy</h3>
+                <p class="text-neutral-600">Generate compelling copy that converts visitors into customers.</p>
+              </div>
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:google-logo-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">SEO Analyser</h3>
+                <p class="text-neutral-600">Improve your website's search engine visibility and performance.</p>
+              </div>
+              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon name="ph:test-tube-duotone" class="text-xl text-sky-600" />
+                </div>
+                <h3 class="text-lg font-semibold mb-2">A/B Test Planner</h3>
+                <p class="text-neutral-600">Design and track experiments to optimize performance.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -217,6 +231,94 @@
             <p class="text-neutral-700">
               Deliver high-quality GTM strategies to clients faster. Perfect for independent consultants and agencies.
             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  
+    <!-- Why GTMGuy Section -->
+    <section class="py-16 sm:py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sky-50/10 to-transparent"></div>
+      <div class="max-w-7xl mx-auto px-6 relative">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="space-y-8">
+            <span class="text-sky-600 font-medium">Why GTMGuy?</span>
+            <h2 class="text-4xl font-bold text-neutral-900">Your AI Co-Pilot for Product Success</h2>
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mt-1">
+                  <Icon name="ph:robot-duotone" class="text-2xl text-sky-600" />
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">State-of-the-Art AI</h3>
+                  <p class="text-neutral-700">Leverage advanced AI that learns from successful GTM patterns to generate data-driven strategies tailored to your market.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mt-1">
+                  <Icon name="ph:toolbox-duotone" class="text-2xl text-sky-600" />
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">All-in-One Platform</h3>
+                  <p class="text-neutral-700">Access 10+ specialized tools that seamlessly integrate market research, launch planning, and growth optimization in one place.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mt-1">
+                  <Icon name="ph:lightning-duotone" class="text-2xl text-sky-600" />
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-neutral-900 mb-2">Save Valuable Time</h3>
+                  <p class="text-neutral-700">Focus on execution while our AI handles the heavy lifting of strategy documentation and planning.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:pl-12">
+            <div class="bg-white rounded-2xl border border-stone-200 p-8 space-y-8">
+              <div class="space-y-4">
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mt-1">
+                    <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
+                  </div>
+                  <p class="text-neutral-900"><span class="font-semibold">AI-Powered Templates</span> - Start with proven frameworks and customize for your needs</p>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mt-1">
+                    <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
+                  </div>
+                  <p class="text-neutral-900"><span class="font-semibold">Battle-Tested Methods</span> - Built on proven frameworks used by successful startups</p>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mt-1">
+                    <Icon name="ph:check-circle-duotone" class="text-2xl text-green-600" />
+                  </div>
+                  <p class="text-neutral-900"><span class="font-semibold">Continuous Innovation</span> - Weekly updates with new features and improved AI capabilities</p>
+                </div>
+              </div>
+
+              <div class="border-t border-stone-200 pt-8">
+                <div class="bg-neutral-50 rounded-xl p-6">
+                  <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Icon name="ph:rocket-duotone" class="text-2xl text-white" />
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-neutral-900 mb-1">Launch Special Offer</h4>
+                      <p class="text-neutral-700 text-sm">Try out all tools for free. No credit card required.</p>
+                    </div>
+                  </div>
+                  <button @click="signInWithGoogle" :disabled="isLoading"
+                    class="mt-6 w-full bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
+                    {{ isLoading ? 'Loading...' : 'Try All Tools Free →' }}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -327,7 +429,7 @@
             </ul>
             <button @click="signInWithGoogle" :disabled="isLoading"
               class="w-full bg-neutral-900 text-white rounded-xl py-3 px-6 text-center font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 inline-block">
-              {{ isLoading ? 'Loading...' : 'Start for Free →' }}
+              {{ isLoading ? 'Loading...' : 'Start for Free ' }}
             </button>
           </div>
         </div>
@@ -408,44 +510,87 @@ const signInWithGoogle = async () => {
 
 const { setSeo } = useSeo()
 
-const { data: price } = await useFetch('/api/payments/fetch-price')
-
 // Set SEO metadata
 setSeo({
-  title: 'AI-Powered Go-to-Market Strategy Tools',
-  description: '10+ specialized tools covering everything from ICP creation to launch planning, SEO optimization, and user research - all in one platform.',
-  url: 'https://gtmguy.ai', // Replace with your domain
+  title: 'GTMGuy - AI Product Development Suite for Founders',
+  description: 'Transform your product journey from discovery to growth. Get AI-powered guidance for market research, MVP planning, launch strategies, and growth optimization. Built for founders and solopreneurs.',
+  url: 'https://gtmguy.ai',
 })
 
 // Structured data
 useHead({
-  title: 'GTMGuy - AI-Powered Product & Marketing Tools',
+  title: 'GTMGuy - AI Product Development Suite for Founders',
   htmlAttrs: {
     lang: 'en'
   },
   meta: [
-    { name: 'description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
+    { 
+      name: 'description', 
+      content: 'Transform your product journey from discovery to growth. Get AI-powered guidance for market research, MVP planning, launch strategies, and growth optimization. Built for founders and solopreneurs.' 
+    },
     // Open Graph
-    { property: 'og:title', content: 'GTMGuy - AI-Powered Product & Marketing Tools' },
-    { property: 'og:description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
-    { property: 'og:image', content: 'https://gtmguy.ai/og-image.png' },
-    { property: 'og:url', content: 'https://gtmguy.ai' },
-    { property: 'og:type', content: 'website' },
-    // Twitter Cards - Updated
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:site', content: '@thetronjohnson' },
-    { name: 'twitter:creator', content: '@thetronjohnson' },
-    { name: 'twitter:title', content: 'GTMGuy - AI-Powered Product & Marketing Tools' },
-    { name: 'twitter:description', content: 'Save 100+ hours on product strategy and marketing with AI-powered tools. Get professional GTM strategies, launch plans, and marketing content in minutes.' },
-    { name: 'twitter:image', content: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://gtmguy.ai'}/og-image.png?` },
-    { name: 'twitter:image:alt', content: 'GTMGuy AI-Powered Product & Marketing Tools Preview' },
-    // Ensure image dimensions
-    { name: 'twitter:image:width', content: '1200' },
-    { name: 'twitter:image:height', content: '630' },
+    { 
+      property: 'og:title', 
+      content: 'GTMGuy - AI Product Development Suite for Founders' 
+    },
+    { 
+      property: 'og:description', 
+      content: 'Transform your product journey from discovery to growth. Get AI-powered guidance for market research, MVP planning, launch strategies, and growth optimization. Built for founders and solopreneurs.' 
+    },
+    { 
+      property: 'og:image', 
+      content: 'https://gtmguy.ai/og-image.png' 
+    },
+    { 
+      property: 'og:url', 
+      content: 'https://gtmguy.ai' 
+    },
+    { 
+      property: 'og:type', 
+      content: 'website' 
+    },
+    // Twitter Cards
+    { 
+      name: 'twitter:card', 
+      content: 'summary_large_image' 
+    },
+    { 
+      name: 'twitter:site', 
+      content: '@thetronjohnson' 
+    },
+    { 
+      name: 'twitter:creator', 
+      content: '@thetronjohnson' 
+    },
+    { 
+      name: 'twitter:title', 
+      content: 'GTMGuy - AI Product Development Suite for Founders' 
+    },
+    { 
+      name: 'twitter:description', 
+      content: 'Transform your product journey from discovery to growth. Get AI-powered guidance for market research, MVP planning, launch strategies, and growth optimization. Built for founders and solopreneurs.' 
+    },
+    { 
+      name: 'twitter:image', 
+      content: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://gtmguy.ai'}/og-image.png` 
+    },
+    { 
+      name: 'twitter:image:alt', 
+      content: 'GTMGuy AI Product Development Suite Preview' 
+    },
     // Additional SEO tags
-    { name: 'keywords', content: 'AI product management, GTM strategy, marketing automation, product launch, go to market strategy, AI marketing tools' },
-    { name: 'robots', content: 'index, follow' },
-    { name: 'author', content: 'Kiran Johns' },
+    { 
+      name: 'keywords', 
+      content: 'product development, startup tools, founder tools, MVP planning, go to market strategy, product launch, market research, AI product manager, solopreneur tools, startup automation' 
+    },
+    { 
+      name: 'robots', 
+      content: 'index, follow' 
+    },
+    { 
+      name: 'author', 
+      content: 'GTMGuy' 
+    },
   ],
   // Enhanced structured data
   script: [
@@ -455,7 +600,7 @@ useHead({
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "GTMGuy",
-        "description": "AI-powered product and marketing tools to save 100+ Hours on Product & Marketing",
+        "description": "AI-powered product development suite helping founders and solopreneurs build, launch, and grow successful products.",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -467,6 +612,17 @@ useHead({
           "@type": "AggregateRating",
           "ratingValue": "4.8",
           "ratingCount": "150"
+        },
+        "featureList": [
+          "Market Research & Discovery",
+          "MVP Planning",
+          "Product Development",
+          "Launch Strategy",
+          "Growth Optimization"
+        ],
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Founders, Solopreneurs, Early-stage Startups"
         },
         "creator": {
           "@type": "Organization",
@@ -480,14 +636,6 @@ useHead({
           }
         }
       })
-    },
-    {
-      type: 'text/javascript',
-      children: `(function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "p56ykifasc");`
     }
   ],
   link: [
