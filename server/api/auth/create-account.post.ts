@@ -29,7 +29,7 @@ export default defineEventHandler(async (event: H3Event) => {
     const { data, error } = await supabase
       .from('accounts')
       .insert([
-        { user: user_id }
+        { user: user_id, credits: 100, credits_last_reset: getUtcStartOfMonth() }
       ]);
   
     // Handle errors
