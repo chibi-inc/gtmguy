@@ -41,12 +41,18 @@ importers:
       fast-xml-parser:
         specifier: ^4.5.0
         version: 4.5.0
+      html2canvas:
+        specifier: ^1.4.1
+        version: 1.4.1
       html2pdf.js:
         specifier: ^0.10.2
         version: 0.10.2
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
+      jspdf:
+        specifier: ^2.5.2
+        version: 2.5.2
       katex:
         specifier: ^0.16.11
         version: 0.16.11
