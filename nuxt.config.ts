@@ -12,7 +12,8 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/content',
     '@nuxtjs/supabase',
-    '@nuxt/fonts'
+    '@nuxt/fonts',
+    '@nuxtjs/sitemap'
   ],
   css: ['~/assets/main.css'],
   tailwindcss: {
@@ -98,6 +99,32 @@ export default defineNuxtConfig({
           console.warn(warning)
         })
       }
+    }
+  },
+  site: {  
+    url: 'https://gtmguy.ai',  
+    name: 'GTMGuy' 
+  },
+  sitemap: {
+    urls: async () => {
+      // Static routes
+      const staticRoutes = [
+        '/',
+        '/blog',
+      ]
+
+      // Get the content directly from the filesystem
+      const contentDir = path.join(process.cwd(), 'content/blog')
+      const files = fs.readdirSync(contentDir)
+      
+      const blogRoutes = files
+        .filter(file => file.endsWith('.md'))
+        .map(file => ({
+          url: `/blog/${file.replace('.md', '')}`,
+          lastmod: fs.statSync(path.join(contentDir, file)).mtime
+        }))
+
+      return [...staticRoutes, ...blogRoutes]
     }
   }
 })
