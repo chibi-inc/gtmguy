@@ -30,43 +30,98 @@
 
         <!-- Scrollable Navigation -->
         <nav class="flex-1 overflow-y-auto px-4">
-          <ul class="grid grid-cols-1 gap-0.5">
-            <li v-for="(item, index) in menuItems" :key="index">
-              <template v-if="item.type === 'header'">
-                <div class="flex items-center px-2 py-2 mt-2 first:mt-0">
-                  <div>
-                    <span class="text-xs font-semibold text-sky-500 uppercase tracking-wider block">
-                      {{ item.label }}
-                    </span>
-                    <span class="text-[10px] text-neutral-500 block mt-0.5">
-                      {{ getSectionDescription(item.label) }}
-                    </span>
-                  </div>
-                </div>
-              </template>
-              <template v-else>
-                <button 
-                  :class="getMenuItemClasses(item, index)"
-                  @click="activeItem = menuItems.filter(i => !i.type).indexOf(item)"
+          <!-- Journey Progress -->
+          <div class="mb-4 px-2">
+            <div class="text-xs font-medium text-neutral-600 mb-2">Your Product Journey</div>
+            <div class="relative flex justify-between">
+              <!-- Progress Line -->
+              <div class="absolute top-4 left-0 right-0 h-0.5 bg-stone-200">
+                <div 
+                  class="h-full bg-sky-500 transition-all duration-300"
+                  :style="{
+                    width: getProgressWidth
+                  }"
+                ></div>
+              </div>
+              
+              <!-- Stage Indicators -->
+              <div 
+                v-for="(stage, index) in stages" 
+                :key="stage.id"
+                class="relative z-10 flex flex-col items-center gap-1"
+              >
+                <button
+                  @click="activeStage = stage.id"
+                  class="group flex flex-col items-center gap-1 cursor-pointer"
                 >
-                  <div class="flex items-center gap-2">
-                    <div class="w-7 h-7 rounded-lg bg-stone-100 flex items-center justify-center flex-shrink-0 transition-colors duration-200"
-                         :class="{'bg-sky-100': activeItem === menuItems.filter(i => !i.type).indexOf(item)}">
-                      <Icon 
-                        :name="item.icon" 
-                        class="text-base"
-                        :class="activeItem === menuItems.filter(i => !i.type).indexOf(item) ? 'text-sky-600' : 'text-neutral-600'" 
-                      />
-                    </div>
-                    <div class="flex flex-col items-start">
-                      <span class="text-sm font-medium truncate">{{ item.label }}</span>
-                      <span class="text-[10px] text-neutral-500 truncate">{{ getShortDescription(item.label) }}</span>
-                    </div>
+                  <div 
+                    class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
+                    :class="[
+                      getStageStatus(stage.id) === 'completed' ? 'bg-sky-500 text-white' :
+                      getStageStatus(stage.id) === 'current' ? 'bg-sky-100 text-sky-600 ring-2 ring-sky-500' :
+                      'bg-stone-100 text-neutral-400 hover:bg-stone-200'
+                    ]"
+                  >
+                    <Icon :name="stage.icon" class="text-lg" />
                   </div>
+                  <span 
+                    class="text-[10px] font-medium text-center transition-colors duration-200"
+                    :class="[
+                      activeStage === stage.id ? 'text-sky-600' : 'text-neutral-500',
+                      'group-hover:text-sky-600'
+                    ]"
+                  >
+                    {{ stage.label }}
+                  </span>
                 </button>
-              </template>
-            </li>
-          </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage Content -->
+          <div class="space-y-4">
+            <!-- Current Stage Info -->
+            <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-sky-100 flex-shrink-0 flex items-center justify-center">
+                  <Icon :name="getCurrentStage.icon" class="text-lg text-sky-600" />
+                </div>
+                <div>
+                  <h3 class="text-sm font-medium text-neutral-900">{{ getCurrentStage.label }}</h3>
+                  <p class="text-xs text-neutral-600 mt-0.5">{{ getCurrentStage.description }}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage Tools -->
+            <div class="space-y-2">
+              <div class="text-xs font-medium text-neutral-600 px-2">Available Tools</div>
+              <ul class="grid grid-cols-1 gap-1">
+                <li v-for="(item, index) in filteredMenuItems" :key="index">
+                  <button 
+                    v-if="!item.type"
+                    :class="getMenuItemClasses(item, index)"
+                    @click="selectMenuItem(item)"
+                  >
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded-lg bg-stone-100 flex items-center justify-center flex-shrink-0 transition-colors duration-200"
+                           :class="{'bg-sky-100': isActiveMenuItem(item)}">
+                        <Icon 
+                          :name="item.icon" 
+                          class="text-base"
+                          :class="isActiveMenuItem(item) ? 'text-sky-600' : 'text-neutral-600'" 
+                        />
+                      </div>
+                      <div class="flex flex-col items-start">
+                        <span class="text-sm font-medium truncate">{{ item.label }}</span>
+                        <span class="text-[10px] text-neutral-500 truncate">{{ getShortDescription(item.label) }}</span>
+                      </div>
+                    </div>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
 
         <!-- Fixed Footer -->
@@ -154,7 +209,7 @@ const activeItem = ref(0)
 const menuItems = [
   // Discovery & Strategy
   { 
-    label: 'Discovery & Strategy',
+    label: 'Understand Your Market',
     type: 'header'
   },
   { label: 'Ideal Customer Profile', icon: 'ph:user-duotone', component: ICP },
@@ -163,7 +218,7 @@ const menuItems = [
   
   // Product Planning
   { 
-    label: 'Product Planning',
+    label: 'Build Your Product',
     type: 'header'
   },
   { label: 'MVP Generator', icon: 'ph:cube-duotone', component: MvpGenerator },
@@ -174,20 +229,20 @@ const menuItems = [
   
   // Launch & GTM
   { 
-    label: 'Launch & GTM',
+    label: 'Launch Your Product',
     type: 'header'
   },
   { label: 'GTM Strategy', icon: 'ph:target-duotone', component: GtmStrategy },
   { label: 'Launch Plan', icon: 'ph:rocket-launch-duotone', component: ProductLaunchPlan },
+  { label: 'Landing Page Conversion', icon: 'ph:browser-duotone', component: LandingPageConversion },
+  { label: 'SEO Analyser', icon:'ph:google-logo-duotone', component: SeoOptimizer },
   
   // Marketing & Growth
   { 
-    label: 'Marketing & Growth',
+    label: 'Grow Your Product',
     type: 'header'
   },
-  { label: 'Landing Page Copy', icon: 'ph:pencil-duotone', component: CopyOptimizer },
-  { label: 'Landing Page Conversion', icon: 'ph:browser-duotone', component: LandingPageConversion },
-  { label: 'SEO Analyser', icon:'ph:google-logo-duotone', component: SeoOptimizer },
+  { label: 'Copywriter', icon: 'ph:pencil-duotone', component: CopyOptimizer },
   { label: 'Link Builder', icon:'ph:link-duotone', component: InternalLinksOptimizer },
   { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
 ]
@@ -198,14 +253,11 @@ const currentComponent = computed(() => {
 })
 
 const getMenuItemClasses = (item, index) => {
-  const nonHeaderIndex = menuItems.filter(i => !i.type).indexOf(item)
-  const isActive = activeItem.value === nonHeaderIndex
-  
   return {
     'w-full text-left px-2 py-1 rounded-lg hover:bg-stone-100 transition-all duration-200 flex items-center': true,
-    'bg-stone-100': isActive,
-    'text-neutral-900': isActive,
-    'text-neutral-700': !isActive
+    'bg-stone-100': isActiveMenuItem(item),
+    'text-neutral-900': isActiveMenuItem(item),
+    'text-neutral-700': !isActiveMenuItem(item)
   }
 }
 
@@ -231,7 +283,7 @@ const getDescription = (index) => {
     'Launch Plan': "Create detailed launch plans with timelines and success metrics",
     
     // Marketing & Growth
-    'Landing Page Copy': "Generate compelling copy that converts visitors into customers",
+    'Copywriter': "Generate compelling copy that converts visitors into customers",
     'Landing Page Conversion': "Optimize landing pages for better conversion rates",
     'SEO Analyser': "Improve your website's search engine visibility and performance",
     'Link Builder': "Create strategic internal links to boost SEO and user engagement",
@@ -412,7 +464,7 @@ const getShortDescription = (label) => {
     'Metrics and KPI': 'Track success metrics',
     'GTM Strategy': 'Plan market entry',
     'Launch Plan': 'Plan product launch',
-    'Landing Page Copy': 'Write converting copy',
+    'Copywriter': 'Write converting copy',
     'Landing Page Conversion': 'Optimize conversions',
     'SEO Analyser': 'Improve SEO',
     'Link Builder': 'Build internal links',
@@ -429,6 +481,88 @@ const getSectionDescription = (label) => {
     'Marketing & Growth': 'Grow your product and get more users'
   }
   return descriptions[label] || ''
+}
+
+// Enhanced stages definition
+const stages = [
+  { 
+    id: 'understand', 
+    label: 'Understand', 
+    icon: 'ph:binoculars-duotone',
+    description: 'Research your market, define your target audience, and analyze competitors'
+  },
+  { 
+    id: 'build', 
+    label: 'Build', 
+    icon: 'ph:cube-duotone',
+    description: 'Plan your MVP, create PRDs, and prioritize features for development'
+  },
+  { 
+    id: 'launch', 
+    label: 'Launch', 
+    icon: 'ph:rocket-launch-duotone',
+    description: 'Create your GTM strategy and plan a successful product launch'
+  },
+  { 
+    id: 'grow', 
+    label: 'Grow', 
+    icon: 'ph:chart-line-up-duotone',
+    description: 'Optimize conversions, improve SEO, and scale your product'
+  }
+]
+
+// Track active stage
+const activeStage = ref('understand')
+
+// Map menu items to stages
+const menuStages = {
+  'Understand Your Market': 'understand',
+  'Build Your Product': 'build',
+  'Launch Your Product': 'launch',
+  'Grow Your Product': 'grow'
+}
+
+// Filter menu items based on active stage
+const filteredMenuItems = computed(() => {
+  let foundHeader = false
+  return menuItems.filter(item => {
+    if (item.type === 'header') {
+      foundHeader = menuStages[item.label] === activeStage.value
+      return foundHeader
+    }
+    return foundHeader
+  })
+})
+
+// Update menu item selection
+const selectMenuItem = (item) => {
+  activeItem.value = menuItems.filter(i => !i.type).indexOf(item)
+}
+
+// Check if menu item is active
+const isActiveMenuItem = (item) => {
+  return activeItem.value === menuItems.filter(i => !i.type).indexOf(item)
+}
+
+// Get current stage info
+const getCurrentStage = computed(() => {
+  return stages.find(stage => stage.id === activeStage.value)
+})
+
+// Calculate progress width
+const getProgressWidth = computed(() => {
+  const currentIndex = stages.findIndex(stage => stage.id === activeStage.value)
+  return `${(currentIndex / (stages.length - 1)) * 100}%`
+})
+
+// Get stage status (completed, current, upcoming)
+const getStageStatus = (stageId) => {
+  const currentIndex = stages.findIndex(stage => stage.id === activeStage.value)
+  const stageIndex = stages.findIndex(stage => stage.id === stageId)
+  
+  if (stageIndex < currentIndex) return 'completed'
+  if (stageIndex === currentIndex) return 'current'
+  return 'upcoming'
 }
 </script>
 
@@ -490,6 +624,44 @@ const getSectionDescription = (label) => {
 @media (max-width: 1024px) {
   body {
     overflow-x: hidden;
+  }
+}
+
+/* Add smooth transitions for stage changes */
+.stage-enter-active,
+.stage-leave-active {
+  transition: all 0.2s ease-out;
+}
+
+.stage-enter-from,
+.stage-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Add smooth hover effect for stage buttons */
+.stage-button {
+  transition: all 0.2s ease-out;
+}
+
+.stage-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Add active stage indicator animation */
+.stage-active {
+  animation: stage-pulse 2s infinite;
+}
+
+@keyframes stage-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(14, 165, 233, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
   }
 }
 </style>
