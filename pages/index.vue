@@ -3,7 +3,7 @@
     <!-- Update the Navbar component to listen for the sign-in event -->
     <TheNavbar @sign-in="signInWithGoogle" />
 
-    <!-- Hero Section -->
+    <!-- Hero Section - ATTENTION -->
     <section class="pt-28 sm:pt-40 pb-16 sm:pb-24 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-sky-50/30 to-transparent"></div>
       <!-- Enhanced Decorative Elements -->
@@ -18,13 +18,14 @@
           <span
             class="px-4 py-1.5 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-800 text-white text-sm font-medium inline-flex items-center gap-2 mb-6 sm:mb-8">
             <Icon name="ph:sparkle-duotone" class="text-lg" />
-            AI-Powered Product Development Suite
+            Stop Wondering "What's Next?" For Your SaaS
           </span>
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-neutral-900 mb-6 sm:mb-8 leading-tight">
-            From Product <span class="text-gradient">Discovery</span> to Market <span class="text-gradient">Growth</span>
+            Build Your <span class="text-gradient">SaaS</span>.<br/>
+            We'll Tell You <span class="text-gradient">What To Do</span>.
           </h1>
           <p class="text-lg sm:text-xl text-neutral-700 mb-8 sm:mb-10 leading-relaxed">
-            Accelerate your product success with AI-driven insights. From research to launch, optimize every step for faster growth and better results.
+            Tired of wasting time figuring out your next move? GTMGuy gives you clear, proven steps at every stage, so you can stop planning and focus 100% on building a successful SaaS.
           </p>
           <!-- Mobile-optimized CTA buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
@@ -62,10 +63,10 @@
     <section id="features" class="py-24 bg-stone-50/50 backdrop-blur-sm border-y border-stone-200">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-20">
-          <span class="text-sky-600 font-medium mb-2 block">Features</span>
-          <h2 class="text-5xl font-bold text-neutral-900 mb-6">From Discovery to Growth</h2>
+          <span class="text-sky-600 font-medium mb-2 block">Your SaaS Success Blueprint</span>
+          <h2 class="text-5xl font-bold text-neutral-900 mb-6">Build Your SaaS in 4 Clear Stages</h2>
           <p class="text-xl text-neutral-700 max-w-2xl mx-auto">
-            A complete suite of AI tools to help you build, launch, and grow your product - following a proven product development lifecycle.
+            Follow our proven roadmap for building a successful SaaS. Clear action items at every stage, so you can focus on writing code and shipping features.
           </p>
         </div>
 
@@ -73,8 +74,8 @@
         <div class="space-y-16">
           <div class="space-y-6">
             <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Discovery & Strategy</span>
-              <span class="text-sm text-neutral-500">Understand your market</span>
+              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Stage 1: Understand</span>
+              <span class="text-sm text-neutral-500">Validate your SaaS idea with confidence</span>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
@@ -104,8 +105,8 @@
           <!-- Product Planning -->
           <div class="space-y-6">
             <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Product Planning</span>
-              <span class="text-sm text-neutral-500">Define your product</span>
+              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Stage 2: Build</span>
+              <span class="text-sm text-neutral-500">Ship the right features for your market</span>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
@@ -135,8 +136,8 @@
           <!-- Launch & GTM -->
           <div class="space-y-6">
             <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Launch & GTM</span>
-              <span class="text-sm text-neutral-500">Launch and go to market</span>
+              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Stage 3: Launch</span>
+              <span class="text-sm text-neutral-500">Get your first paying customers</span>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
               <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
@@ -159,8 +160,8 @@
           <!-- Marketing & Growth -->
           <div class="space-y-6">
             <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Marketing & Growth</span>
-              <span class="text-sm text-neutral-500">Grow your product and get more users</span>
+              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Stage 4: Grow</span>
+              <span class="text-sm text-neutral-500">Scale your SaaS systematically</span>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
@@ -352,25 +353,24 @@
     <section class="py-20 bg-stone-50/50 backdrop-blur-sm border-y border-stone-200">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-12">
-          <span class="text-sky-600 font-medium mb-2 block">Early Access</span>
-          <h2 class="text-4xl font-bold text-neutral-900 mb-4">Join the GTM Revolution</h2>
+          <span class="text-sky-600 font-medium mb-2 block">Built For SaaS Founders</span>
+          <h2 class="text-4xl font-bold text-neutral-900 mb-4">Ship Features, Not Documents</h2>
           <p class="text-lg text-neutral-700 max-w-2xl mx-auto">
-            Join early adopters who are already creating winning go-to-market strategies in record time. No more endless
-            meetings and spreadsheets.
+            Join founders who stopped overthinking strategy and started shipping successful SaaS products faster.
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
           <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
-            <div class="text-4xl font-bold text-neutral-900 mb-2">24h</div>
-            <p class="text-neutral-700">Average time saved per GTM document</p>
+            <div class="text-4xl font-bold text-neutral-900 mb-2">85%</div>
+            <p class="text-neutral-700">More time spent coding</p>
           </div>
           <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
             <div class="text-4xl font-bold text-neutral-900 mb-2">90%</div>
-            <p class="text-neutral-700">Lower cost than traditional consulting</p>
+            <p class="text-neutral-700">Lower strategy costs</p>
           </div>
           <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
-            <div class="text-4xl font-bold text-neutral-900 mb-2">100%</div>
-            <p class="text-neutral-700">AI-powered strategy and insights</p>
+            <div class="text-4xl font-bold text-neutral-900 mb-2">2x</div>
+            <p class="text-neutral-700">Faster to paying customers</p>
           </div>
         </div>
       </div>
@@ -436,28 +436,21 @@
       </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- CTA Section - ACTION -->
     <section class="py-16 sm:py-24">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <div
-          class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 sm:p-16 text-center text-white relative overflow-hidden">
-          <div class="absolute inset-0">
-            <div class="absolute top-0 left-0 w-96 h-96 bg-sky-400/10 rounded-full blur-3xl animate-pulse"></div>
-            <div
-              class="absolute bottom-0 right-0 w-96 h-96 bg-stone-400/10 rounded-full blur-3xl animate-pulse delay-1000">
-            </div>
-          </div>
+        <div class="bg-gradient-to-br from-neutral-900 to-stone-900 rounded-2xl p-8 sm:p-16 text-center text-white relative overflow-hidden">
           <div class="relative">
-            <h2 class="text-5xl font-bold mb-6">Ready to Transform Your GTM Strategy?</h2>
+            <h2 class="text-5xl font-bold mb-6">Build Your SaaS With Confidence</h2>
             <p class="text-xl text-neutral-300 mb-10 max-w-2xl mx-auto">
-              Join early adopters who are already creating winning go-to-market strategies in record time. No more
-              endless meetings and spreadsheets.
+              Stop second-guessing your decisions. Get clear, actionable steps to build a successful SaaS business - completely free.
             </p>
             <button @click="signInWithGoogle" :disabled="isLoading"
               class="inline-flex items-center gap-2 px-10 py-4 bg-white text-neutral-900 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium group">
               <Icon name="ph:sparkle-duotone" class="text-xl transition-transform group-hover:rotate-12" />
-              {{ isLoading ? 'Loading...' : 'Start for Free →' }}
+              {{ isLoading ? 'Loading...' : 'Start Building Your SaaS →' }}
             </button>
+            <p class="text-sm text-neutral-400 mt-4">No credit card required. Get your SaaS roadmap in 60 seconds.</p>
           </div>
         </div>
       </div>
