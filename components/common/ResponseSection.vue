@@ -56,8 +56,7 @@
 <script setup>
 import { ref, watch, nextTick } from 'vue'
 import { marked } from 'marked'
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
+import html2pdf from 'html2pdf.js'
 
 const props = defineProps({
   content: {
@@ -108,188 +107,181 @@ const regenerate = () => {
 
 const downloadPdf = async () => {
   try {
-    const contentElement = document.querySelector('.prose')
-    if (!contentElement) return
-
-    // A4 dimensions
-    const a4Width = 595.28
-    const a4Height = 841.89
-    const margin = 50
-    const contentWidth = a4Width - (2 * margin)
-
-    // Initialize PDF
-    const pdf = new jsPDF('p', 'pt', 'a4')
-    
-    // Set default font and colors
-    pdf.setFont('helvetica')
-    pdf.setFontSize(10.5)
-    pdf.setTextColor(55, 65, 81)
-
-    // Enhanced text handling with better visual hierarchy
-    const addTextWithBreaks = (text, x, y, maxWidth, options = {}) => {
-      const {
-        align = 'left',
-        fontSize = 10.5,
-        fontStyle = 'normal',
-        lineSpacing = 1.4,
-        color = [55, 65, 81],
-        indent = 0
-      } = options
-
-      pdf.setFontSize(fontSize)
-      pdf.setFont('helvetica', fontStyle)
-      pdf.setTextColor(...color)
-      
-      const lines = pdf.splitTextToSize(text.trim(), maxWidth - indent)
-      const lineHeight = (pdf.getLineHeight() * lineSpacing)
-      
-      lines.forEach((line, index) => {
-        let xPos = x + indent
-        if (align === 'center') {
-          xPos = x + (maxWidth - pdf.getTextWidth(line)) / 2
-        } else if (align === 'right') {
-          xPos = x + maxWidth - pdf.getTextWidth(line)
-        }
-        pdf.text(line, xPos, y + (index * lineHeight))
-      })
-
-      return lines.length * lineHeight
-    }
-
-    // Parse HTML content
-    const parser = new DOMParser()
-    const htmlContent = parser.parseFromString(markdownToHtml(props.content), 'text/html')
-    const elements = htmlContent.body.children
-
-    let currentY = margin + 20
-    let currentPage = 1
-
-    // Add header with better styling
-    pdf.setFillColor(249, 250, 251)
-    pdf.rect(0, 0, a4Width, 70, 'F')
-    pdf.setDrawColor(229, 231, 235)
-    pdf.line(0, 70, a4Width, 70)
-    
-    addTextWithBreaks('GTMGuy Response', margin, 45, contentWidth, {
-      fontSize: 10,
-      fontStyle: 'bold',
-      color: [17, 24, 39],
-      lineSpacing: 1
-    })
-    currentY = 90
-
-    // Process each element with enhanced styling
-    for (const element of elements) {
-      if (currentY > a4Height - (margin + 50)) {
-        pdf.addPage()
-        currentPage++
-        currentY = margin + 20
-        // Add header to new pages
-        pdf.setFillColor(249, 250, 251)
-        pdf.rect(0, 0, a4Width, 40, 'F')
-        pdf.setDrawColor(229, 231, 235)
-        pdf.line(0, 40, a4Width, 40)
+    const styleSheet = document.createElement('style')
+    styleSheet.textContent = `
+      .prose {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
+                     Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 
+                     'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.5;
+        color: #374151;
+        padding: 0 1rem;
       }
 
-      switch (element.tagName.toLowerCase()) {
-        case 'h1':
-          currentY += 20
-          const h1Height = addTextWithBreaks(element.textContent, margin, currentY, contentWidth, {
-            fontSize: 18,
-            fontStyle: 'bold',
-            lineSpacing: 1.3,
-            color: [17, 24, 39]
-          })
-          currentY += h1Height + 6
-          // Add section divider
-          pdf.setDrawColor(229, 231, 235)
-          pdf.setLineWidth(0.5)
-          pdf.line(margin, currentY, a4Width - margin, currentY)
-          currentY += 12
-          break
+      .prose h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 1.5em;
+        color: #111827;
+        page-break-inside: avoid;
+      }
 
-        case 'h2':
-          currentY += 16
-          const h2Height = addTextWithBreaks(element.textContent, margin, currentY, contentWidth, {
-            fontSize: 14,
-            fontStyle: 'bold',
-            lineSpacing: 1.3,
-            color: [31, 41, 55]
-          })
-          currentY += h2Height + 10
-          break
+      .prose h2 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+        color: #1F2937;
+        page-break-inside: avoid;
+      }
 
-        case 'p':
-          currentY += 8
-          const pHeight = addTextWithBreaks(element.textContent, margin, currentY, contentWidth, {
-            lineSpacing: 1.6,
-            color: [75, 85, 99]
-          })
-          currentY += pHeight + 10
-          break
+      .prose h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+        color: #1F2937;
+        page-break-inside: avoid;
+      }
 
-        case 'ul':
-        case 'ol':
-          currentY += 8
-          const items = element.getElementsByTagName('li')
-          for (let i = 0; i < items.length; i++) {
-            const isOrdered = element.tagName.toLowerCase() === 'ol'
-            const bullet = isOrdered ? `${i + 1}.` : '•'
-            const itemText = items[i].textContent.trim()
-            const bulletWidth = pdf.getTextWidth(bullet + '  ')
+      .prose ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 1em 0;
+      }
+
+      .prose ul li {
+        position: relative;
+        padding-left: 1.5em;  /* Increased padding for consistent text alignment */
+        margin-bottom: 0.5em;
+      }
+
+      /* Primary bullet */
+      .prose > div > ul > li::before {
+        content: "•";
+        position: absolute;
+        left: 0.75em;  /* Adjusted for consistent spacing */
+        color: #4B5563;
+        font-size: 1em;
+      }
+
+      /* Secondary bullet */
+      .prose > div > ul > li > ul > li::before {
+        content: "•";
+        position: absolute;
+        left: 0.75em;  /* Matched with primary bullet spacing */
+        color: #4B5563;
+        font-size: 0.8em;
+        top: 0.2em;
+      }
+
+      /* Proper spacing for nested lists */
+      .prose > div > ul > li > ul {
+        margin-top: 0.5em;
+        margin-bottom: 0;
+        padding-left: 0.5em;
+      }
+
+      /* Handle paragraphs in list items */
+      .prose > div > ul > li > p {
+        margin: 0;
+        display: inline-block;
+        page-break-inside: avoid;
+      }
+
+      /* Keep list items together */
+      .prose > div > ul > li {
+      }
+
+      /* Strong text styling */
+      .prose strong {
+        font-weight: 600;
+        color: #111827;
+      }
+
+      /* Horizontal rule styling */
+      .prose hr {
+        margin: 2em 0;
+        border: 0;
+        border-top: 1px solid #E5E7EB;
+        page-break-after: avoid;
+      }
+
+      /* Max width to ensure readability */
+      .prose.max-w-none {
+        max-width: none;
+        width: 100%;
+      }
+
+    `
+    document.head.appendChild(styleSheet)
+
+    const element = document.querySelector('.prose')
+    if (!element) return
+
+    const options = {
+      margin: [20, 20, 20, 20],
+      filename: 'gtmguy-response.pdf',
+      image: { 
+        type: 'jpeg', 
+        quality: 0.98 
+      },
+      html2canvas: { 
+        scale: 2,
+        useCORS: true,
+        letterRendering: true,
+        logging: false,
+        scrollY: -window.scrollY,
+        windowWidth: 1200,
+        onclone: function(clonedDoc) {
+          const clonedElement = clonedDoc.querySelector('.prose')
+          if (clonedElement) {
+            clonedElement.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", Arial, sans-serif'
+            clonedElement.style.fontSize = '14px'
             
-            // Add bullet/number with proper alignment
-            addTextWithBreaks(bullet, margin, currentY, bulletWidth, {
-              align: isOrdered ? 'right' : 'center',
-              color: [107, 114, 128]
-            })
-            
-            // Add list item text with indent
-            const itemHeight = addTextWithBreaks(
-              itemText,
-              margin + bulletWidth,
-              currentY,
-              contentWidth - bulletWidth,
-              { 
-                lineSpacing: 1.5,
-                indent: 12,
-                color: [75, 85, 99]
+            // Enhanced bullet and text alignment handling
+            const listItems = clonedElement.querySelectorAll('li')
+            listItems.forEach(li => {
+              li.style.position = 'relative'
+              li.style.breakInside = 'avoid'
+              if (li.querySelector('p')) {
+                li.querySelector('p').style.display = 'inline-block'
+                li.querySelector('p').style.breakInside = 'avoid'
               }
-            )
-            
-            currentY += itemHeight + 8
+            })
 
-            if (currentY > a4Height - (margin + 50) && i < items.length - 1) {
-              pdf.addPage()
-              currentPage++
-              currentY = margin + 20
-              pdf.setFillColor(249, 250, 251)
-              pdf.rect(0, 0, a4Width, 40, 'F')
-              pdf.line(0, 40, a4Width, 40)
-            }
+            // Additional page break prevention for sections
+            const sections = clonedElement.querySelectorAll('h1, h2, h3, h4, h5, h6')
+            sections.forEach(section => {
+              section.style.pageBreakAfter = 'avoid'
+              if (section.nextElementSibling) {
+                section.nextElementSibling.style.pageBreakBefore = 'avoid'
+              }
+            })
           }
-          currentY += 10
-          break
+        }
+      },
+      jsPDF: { 
+        unit: 'mm', 
+        format: 'a4', 
+        orientation: 'portrait',
+        compress: true,
+        precision: 16,
+        putOnlyUsedFonts: true
       }
     }
 
-    // Enhanced footer styling
-    for (let i = 1; i <= currentPage; i++) {
-      pdf.setPage(i)
-      pdf.setDrawColor(229, 231, 235)
-      pdf.setLineWidth(0.5)
-      pdf.line(margin, a4Height - 35, a4Width - margin, a4Height - 35)
-      pdf.setFontSize(8)
-      pdf.setTextColor(156, 163, 175)
-      pdf.text('Generated by GTMGuy.ai', margin, a4Height - 18)
-      pdf.text(`Page ${i} of ${currentPage}`, a4Width - margin - 50, a4Height - 18)
-    }
+    await html2pdf()
+      .set(options)
+      .from(element)
+      .save()
 
-    pdf.save('gtmguy-response.pdf')
+    document.head.removeChild(styleSheet)
   } catch (error) {
     console.error('Error generating PDF:', error)
   }
 }
+
 </script>
 
 <style>
