@@ -117,25 +117,6 @@
       </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="py-24 bg-stone-50/50 backdrop-blur-sm border-y border-stone-200">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <span class="text-sky-600 font-medium mb-2 block">Support</span>
-          <h2 class="text-4xl font-bold text-neutral-900 mb-6">Frequently Asked Questions</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <div v-for="item in tool.faq" :key="item.question"
-            class="bg-white p-8 rounded-xl border border-stone-200"
-          >
-            <h3 class="text-lg font-semibold text-neutral-900 mb-3">{{ item.question }}</h3>
-            <p class="text-neutral-700">{{ item.answer }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- CTA Section -->
     <section class="py-16 sm:py-24">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
@@ -192,11 +173,7 @@ const jsonLd = computed(() => {
       "price": "0",
       "priceCurrency": "USD"
     },
-    "featureList": tool.features.join(", "),
-    "softwareHelp": {
-      "@type": "CreativeWork",
-      "text": tool.faq.map(item => `${item.question} ${item.answer}`).join(" ")
-    }
+    "featureList": tool.features.join(", ")
   })
 })
 </script> 

@@ -379,7 +379,7 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing-section" class="py-24 bg-stone-50/50 backdrop-blur-sm border-y border-stone-200">
+    <section id="pricing" class="py-24 bg-stone-50/50 backdrop-blur-sm border-y border-stone-200">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
           <span class="text-sky-600 font-medium mb-2 block">Simple Pricing</span>

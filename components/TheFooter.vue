@@ -60,12 +60,12 @@
             <h3 class="font-semibold text-neutral-900 mb-4">Product</h3>
             <ul class="space-y-2">
               <li v-for="link in ['Features', 'Pricing', 'Blog']" :key="link">
-                <a 
-                  :href="link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}-section`" 
+                <NuxtLink 
+                  :to="link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`" 
                   class="text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
                 >
                   {{ link }}
-                </a>
+                </NuxtLink>
               </li>
             </ul>
           </div>
