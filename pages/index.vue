@@ -17,32 +17,32 @@
         <div class="max-w-3xl mx-auto text-center">
           <span class="px-4 py-1.5 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-800 text-white text-sm font-medium inline-flex items-center gap-2 mb-6 sm:mb-8">
             <Icon name="ph:sparkle-duotone" class="text-lg" />
-            AI Product Strategy Assistant
+            AI Co-Founder for Strategy & Growth
           </span>
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-neutral-900 mb-6 sm:mb-8 leading-tight">
-            Stop Guessing,<br/>
-            <span class="text-gradient">Start Building</span>
+            Launch Your SaaS<br/>
+            <span class="text-gradient">Without The Guesswork</span>
           </h1>
           <p class="text-lg sm:text-xl text-neutral-700 mb-4 sm:mb-6 leading-relaxed">
-            Get instant, AI-powered guidance for product strategy, market research, and launch planning.
+            How busy founders build SaaS! GTMGuy is your AI co-founder that helps validate ideas, plan features, and launch faster.
           </p>
-          <!-- Add clear value propositions -->
+          <!-- Revised value propositions for founders -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-8 sm:mb-10">
             <div class="flex items-center gap-3 text-left p-3 rounded-lg">
               <Icon name="ph:target-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
-              <span class="text-neutral-700">Market Research & ICP Creation</span>
+              <span class="text-neutral-700">Validate Ideas in Minutes</span>
             </div>
             <div class="flex items-center gap-3 text-left p-3 rounded-lg">
               <Icon name="ph:rocket-launch-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
-              <span class="text-neutral-700">Product Launch Planning</span>
+              <span class="text-neutral-700">Launch Plan Generator</span>
             </div>
             <div class="flex items-center gap-3 text-left p-3 rounded-lg">
-              <Icon name="ph:file-text-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
-              <span class="text-neutral-700">PRD & Feature Documentation</span>
+              <Icon name="ph:users-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
+              <span class="text-neutral-700">Find Your First Users</span>
             </div>
             <div class="flex items-center gap-3 text-left p-3 rounded-lg">
               <Icon name="ph:chart-line-up-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
-              <span class="text-neutral-700">Growth Strategy & Analytics</span>
+              <span class="text-neutral-700">Growth Roadmap</span>
             </div>
           </div>
           <!-- Mobile-optimized CTA buttons -->
