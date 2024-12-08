@@ -15,18 +15,36 @@
       </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
         <div class="max-w-3xl mx-auto text-center">
-          <span
-            class="px-4 py-1.5 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-800 text-white text-sm font-medium inline-flex items-center gap-2 mb-6 sm:mb-8">
+          <span class="px-4 py-1.5 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-800 text-white text-sm font-medium inline-flex items-center gap-2 mb-6 sm:mb-8">
             <Icon name="ph:sparkle-duotone" class="text-lg" />
-            Stop Wondering "What's Next?" For Your SaaS
+            AI Product Strategy Assistant
           </span>
           <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-neutral-900 mb-6 sm:mb-8 leading-tight">
-            Build Your <span class="text-gradient">SaaS</span>.<br/>
-            We'll Tell You <span class="text-gradient">What To Do</span>.
+            Stop Guessing,<br/>
+            <span class="text-gradient">Start Building</span>
           </h1>
-          <p class="text-lg sm:text-xl text-neutral-700 mb-8 sm:mb-10 leading-relaxed">
-            Tired of wasting time figuring out your next move? GTMGuy gives you clear, proven steps at every stage, so you can stop planning and focus 100% on building a successful SaaS.
+          <p class="text-lg sm:text-xl text-neutral-700 mb-4 sm:mb-6 leading-relaxed">
+            Get instant, AI-powered guidance for product strategy, market research, and launch planning.
           </p>
+          <!-- Add clear value propositions -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-8 sm:mb-10">
+            <div class="flex items-center gap-3 text-left p-3 rounded-lg">
+              <Icon name="ph:target-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
+              <span class="text-neutral-700">Market Research & ICP Creation</span>
+            </div>
+            <div class="flex items-center gap-3 text-left p-3 rounded-lg">
+              <Icon name="ph:rocket-launch-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
+              <span class="text-neutral-700">Product Launch Planning</span>
+            </div>
+            <div class="flex items-center gap-3 text-left p-3 rounded-lg">
+              <Icon name="ph:file-text-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
+              <span class="text-neutral-700">PRD & Feature Documentation</span>
+            </div>
+            <div class="flex items-center gap-3 text-left p-3 rounded-lg">
+              <Icon name="ph:chart-line-up-duotone" class="text-2xl text-sky-600 flex-shrink-0" />
+              <span class="text-neutral-700">Growth Strategy & Analytics</span>
+            </div>
+          </div>
           <!-- Mobile-optimized CTA buttons -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             <button @click="signInWithGoogle" :disabled="isLoading"
@@ -39,22 +57,6 @@
               <Icon name="ph:path-duotone" class="text-xl" />
               See The Process
             </a>
-          </div>
-          <!-- Social Proof -->
-          <div class="mt-12 pt-8 animate-fade-in-up delay-400">
-            <div class="max-w-md mx-auto bg-stone-50/80 backdrop-blur-sm rounded-xl p-6 border border-stone-200">
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Icon name="ph:rocket-launch-duotone" class="text-2xl text-green-500" />
-                </div>
-                <div class="text-left">
-                  <p class="text-neutral-700 italic mb-2">
-                    "Finally, an AI tool that understands the entire product development lifecycle. Saved us weeks of planning!"
-                  </p>
-                  <p class="text-sm text-neutral-600">- Probably a Product Manager at a Series A Startup</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
