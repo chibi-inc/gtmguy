@@ -78,6 +78,16 @@ Remember that these prompts are starting points - customize them based on your s
 
 Want to take your product management workflow to the next level? Check out [why we built GTMGuy](https://gtmguy.ai/blog/ai-product-and-marketing-tools-to-save-your-time) - our AI-powered product and marketing suite that combines these ChatGPT capabilities with specialized tools for product managers.
 
+## Related Tools
+
+- [Plan your MVP effectively](/tools/mvp-feature-generator)
+- [Create comprehensive PRDs](/tools/product-requirements-doc)
+- [Define your target audience](/tools/ideal-customer-profile)
+- [Optimize your go-to-market strategy](/tools/go-to-market-strategy)
+- [Learn more about planning SaaS features](/blog/how-to-plan-saas-features)
+- [Improve your SEO strategy](/blog/saas-seo-strategy-guide)
+- [Why we built GTMGuy](/blog/ai-product-and-marketing-tools-to-save-your-time)
+
 ---
 
 **Related Articles:**

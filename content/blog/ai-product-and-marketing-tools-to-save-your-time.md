@@ -94,3 +94,13 @@ Start today at [https://gtmguy.ai](https://gtmguy.ai).
 **Related Reading:**
 - [ChatGPT Prompts Every Product Manager Should Know](https://gtmguy.ai/blog/chatgpt-for-product-managers) - Master AI prompts for product management tasks
 - [Try Our AI Tools](https://gtmguy.ai/app) - Experience our suite of AI-powered tools
+
+**Related Tools:**
+- [Create ideal customer profiles](/tools/ideal-customer-profile)
+- [Plan your MVP](/tools/mvp-feature-generator)
+- [Generate PRDs](/tools/product-requirements-doc)
+- [Optimize landing pages](/tools/landing-page-optimizer)
+- [Improve SEO](/tools/seo-optimization)
+- [Learn more about ChatGPT for product management](/blog/chatgpt-for-product-managers)
+- [Guide to planning SaaS features](/blog/how-to-plan-saas-features)
+- [Comprehensive SEO strategy guide](/blog/saas-seo-strategy-guide)

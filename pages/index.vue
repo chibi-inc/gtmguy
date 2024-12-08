@@ -50,7 +50,7 @@
             <button @click="signInWithGoogle" :disabled="isLoading"
               class="w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2">
               <Icon name="ph:rocket-launch-duotone" class="text-xl" />
-              {{ user?.value ? 'Go to Dashboard →' : isLoading ? 'Loading...' : 'Start Your Journey →' }}
+              {{ user ? 'Go to Dashboard →' : isLoading ? 'Loading...' : 'Start Your Journey →' }}
             </button>
             <a href="#features"
               class="w-full sm:w-auto px-6 py-4 text-neutral-900 hover:bg-white/75 rounded-xl transition-all duration-200 text-lg font-medium flex items-center justify-center gap-2 group">
@@ -464,44 +464,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useAuth } from '~/composables/useAuth'
 
-const isLoading = ref(false)
-const errorMessage = ref('')
-const router = useRouter()
-const supabase = useSupabaseClient()
+const { signInWithGoogle, isLoading } = useAuth()
 const user = useSupabaseUser()
-
-const signInWithGoogle = async () => {
-  if (user.value) {
-    await router.push('/app')
-    return
-  }
-
-  errorMessage.value = ''
-  isLoading.value = true
-
-  try {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-        scopes: 'email profile'
-      },
-    })
-
-    if (error) {
-      errorMessage.value = error.message
-    }
-
-  } catch (error) {
-    console.error('Error signing in with Google:', error)
-    errorMessage.value = 'An unexpected error occurred. Please try again.'
-  } finally {
-    isLoading.value = false
-  }
-}
 
 const { setSeo } = useSeo()
 

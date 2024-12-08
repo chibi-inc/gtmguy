@@ -17,12 +17,12 @@
           </div>
         </div>
         <button 
-          @click="$emit('sign-in')"
+          @click="signInWithGoogle"
           :disabled="isLoading"
           class="px-6 py-2.5 bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 font-medium"
         >
           <Icon name="ph:lightning-duotone" class="text-lg" />
-          <span class="hidden sm:inline">Get Started For Free</span>
+          <span class="hidden sm:inline">{{ buttonText }}</span>
           <span class="sm:hidden">Start</span>
         </button>
       </div>
@@ -31,7 +31,16 @@
 </template>
 
 <script setup>
-const isLoading = ref(false)
+import { useAuth } from '~/composables/useAuth'
 
-defineEmits(['sign-in'])
+
+const { signInWithGoogle, isLoading } = useAuth()
+const user = useSupabaseUser()
+
+// Compute button text based on auth state
+const buttonText = computed(() => {
+  if (isLoading.value) return 'Loading...'
+  if (user.value) return 'Go to Dashboard'
+  return 'Get Started For Free'
+})
 </script> 

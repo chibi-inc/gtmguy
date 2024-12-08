@@ -2,6 +2,7 @@
 import tailwindTypography from '@tailwindcss/typography';
 import fs from 'fs'
 import path from 'path'
+import { tools } from './config/tools';
 
 export default defineNuxtConfig({
   ssr: true,
@@ -111,6 +112,7 @@ export default defineNuxtConfig({
       const staticRoutes = [
         '/',
         '/blog',
+        '/tools',
       ]
 
       // Get the content directly from the filesystem
@@ -124,7 +126,16 @@ export default defineNuxtConfig({
           lastmod: fs.statSync(path.join(contentDir, file)).mtime
         }))
 
-      return [...staticRoutes, ...blogRoutes]
+      // Generate tool routes with additional metadata
+      const toolRoutes = Object.values(tools).map(tool => ({
+        url: `/tools/${tool.id}`,
+        lastmod: new Date(),
+        // Add optional sitemap properties for better SEO
+        changefreq: 'weekly',
+        priority: 0.8,
+      }))
+
+      return [...staticRoutes, ...blogRoutes, ...toolRoutes]
     }
   }
 })

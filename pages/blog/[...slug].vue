@@ -58,6 +58,10 @@
 </template>
 
 <script setup>
+import { useAuth } from '~/composables/useAuth'
+
+const { signInWithGoogle, isLoading } = useAuth()
+
 definePageMeta({
   sitemap: {
     priority: 0.8,
@@ -68,29 +72,32 @@ definePageMeta({
 const route = useRoute()
 const { data: post } = await useAsyncData('post', () => queryContent(route.path).findOne())
 
-// Enhanced SEO setup for blog posts
-const setupSEO = (post) => {
-  if (!post) return
+// Define URLs first
+const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://gtmguy.ai'
+const postUrl = `${siteUrl}${route.path}`
+const postImage = post.value?.image ? 
+  (post.value.image.startsWith('http') ? post.value.image : `${siteUrl}${post.value.image}`) : 
+  `${siteUrl}/og-image.png`
 
-  const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://gtmguy.ai'
-  const postUrl = `${siteUrl}${route.path}`
-  const postImage = post.image ? (post.image.startsWith('http') ? post.image : `${siteUrl}${post.image}`) : `${siteUrl}/og-image.png`
+// Enhanced SEO setup for blog posts
+const setupSEO = () => {
+  if (!post.value) return
 
   useHead({
-    title: `${post.title} | GTMGuy Blog`,
+    title: `${post.value.title} | GTMGuy Blog`,
     htmlAttrs: {
-    lang: 'en'
-   },
+      lang: 'en'
+    },
     link: [
       { rel: 'icon', type: 'image/png', href: '/logo.png' },
       { rel: 'apple-touch-icon', href: '/logo.png' },
       { rel: 'canonical', href: postUrl },
     ],
     meta: [
-      { name: 'description', content: post.description },
+      { name: 'description', content: post.value.description },
       // Open Graph
-      { property: 'og:title', content: post.title },
-      { property: 'og:description', content: post.description },
+      { property: 'og:title', content: post.value.title },
+      { property: 'og:description', content: post.value.description },
       { property: 'og:image', content: postImage },
       { property: 'og:url', content: postUrl },
       { property: 'og:type', content: 'article' },
@@ -98,133 +105,82 @@ const setupSEO = (post) => {
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: '@thetronjohnson' },
       { name: 'twitter:creator', content: '@thetronjohnson' },
-      { name: 'twitter:title', content: `${post.title} | GTMGuy Blog` },
-      { name: 'twitter:description', content: post.description },
+      { name: 'twitter:title', content: `${post.value.title} | GTMGuy Blog` },
+      { name: 'twitter:description', content: post.value.description },
       { name: 'twitter:image', content: postImage },
-      { name: 'twitter:image:alt', content: post.title },
-      { name: 'twitter:image:width', content: '1200' },
-      { name: 'twitter:image:height', content: '630' },
+      { name: 'twitter:image:alt', content: post.value.title },
       // Article specific meta tags
-      { property: 'article:published_time', content: post.date },
-      { property: 'article:author', content: post.author },
-      { property: 'article:section', content: post.category || 'Product Management' },
-      { name: 'keywords', content: `${post.tags?.join(', ')}, product management, GTM strategy, marketing` },
+      { property: 'article:published_time', content: post.value.date },
+      { property: 'article:author', content: post.value.author },
+      { property: 'article:section', content: post.value.category || 'Product Management' },
+      { name: 'keywords', content: `${post.value.tags?.join(', ') || ''}, product management, GTM strategy, marketing` },
     ],
-    // Enhanced Article structured data
     script: [
       {
         type: 'application/ld+json',
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": postUrl
-          },
-          "headline": post.title,
-          "description": post.description,
-          "image": postImage,
-          "datePublished": post.date,
-          "dateModified": post.lastUpdated || post.date,
-          "author": {
-            "@type": "Person",
-            "name": post.author
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "GTMGuy",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://gtmguy.ai/logo.png",
-              "width": "512",
-              "height": "512"
+          "@graph": [
+            {
+              "@type": "BlogPosting",
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": postUrl
+              },
+              "headline": post.value.title,
+              "description": post.value.description,
+              "image": postImage,
+              "datePublished": post.value.date,
+              "dateModified": post.value.lastUpdated || post.value.date,
+              "author": {
+                "@type": "Person",
+                "name": post.value.author
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "GTMGuy",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": `${siteUrl}/logo.png`,
+                  "width": "512",
+                  "height": "512"
+                }
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": siteUrl
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Blog",
+                  "item": `${siteUrl}/blog`
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": post.value.title,
+                  "item": postUrl
+                }
+              ]
             }
-          },
-          "keywords": post.tags?.join(', '),
-          "articleBody": post.description
+          ]
         })
       }
-    ],
+    ]
   })
 }
 
 // Watch for post changes and update SEO
-watch(() => post.value, (newPost) => {
-  setupSEO(newPost)
+watch(() => post.value, () => {
+  setupSEO()
 }, { immediate: true })
-
-// Replace the existing breadcrumbSchema and update the head script section
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BlogPosting",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": postUrl
-      },
-      "headline": post.value?.title,
-      "description": post.value?.description,
-      "image": postImage,
-      "datePublished": post.value?.date,
-      "dateModified": post.value?.lastUpdated || post.value?.date,
-      "author": {
-        "@type": "Person",
-        "name": post.value?.author
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "GTMGuy",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://gtmguy.ai/logo.png",
-          "width": "512",
-          "height": "512"
-        }
-      },
-      "keywords": post.value?.tags?.join(', '),
-      "articleBody": post.value?.description
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://gtmguy.ai"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Blog",
-          "item": "https://gtmguy.ai/blog"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": post.value?.title,
-          "item": `https://gtmguy.ai${route.path}`
-        }
-      ]
-    },
-    {
-      "@type": "WebSite",
-      "name": "GTMGuy",
-      "url": "https://gtmguy.ai"
-    }
-  ]
-}
-
-// Replace the existing useHead for breadcrumbs with this combined version
-useHead({
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(jsonLd)
-    }
-  ]
-})
 
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString('en-US', {

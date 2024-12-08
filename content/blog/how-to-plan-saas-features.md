@@ -166,3 +166,15 @@ By following the principles and practices outlined in this guide, SaaS developer
 ### **Related Reading:**
 - [ChatGPT Prompts Every Product Manager Should Know](https://gtmguy.ai/blog/chatgpt-for-product-managers) - Master AI prompts for product planning
 - [Why I Made GTMGuy](https://gtmguy.ai/blog/ai-product-and-marketing-tools-to-save-your-time) - Learn how AI can transform your product workflow
+
+### **Related Tools**
+
+Explore these tools to enhance your SaaS feature planning:
+
+- [Define Your Target Audience](/tools/ideal-customer-profile)
+- [Create Your Product Roadmap](/tools/product-requirements-doc)
+- [Plan Your MVP](/tools/mvp-feature-generator)
+- [Prioritize Features Effectively](/tools/feature-prioritization)
+- [Map User Journeys](/tools/user-journey-mapper)
+- [ChatGPT Prompts for Product Managers](/blog/chatgpt-for-product-managers)
+- [Why We Built GTMGuy](/blog/ai-product-and-marketing-tools-to-save-your-time)
