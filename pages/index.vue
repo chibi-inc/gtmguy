@@ -591,35 +591,84 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "GTMGuy",
-        "description": "AI-powered product development suite helping founders and solopreneurs build, launch, and grow successful products.",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
+      children: JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "GTMGuy",
+          "description": "AI-powered product development suite helping founders and solopreneurs build, launch, and grow successful products.",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "150"
+          },
+          "featureList": [
+            "ICP Creator - Create detailed Ideal Customer Profiles",
+            "GTM Strategy - Comprehensive go-to-market strategies",
+            "Landing Page Analyzer - AI-powered conversion insights",
+            "SEO Analyser - Search engine optimization recommendations",
+            "Copy Generator - AI-driven marketing copy creation",
+            "Product Launch Plan - Detailed launch timelines and strategies",
+            "A/B Test Planner - Experiment design and optimization",
+            "Metrics & KPIs - Success tracking and measurement",
+            "User Research Plan - Customer understanding frameworks"
+          ]
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "ratingCount": "150"
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "GTMGuy",
+          "url": "https://gtmguy.ai",
+          "description": "AI-powered product development suite for founders and startups",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "priceValidUntil": "2024-12-31"
+          },
+          "featureList": [
+            {
+              "@type": "ItemList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Discovery & Strategy",
+                  "description": "Market research, ICP creation, and SWOT analysis"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Product Planning",
+                  "description": "MVP definition, PRD generation, and user journey mapping"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Launch & GTM",
+                  "description": "Go-to-market strategy and launch planning"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "Marketing & Growth",
+                  "description": "Landing page optimization, SEO analysis, and A/B testing"
+                }
+              ]
+            }
+          ]
         },
-        "featureList": [
-          "Market Research & Discovery",
-          "MVP Planning",
-          "Product Development",
-          "Launch Strategy",
-          "Growth Optimization"
-        ],
-        "audience": {
-          "@type": "Audience",
-          "audienceType": "Founders, Solopreneurs, Early-stage Startups"
-        },
-        "creator": {
+        {
+          "@context": "https://schema.org",
           "@type": "Organization",
           "name": "GTMGuy",
           "url": "https://gtmguy.ai",
@@ -628,9 +677,21 @@ useHead({
             "url": "https://gtmguy.ai/logo.png",
             "width": "512",
             "height": "512"
-          }
+          },
+          "sameAs": [
+            "https://twitter.com/thetronjohnson"
+          ],
+          "knowsAbout": [
+            "Product Development",
+            "Go-to-Market Strategy",
+            "Market Research",
+            "Product Launch",
+            "Growth Marketing",
+            "SaaS Development",
+            "Startup Strategy"
+          ]
         }
-      })
+      ])
     }
   ],
   link: [

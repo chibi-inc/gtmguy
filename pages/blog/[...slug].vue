@@ -153,38 +153,75 @@ watch(() => post.value, (newPost) => {
   setupSEO(newPost)
 }, { immediate: true })
 
-// Add schema breadcrumbs
-const breadcrumbSchema = {
+// Replace the existing breadcrumbSchema and update the head script section
+const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://gtmguy.ai"
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": postUrl
+      },
+      "headline": post.value?.title,
+      "description": post.value?.description,
+      "image": postImage,
+      "datePublished": post.value?.date,
+      "dateModified": post.value?.lastUpdated || post.value?.date,
+      "author": {
+        "@type": "Person",
+        "name": post.value?.author
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "GTMGuy",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://gtmguy.ai/logo.png",
+          "width": "512",
+          "height": "512"
+        }
+      },
+      "keywords": post.value?.tags?.join(', '),
+      "articleBody": post.value?.description
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Blog",
-      "item": "https://gtmguy.ai/blog"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://gtmguy.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://gtmguy.ai/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": post.value?.title,
+          "item": `https://gtmguy.ai${route.path}`
+        }
+      ]
     },
     {
-      "@type": "ListItem",
-      "position": 3,
-      "name": post.value?.title,
-      "item": `https://gtmguy.ai${route.path}`
+      "@type": "WebSite",
+      "name": "GTMGuy",
+      "url": "https://gtmguy.ai"
     }
   ]
 }
 
-// Add breadcrumb schema to head
+// Replace the existing useHead for breadcrumbs with this combined version
 useHead({
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify(breadcrumbSchema)
+      children: JSON.stringify(jsonLd)
     }
   ]
 })

@@ -75,17 +75,44 @@ useHead({
     {
       rel: 'icon',
       type: 'image/png',
-      href: '/favicon.png'
+      href: '/logo.png'
     }
   ],
   script: [
-  {
+    {
       type: 'text/javascript',
       children: `(function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "p56ykifasc");`
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        name: 'GTMGuy Blog',
+        description: 'Expert insights and guides on go-to-market strategy and product launches',
+        url: 'https://gtmguy.ai/blog',
+        publisher: {
+          '@type': 'Organization',
+          name: 'GTMGuy',
+          url: 'https://gtmguy.ai'
+        },
+        blogPost: posts.map(post => ({
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.description,
+          datePublished: post.date,
+          image: post.image,
+          author: {
+            '@type': 'Person',
+            name: post.author
+          },
+          url: `https://gtmguy.ai${post._path}`
+        }))
+      })
     }
   ]
 })
