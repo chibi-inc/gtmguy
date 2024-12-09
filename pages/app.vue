@@ -81,7 +81,7 @@
           <!-- Stage Content -->
           <div class="space-y-4">
             <!-- Current Stage Info -->
-            <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+            <div class="bg-neutral-50 rounded-lg p-4">
               <div class="flex items-start gap-3">
                 <div class="w-8 h-8 rounded-lg bg-sky-100 flex-shrink-0 flex items-center justify-center">
                   <Icon :name="getCurrentStage.icon" class="text-lg text-sky-600" />
