@@ -10,17 +10,17 @@ export const tools = {
     benefits: [
       {
         title: 'Save Research Time',
-        description: 'Generate detailed customer profiles in minutes instead of weeks. Our AI analyzes vast amounts of market data to create comprehensive profiles that would typically take teams months to compile.',
+        description: 'Generate detailed customer profiles in minutes instead of weeks',
         icon: 'ph:clock-duotone'
       },
       {
         title: 'Data-Driven Insights',
-        description: 'Access comprehensive market insights backed by real data analysis, customer behavior patterns, and industry trends to make informed decisions.',
+        description: 'Access comprehensive market insights backed by real data',
         icon: 'ph:chart-pie-duotone'
       },
       {
         title: 'Clear Targeting',
-        description: 'Develop laser-focused targeting strategies with detailed demographic, psychographic, and behavioral data about your ideal customers.',
+        description: 'Develop laser-focused targeting strategies for your ideal customers',
         icon: 'ph:target-duotone'
       }
     ],
@@ -85,17 +85,17 @@ export const tools = {
     benefits: [
       {
         title: 'Structured Approach',
-        description: 'Get a systematic, professionally-designed plan for gathering user insights, complete with methodology recommendations and timeline planning.',
+        description: 'Get a systematic, professionally-designed research plan',
         icon: 'ph:list-checks-duotone'
       },
       {
         title: 'Save Time',
-        description: 'Reduce research planning time from days to minutes with AI-powered templates and frameworks tailored to your specific needs.',
+        description: 'Reduce research planning time from days to minutes',
         icon: 'ph:clock-duotone'
       },
       {
         title: 'Better Insights',
-        description: 'Generate comprehensive question sets and research frameworks that ensure you capture all crucial user feedback and insights.',
+        description: 'Generate comprehensive question sets that capture crucial feedback',
         icon: 'ph:lightbulb-duotone'
       }
     ],
@@ -160,17 +160,17 @@ export const tools = {
     benefits: [
       {
         title: 'Strategic Clarity',
-        description: 'Gain crystal-clear understanding of your competitive position with AI-driven analysis of internal and external factors affecting your business.',
+        description: 'Gain clear understanding of your competitive position',
         icon: 'ph:target-duotone'
       },
       {
         title: 'Data-Backed Analysis',
-        description: 'Access comprehensive market insights powered by real-time data analysis, competitive intelligence, and industry trends.',
+        description: 'Access comprehensive market insights powered by real-time data',
         icon: 'ph:chart-bar-duotone'
       },
       {
         title: 'Action Planning',
-        description: 'Convert analysis into actionable strategies with prioritized recommendations and implementation guidelines.',
+        description: 'Convert analysis into actionable strategies',
         icon: 'ph:strategy-duotone'
       }
     ],
@@ -235,17 +235,17 @@ export const tools = {
     benefits: [
       {
         title: 'Feature Focus',
-        description: 'Identify truly essential features that deliver core value to users, eliminating scope creep and reducing development complexity.',
+        description: 'Identify essential features that deliver core value',
         icon: 'ph:target-duotone'
       },
       {
         title: 'Time Efficiency',
-        description: 'Cut development time by up to 60% by focusing only on must-have features that validate your core value proposition.',
+        description: 'Cut development time by focusing on must-have features',
         icon: 'ph:clock-duotone'
       },
       {
         title: 'Market Validation',
-        description: 'Get to market faster with a lean, focused product that allows rapid validation of key assumptions and user needs.',
+        description: 'Get to market faster with a lean, focused product',
         icon: 'ph:check-circle-duotone'
       }
     ],
@@ -310,17 +310,17 @@ export const tools = {
     benefits: [
       {
         title: 'Clear Requirements',
-        description: 'Generate precise, unambiguous product specifications that eliminate confusion and reduce development iterations.',
+        description: 'Generate precise, unambiguous product specifications',
         icon: 'ph:list-checks-duotone'
       },
       {
         title: 'Team Alignment',
-        description: 'Create standardized documentation that ensures all stakeholders share the same understanding of product requirements and goals.',
+        description: 'Ensure all stakeholders share the same understanding of goals',
         icon: 'ph:users-duotone'
       },
       {
         title: 'Faster Documentation',
-        description: 'Reduce documentation time by 80% while maintaining comprehensive coverage of all essential product aspects.',
+        description: 'Reduce documentation time by 80% while maintaining quality',
         icon: 'ph:lightning-duotone'
       }
     ],
@@ -385,17 +385,17 @@ export const tools = {
     benefits: [
       {
         title: 'Data-Driven Decisions',
-        description: 'Evaluate features objectively using multiple criteria including user impact, development effort, and business value.',
+        description: 'Evaluate features objectively using multiple criteria',
         icon: 'ph:chart-bar-duotone'
       },
       {
         title: 'Resource Optimization',
-        description: 'Allocate development resources efficiently by focusing on high-impact, strategically aligned features.',
+        description: 'Focus development resources on high-impact features',
         icon: 'ph:target-duotone'
       },
       {
         title: 'Stakeholder Alignment',
-        description: 'Build consensus around prioritization decisions with transparent, data-backed reasoning.',
+        description: 'Build consensus with transparent, data-backed reasoning',
         icon: 'ph:users-three-duotone'
       }
     ],
@@ -460,17 +460,17 @@ export const tools = {
     benefits: [
       {
         title: 'User Understanding',
-        description: 'Gain deep insights into user behaviors, emotions, and pain points across every interaction with your product or service.',
+        description: 'Gain deep insights into user behaviors and pain points',
         icon: 'ph:user-focus-duotone'
       },
       {
         title: 'Pain Point Detection',
-        description: 'Automatically identify friction points and opportunities for improvement in your user experience.',
+        description: 'Identify friction points in your user experience',
         icon: 'ph:bandaids-duotone'
       },
       {
         title: 'Experience Optimization',
-        description: 'Make data-driven decisions to enhance user satisfaction and reduce churn at critical touchpoints.',
+        description: 'Make data-driven decisions to enhance user satisfaction',
         icon: 'ph:heart-duotone'
       }
     ],
@@ -535,17 +535,17 @@ export const tools = {
     benefits: [
       {
         title: 'Clear Goals',
-        description: 'Establish precise, measurable objectives aligned with your business strategy and growth targets.',
+        description: 'Establish precise, measurable objectives for your business',
         icon: 'ph:target-duotone'
       },
       {
         title: 'Data Focus',
-        description: 'Identify and track the metrics that truly matter for your business success and growth.',
+        description: 'Track the metrics that truly matter for your success',
         icon: 'ph:chart-bar-duotone'
       },
       {
         title: 'Growth Insights',
-        description: 'Gain actionable insights from your metrics with AI-powered analysis and recommendations.',
+        description: 'Get actionable insights from your metrics',
         icon: 'ph:trend-up-duotone'
       }
     ],
@@ -610,17 +610,17 @@ export const tools = {
     benefits: [
       {
         title: 'Market Entry Plan',
-        description: 'Create comprehensive market entry strategies backed by data-driven insights and competitive analysis.',
+        description: 'Create comprehensive strategies backed by data-driven insights',
         icon: 'ph:door-duotone'
       },
       {
         title: 'Channel Strategy',
-        description: 'Identify and prioritize the most effective distribution channels for your specific product and market.',
+        description: 'Identify the most effective distribution channels',
         icon: 'ph:flow-arrow-duotone'
       },
       {
         title: 'Launch Success',
-        description: 'Maximize launch impact with coordinated timing, messaging, and resource allocation.',
+        description: 'Maximize impact with coordinated timing and messaging',
         icon: 'ph:rocket-launch-duotone'
       }
     ],
@@ -685,17 +685,17 @@ export const tools = {
     benefits: [
       {
         title: 'Launch Readiness',
-        description: 'Comprehensive launch preparation ensuring all critical elements are planned and coordinated.',
+        description: 'Ensure all critical elements are planned and coordinated',
         icon: 'ph:check-circle-duotone'
       },
       {
         title: 'Timeline Planning',
-        description: 'Detailed timeline management with dependencies and milestone tracking.',
+        description: 'Track dependencies and milestones effectively',
         icon: 'ph:calendar-duotone'
       },
       {
         title: 'Risk Management',
-        description: 'Proactive risk identification and mitigation strategies to ensure launch success.',
+        description: 'Identify and mitigate potential launch risks',
         icon: 'ph:shield-check-duotone'
       }
     ],
@@ -760,17 +760,17 @@ export const tools = {
     benefits: [
       {
         title: 'Engaging Content',
-        description: 'Generate persuasive copy that captures attention and drives conversions across all marketing channels.',
+        description: 'Generate persuasive copy that drives conversions',
         icon: 'ph:text-aa-duotone'
       },
       {
         title: 'Time Saving',
-        description: 'Reduce content creation time by 75% while maintaining high-quality, original content.',
+        description: 'Reduce content creation time by 75%',
         icon: 'ph:clock-duotone'
       },
       {
         title: 'Consistent Voice',
-        description: 'Maintain brand voice and messaging consistency across all content pieces.',
+        description: 'Maintain brand voice across all content',
         icon: 'ph:megaphone-duotone'
       }
     ],
@@ -835,17 +835,17 @@ export const tools = {
     benefits: [
       {
         title: 'Higher Conversion',
-        description: 'Boost conversion rates with AI-powered optimization recommendations based on proven CRO principles.',
+        description: 'Boost conversion rates with proven CRO principles',
         icon: 'ph:arrow-up-right-duotone'
       },
       {
         title: 'Best Practices',
-        description: 'Implement current industry best practices and proven optimization techniques automatically.',
+        description: 'Implement current industry best practices automatically',
         icon: 'ph:star-duotone'
       },
       {
         title: 'Data-Driven',
-        description: 'Make optimization decisions based on real data and behavioral analysis.',
+        description: 'Make decisions based on behavioral analysis',
         icon: 'ph:chart-bar-duotone'
       }
     ],
@@ -910,17 +910,17 @@ export const tools = {
     benefits: [
       {
         title: 'Better Rankings',
-        description: 'Improve search visibility with AI-powered optimization recommendations based on current SEO best practices.',
+        description: 'Improve search visibility with current SEO best practices',
         icon: 'ph:chart-line-up-duotone'
       },
       {
         title: 'Content Optimization',
-        description: 'Create content that satisfies both search intent and user needs effectively.',
+        description: 'Create content that satisfies both search intent and user needs',
         icon: 'ph:file-text-duotone'
       },
       {
         title: 'Technical SEO',
-        description: 'Identify and fix technical issues that could impact your search rankings.',
+        description: 'Identify and fix technical issues affecting rankings',
         icon: 'ph:gear-duotone'
       }
     ],
@@ -1103,17 +1103,17 @@ export const tools = {
     benefits: [
       {
         title: 'Time Efficiency',
-        description: 'Generate well-structured blog posts in minutes instead of hours, while maintaining high quality and originality.',
+        description: 'Generate well-structured blog posts in minutes',
         icon: 'ph:clock-duotone'
       },
       {
         title: 'SEO Optimization',
-        description: 'Create content that ranks well with built-in SEO best practices and keyword optimization.',
+        description: 'Create content that ranks well in search engines',
         icon: 'ph:chart-line-up-duotone'
       },
       {
         title: 'Audience Focus',
-        description: 'Generate content tailored to your specific target audience and business goals.',
+        description: 'Generate content tailored to your target audience',
         icon: 'ph:users-duotone'
       }
     ],

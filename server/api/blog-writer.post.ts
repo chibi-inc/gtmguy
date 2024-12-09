@@ -22,6 +22,7 @@ The blog post should:
 - Be optimized for SEO with proper heading hierarchy
 - Use a tone appropriate for the context and audience
 - Include a strong conclusion
+- Sound human and engaging
 
 Format the response in Markdown using # for h1, ## for h2, etc.`;
 
