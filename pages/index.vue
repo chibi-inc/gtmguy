@@ -234,6 +234,13 @@
                   <h3 class="text-lg font-semibold mb-2">Link Builder</h3>
                   <p class="text-neutral-600">Build strategic internal links to boost SEO.</p>
                 </div>
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:article-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">Blog Writer</h3>
+                  <p class="text-neutral-600">Generate SEO-optimized blog posts that engage your target audience and drive traffic.</p>
+                </div>
               </div>
             </div>
           </div>

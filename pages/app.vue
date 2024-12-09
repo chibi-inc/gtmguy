@@ -203,6 +203,7 @@ import PrdGenerator from '~/components/PrdGenerator.vue'
 import LandingPageConversion from '~/components/LandingPageConversion.vue'
 import SeoOptimizer from '~/components/SeoOptimizer.vue'
 import InternalLinksOptimizer from '~/components/InternalLinksOptimizer.vue'
+import BlogWriter from '~/components/BlogWriter.vue' 
 import getUtcStartOfMonth from '~/server/utils/getUtcStartOfMonth'
 const activeItem = ref(0)
 
@@ -245,6 +246,7 @@ const menuItems = [
   { label: 'Copywriter', icon: 'ph:pencil-duotone', component: CopyOptimizer },
   { label: 'Link Builder', icon:'ph:link-duotone', component: InternalLinksOptimizer },
   { label: 'A/B Test Planner', icon: 'ph:test-tube-duotone', component: AbTestPlanner },
+  { label: 'Blog Writer', icon: 'ph:article-duotone', component: BlogWriter },
 ]
 
 const currentComponent = computed(() => {
@@ -287,7 +289,8 @@ const getDescription = (index) => {
     'Landing Page Conversion': "Optimize landing pages for better conversion rates",
     'SEO Analyser': "Improve your website's search engine visibility and performance",
     'Link Builder': "Create strategic internal links to boost SEO and user engagement",
-    'A/B Test Planner': "Design and track experiments to optimize product performance"
+    'A/B Test Planner': "Design and track experiments to optimize product performance",
+    'Blog Writer': "Write compelling blog posts to attract and engage your audience"
   }
   
   return descriptions[activeMenuItem?.label] || ''
@@ -468,7 +471,8 @@ const getShortDescription = (label) => {
     'Landing Page Conversion': 'Optimize conversions',
     'SEO Analyser': 'Improve SEO',
     'Link Builder': 'Build internal links',
-    'A/B Test Planner': 'Plan experiments'
+    'A/B Test Planner': 'Plan experiments',
+    'Blog Writer': 'Write compelling blog posts'
   }
   return descriptions[label] || ''
 }

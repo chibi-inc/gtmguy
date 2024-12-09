@@ -52,20 +52,6 @@ export const tools = {
         'customer discovery'
       ]
     },
-    faq: [
-      {
-        question: 'How accurate are the AI-generated customer profiles?',
-        answer: 'Our ICP Creator uses real market data and advanced AI algorithms to generate highly accurate profiles, validated against industry benchmarks and real-world customer data.'
-      },
-      {
-        question: 'How often should I update my ICP?',
-        answer: 'We recommend reviewing and updating your ICP every 3-6 months or whenever significant market changes occur to ensure continued accuracy and relevance.'
-      },
-      {
-        question: 'Can I export the ICP data?',
-        answer: 'Yes, you can export your ICP in multiple formats including PDF, PowerPoint, and CSV for easy sharing with your team.'
-      }
-    ],
     useCases: [
       {
         title: 'Startup Market Validation',
@@ -141,20 +127,6 @@ export const tools = {
         'research timeline'
       ]
     },
-    faq: [
-      {
-        question: 'What types of research methods does the tool support?',
-        answer: 'Our tool supports various research methods including interviews, surveys, usability testing, focus groups, and ethnographic studies.'
-      },
-      {
-        question: 'Can I customize the research plans?',
-        answer: 'Yes, all generated plans are fully customizable to match your specific research needs and company requirements.'
-      },
-      {
-        question: 'How does the AI ensure research quality?',
-        answer: 'Our AI uses best practices from UX research and academic methodologies to ensure comprehensive, unbiased research plans.'
-      }
-    ],
     useCases: [
       {
         title: 'Product Validation',
@@ -230,20 +202,6 @@ export const tools = {
         'strategic management'
       ]
     },
-    faq: [
-      {
-        question: 'How does the AI gather market data?',
-        answer: 'Our AI analyzes multiple data sources including industry reports, market trends, and competitive intelligence databases to provide comprehensive insights.'
-      },
-      {
-        question: 'Can I customize the SWOT analysis?',
-        answer: 'Yes, you can edit, prioritize, and customize all elements of the analysis to match your specific business context.'
-      },
-      {
-        question: 'How often should I update my SWOT analysis?',
-        answer: 'We recommend quarterly updates for fast-moving industries and semi-annual reviews for more stable markets.'
-      }
-    ],
     useCases: [
       {
         title: 'Strategic Planning',
@@ -319,20 +277,6 @@ export const tools = {
         'lean startup'
       ]
     },
-    faq: [
-      {
-        question: 'How does the AI determine essential features?',
-        answer: 'Our AI analyzes successful products in your market, user needs, and development constraints to identify features that provide maximum value with minimum complexity.'
-      },
-      {
-        question: 'Can I customize the MVP recommendations?',
-        answer: 'Yes, you can adjust feature priorities and add or remove features based on your specific business requirements.'
-      },
-      {
-        question: 'What information do I need to provide?',
-        answer: 'You\'ll need to input your product concept, target market, key user problems, and any technical or resource constraints.'
-      }
-    ],
     useCases: [
       {
         title: 'Startup Product Development',
@@ -408,20 +352,6 @@ export const tools = {
         'requirement gathering'
       ]
     },
-    faq: [
-      {
-        question: 'What sections are included in the PRD?',
-        answer: 'Our PRDs include product overview, user stories, functional requirements, technical specifications, success criteria, and implementation timeline.'
-      },
-      {
-        question: 'Can I customize the PRD template?',
-        answer: 'Yes, you can customize sections, add company-specific requirements, and modify the format to match your organization\'s needs.'
-      },
-      {
-        question: 'How detailed are the technical specifications?',
-        answer: 'You can choose the level of technical detail, from high-level overviews to detailed technical requirements suitable for engineering teams.'
-      }
-    ],
     useCases: [
       {
         title: 'New Product Development',
@@ -497,20 +427,6 @@ export const tools = {
         'sprint planning'
       ]
     },
-    faq: [
-      {
-        question: 'What prioritization frameworks are supported?',
-        answer: 'We support multiple frameworks including RICE, MoSCoW, Kano Model, and custom weighted scoring systems.'
-      },
-      {
-        question: 'Can I integrate with existing tools?',
-        answer: 'Yes, we offer integrations with popular project management tools like Jira, Trello, and Asana.'
-      },
-      {
-        question: 'How are impact scores calculated?',
-        answer: 'Impact scores consider multiple factors including user value, business value, strategic alignment, and market differentiation.'
-      }
-    ],
     useCases: [
       {
         title: 'Roadmap Planning',
@@ -586,20 +502,6 @@ export const tools = {
         'ux research'
       ]
     },
-    faq: [
-      {
-        question: 'What types of journey maps can I create?',
-        answer: 'You can create current-state maps, future-state maps, day-in-the-life journeys, and service blueprints.'
-      },
-      {
-        question: 'Can I collaborate with my team?',
-        answer: 'Yes, multiple team members can work on the same journey map with real-time collaboration features.'
-      },
-      {
-        question: 'How detailed are the emotion tracks?',
-        answer: 'Our tool tracks multiple emotional dimensions and provides detailed sentiment analysis at each touchpoint.'
-      }
-    ],
     useCases: [
       {
         title: 'Service Design',
@@ -675,20 +577,6 @@ export const tools = {
         'metric analysis'
       ]
     },
-    faq: [
-      {
-        question: 'What types of metrics are supported?',
-        answer: 'We support various metric types including financial, user engagement, product usage, marketing, and custom metrics.'
-      },
-      {
-        question: 'Can I integrate with analytics tools?',
-        answer: 'Yes, we offer integrations with popular analytics platforms like Google Analytics, Mixpanel, and custom data sources.'
-      },
-      {
-        question: 'How often are metrics updated?',
-        answer: 'Metrics can be updated in real-time or at custom intervals depending on your data sources and needs.'
-      }
-    ],
     useCases: [
       {
         title: 'Product Analytics',
@@ -764,20 +652,6 @@ export const tools = {
         'competitive analysis'
       ]
     },
-    faq: [
-      {
-        question: 'What components are included in the GTM strategy?',
-        answer: 'Our strategies cover market analysis, target audience definition, positioning, pricing, channel strategy, marketing plan, and launch timeline.'
-      },
-      {
-        question: 'How is market data sourced?',
-        answer: 'We analyze multiple data sources including market reports, competitor analysis, consumer trends, and industry benchmarks.'
-      },
-      {
-        question: 'Can I customize the strategy framework?',
-        answer: 'Yes, you can adjust all components to match your specific business needs and market conditions.'
-      }
-    ],
     useCases: [
       {
         title: 'Product Launch',
@@ -853,20 +727,6 @@ export const tools = {
         'launch execution'
       ]
     },
-    faq: [
-      {
-        question: 'What does the launch plan include?',
-        answer: 'Our plans cover pre-launch preparation, launch day activities, marketing coordination, team responsibilities, and post-launch analysis.'
-      },
-      {
-        question: 'How detailed is the timeline?',
-        answer: 'Timelines include daily/weekly tasks, major milestones, dependencies, and resource allocation across all teams.'
-      },
-      {
-        question: 'Can I track launch progress?',
-        answer: 'Yes, you can track task completion, milestone achievement, and team coordination in real-time.'
-      }
-    ],
     useCases: [
       {
         title: 'New Product Launch',
@@ -942,20 +802,6 @@ export const tools = {
         'copywriting tool'
       ]
     },
-    faq: [
-      {
-        question: 'What types of copy can it generate?',
-        answer: 'Our tool creates website copy, email campaigns, ad copy, product descriptions, social media posts, and more.'
-      },
-      {
-        question: 'How does it maintain brand voice?',
-        answer: 'You can input your brand guidelines and tone of voice, which the AI will follow consistently.'
-      },
-      {
-        question: 'Is the content unique?',
-        answer: 'Yes, all generated content is original and can be checked for uniqueness with built-in plagiarism detection.'
-      }
-    ],
     useCases: [
       {
         title: 'Marketing Campaigns',
@@ -1031,20 +877,6 @@ export const tools = {
         'optimization tool'
       ]
     },
-    faq: [
-      {
-        question: 'What elements does it analyze?',
-        answer: 'We analyze headlines, copy, CTAs, layout, images, forms, social proof, and overall user experience.'
-      },
-      {
-        question: 'Can it integrate with analytics tools?',
-        answer: 'Yes, it integrates with Google Analytics, Hotjar, and other major analytics platforms.'
-      },
-      {
-        question: 'How are recommendations prioritized?',
-        answer: 'Recommendations are prioritized based on potential impact and implementation effort.'
-      }
-    ],
     useCases: [
       {
         title: 'Conversion Optimization',
@@ -1120,20 +952,6 @@ export const tools = {
         'seo strategy'
       ]
     },
-    faq: [
-      {
-        question: 'What aspects of SEO does it cover?',
-        answer: 'We cover on-page SEO, technical SEO, content optimization, keyword research, and competitive analysis.'
-      },
-      {
-        question: 'How often should I run an analysis?',
-        answer: 'We recommend monthly analyses for active websites, with more frequent checks after major updates.'
-      },
-      {
-        question: 'Can it integrate with my CMS?',
-        answer: 'Yes, we offer integrations with major CMS platforms including WordPress, Shopify, and custom solutions.'
-      }
-    ],
     useCases: [
       {
         title: 'Content Optimization',
@@ -1193,20 +1011,6 @@ export const tools = {
       description: 'Optimize your internal linking structure for better SEO and user experience.',
       keywords: ['internal linking', 'link building', 'site structure', 'seo optimization']
     },
-    faq: [
-      {
-        question: 'How does it identify linking opportunities?',
-        answer: 'Our AI analyzes content relevance, page authority, and user journey patterns to suggest optimal internal linking connections.'
-      },
-      {
-        question: 'Can it analyze large websites?',
-        answer: 'Yes, our tool can handle websites of any size, from small blogs to large enterprise sites with thousands of pages.'
-      },
-      {
-        question: 'How often should I optimize internal links?',
-        answer: 'We recommend reviewing internal linking monthly for active sites, or after publishing significant new content.'
-      }
-    ],
     useCases: [
       {
         title: 'Content Organization',
@@ -1266,20 +1070,6 @@ export const tools = {
       description: 'Plan and analyze A/B tests effectively. Get AI-powered suggestions for test design and analysis.',
       keywords: ['ab testing', 'split testing', 'experimentation', 'conversion optimization']
     },
-    faq: [
-      {
-        question: 'How does it determine sample size?',
-        answer: 'Our tool uses statistical power analysis considering your traffic, desired confidence level, and minimum detectable effect.'
-      },
-      {
-        question: 'Can it integrate with testing tools?',
-        answer: 'Yes, we integrate with major A/B testing platforms including Optimizely, VWO, and Google Optimize.'
-      },
-      {
-        question: 'How long should tests run?',
-        answer: 'Test duration recommendations are based on your traffic levels, conversion rates, and statistical significance requirements.'
-      }
-    ],
     useCases: [
       {
         title: 'Landing Page Testing',
@@ -1300,6 +1090,81 @@ export const tools = {
       'Calculate required sample size',
       'Create test variations',
       'Analyze and interpret results'
+    ]
+  },
+  'blog-writer': {
+    id: 'blog-writer',
+    name: 'Blog Post Generator',
+    shortName: 'Blog Writer',
+    icon: 'ph:article-duotone',
+    stage: 'grow',
+    description: 'Generate SEO-optimized blog posts with AI',
+    longDescription: `Create engaging, SEO-optimized blog content with our AI-powered Blog Post Generator. This sophisticated tool helps content creators, marketers, and businesses produce high-quality blog posts that resonate with their target audience and rank well in search engines. Using advanced natural language processing and content optimization techniques, we help you create valuable content efficiently.`,
+    benefits: [
+      {
+        title: 'Time Efficiency',
+        description: 'Generate well-structured blog posts in minutes instead of hours, while maintaining high quality and originality.',
+        icon: 'ph:clock-duotone'
+      },
+      {
+        title: 'SEO Optimization',
+        description: 'Create content that ranks well with built-in SEO best practices and keyword optimization.',
+        icon: 'ph:chart-line-up-duotone'
+      },
+      {
+        title: 'Audience Focus',
+        description: 'Generate content tailored to your specific target audience and business goals.',
+        icon: 'ph:users-duotone'
+      }
+    ],
+    features: [
+      'Topic research',
+      'Content structure',
+      'SEO optimization',
+      'Audience targeting',
+      'Content generation'
+    ],
+    seo: {
+      title: 'AI Blog Post Generator | Create SEO-Optimized Content',
+      description: 'Generate engaging, SEO-optimized blog posts instantly. Create high-quality content that resonates with your audience and ranks well in search engines.',
+      keywords: [
+        'blog writer',
+        'content generator',
+        'blog post creator',
+        'seo content',
+        'ai writer',
+        'blog content',
+        'content creation',
+        'blog generator',
+        'article writer',
+        'content optimization',
+        'seo blog posts',
+        'automated writing',
+        'content marketing',
+        'blog automation',
+        'writing assistant'
+      ]
+    },
+    useCases: [
+      {
+        title: 'Content Marketing',
+        description: 'Create regular blog content for your content marketing strategy.'
+      },
+      {
+        title: 'SEO Growth',
+        description: 'Generate SEO-optimized content to improve search rankings.'
+      },
+      {
+        title: 'Thought Leadership',
+        description: 'Produce expert content to establish industry authority.'
+      }
+    ],
+    howItWorks: [
+      'Input your blog topic and target audience',
+      'Specify content goals and context',
+      'Generate comprehensive blog post',
+      'Review and customize content',
+      'Export and publish your post'
     ]
   }
 }
