@@ -74,118 +74,166 @@
 
         <!-- Discovery & Strategy -->
         <div class="space-y-16">
-          <div class="space-y-6">
-            <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Stage 1: Understand</span>
-              <span class="text-sm text-neutral-500">Validate your SaaS idea with confidence</span>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="lg:sticky lg:top-24">
+              <div class="space-y-4">
+                <span class="text-4xl font-bold text-sky-600">Stage 1</span>
+                <h3 class="text-3xl font-bold text-neutral-900">Understand</h3>
+                <p class="text-lg text-neutral-600">Validate your SaaS idea with confidence</p>
+              </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:user-duotone" class="text-xl text-sky-600" />
+            <div class="lg:col-span-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:user-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">Ideal Customer Profile</h3>
+                  <p class="text-neutral-600">Define your target audience with detailed personas and market insights.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">Ideal Customer Profile</h3>
-                <p class="text-neutral-600">Define your target audience with detailed personas and market insights.</p>
-              </div>
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:magnifying-glass-duotone" class="text-xl text-sky-600" />
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:magnifying-glass-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">User Research Plan</h3>
+                  <p class="text-neutral-600">Create comprehensive research plans to validate assumptions.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">User Research Plan</h3>
-                <p class="text-neutral-600">Create comprehensive research plans to validate assumptions.</p>
-              </div>
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:chart-pie-slice-duotone" class="text-xl text-sky-600" />
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:chart-pie-slice-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">SWOT Analysis</h3>
+                  <p class="text-neutral-600">Analyze your product's position with detailed market insights.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">SWOT Analysis</h3>
-                <p class="text-neutral-600">Analyze your product's position with detailed market insights.</p>
               </div>
             </div>
           </div>
 
           <!-- Product Planning -->
-          <div class="space-y-6">
-            <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Stage 2: Build</span>
-              <span class="text-sm text-neutral-500">Ship the right features for your market</span>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="lg:sticky lg:top-24">
+              <div class="space-y-4">
+                <span class="text-4xl font-bold text-sky-600">Stage 2</span>
+                <h3 class="text-3xl font-bold text-neutral-900">Build</h3>
+                <p class="text-lg text-neutral-600">Ship the right features for your market</p>
+              </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:cube-duotone" class="text-xl text-sky-600" />
+            <div class="lg:col-span-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:cube-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">MVP Generator</h3>
+                  <p class="text-neutral-600">Define core features for your minimum viable product.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">MVP Generator</h3>
-                <p class="text-neutral-600">Define core features for your minimum viable product.</p>
-              </div>
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:file-text-duotone" class="text-xl text-sky-600" />
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:file-text-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">PRD Generator</h3>
+                  <p class="text-neutral-600">Create detailed product requirement documents that align teams.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">PRD Generator</h3>
-                <p class="text-neutral-600">Create detailed product requirement documents that align teams.</p>
-              </div>
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:map-trifold-duotone" class="text-xl text-sky-600" />
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:list-numbers-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">Prioritization</h3>
+                  <p class="text-neutral-600">Prioritize features and initiatives with data-driven frameworks.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">User Journey Map</h3>
-                <p class="text-neutral-600">Map out user flows and identify optimization opportunities.</p>
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:chart-line-up-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">Metrics and KPI</h3>
+                  <p class="text-neutral-600">Track key metrics for product success and growth.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:map-trifold-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">User Journey Map</h3>
+                  <p class="text-neutral-600">Map out user flows and identify optimization opportunities.</p>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Launch & GTM -->
-          <div class="space-y-6">
-            <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Stage 3: Launch</span>
-              <span class="text-sm text-neutral-500">Get your first paying customers</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:target-duotone" class="text-xl text-sky-600" />
-                </div>
-                <h3 class="text-lg font-semibold mb-2">GTM Strategy</h3>
-                <p class="text-neutral-600">Build comprehensive go-to-market strategies for success.</p>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="lg:sticky lg:top-24">
+              <div class="space-y-4">
+                <span class="text-4xl font-bold text-sky-600">Stage 3</span>
+                <h3 class="text-3xl font-bold text-neutral-900">Launch</h3>
+                <p class="text-lg text-neutral-600">Get your first paying customers</p>
               </div>
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:rocket-launch-duotone" class="text-xl text-sky-600" />
+            </div>
+            <div class="lg:col-span-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:target-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">GTM Strategy</h3>
+                  <p class="text-neutral-600">Build comprehensive go-to-market strategies for success.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">Launch Plan</h3>
-                <p class="text-neutral-600">Create detailed launch plans with timelines and metrics.</p>
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:rocket-launch-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">Launch Plan</h3>
+                  <p class="text-neutral-600">Create detailed launch plans with timelines and metrics.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:browser-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">Landing Page Conversion</h3>
+                  <p class="text-neutral-600">Optimize landing pages for better conversion rates.</p>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Marketing & Growth -->
-          <div class="space-y-6">
-            <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-sky-500 uppercase tracking-wider">Stage 4: Grow</span>
-              <span class="text-sm text-neutral-500">Scale your SaaS systematically</span>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="lg:sticky lg:top-24">
+              <div class="space-y-4">
+                <span class="text-4xl font-bold text-sky-600">Stage 4</span>
+                <h3 class="text-3xl font-bold text-neutral-900">Grow</h3>
+                <p class="text-lg text-neutral-600">Scale your SaaS systematically</p>
+              </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:pencil-duotone" class="text-xl text-sky-600" />
+            <div class="lg:col-span-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:pencil-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">Landing Page Copy</h3>
+                  <p class="text-neutral-600">Generate compelling copy that converts visitors into customers.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">Landing Page Copy</h3>
-                <p class="text-neutral-600">Generate compelling copy that converts visitors into customers.</p>
-              </div>
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:google-logo-duotone" class="text-xl text-sky-600" />
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:google-logo-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">SEO Analyser</h3>
+                  <p class="text-neutral-600">Improve your website's search engine visibility and performance.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">SEO Analyser</h3>
-                <p class="text-neutral-600">Improve your website's search engine visibility and performance.</p>
-              </div>
-              <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
-                <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="ph:test-tube-duotone" class="text-xl text-sky-600" />
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:test-tube-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">A/B Test Planner</h3>
+                  <p class="text-neutral-600">Design and track experiments to optimize performance.</p>
                 </div>
-                <h3 class="text-lg font-semibold mb-2">A/B Test Planner</h3>
-                <p class="text-neutral-600">Design and track experiments to optimize performance.</p>
+                <div class="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-xl transition-all duration-300">
+                  <div class="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center mb-4">
+                    <Icon name="ph:link-duotone" class="text-xl text-sky-600" />
+                  </div>
+                  <h3 class="text-lg font-semibold mb-2">Link Builder</h3>
+                  <p class="text-neutral-600">Build strategic internal links to boost SEO.</p>
+                </div>
               </div>
             </div>
           </div>
