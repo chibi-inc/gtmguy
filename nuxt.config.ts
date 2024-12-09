@@ -3,6 +3,7 @@ import tailwindTypography from '@tailwindcss/typography';
 import fs from 'fs'
 import path from 'path'
 import { tools } from './config/tools';
+import { usecases } from './config/usecases';
 
 export default defineNuxtConfig({
   ssr: true,
@@ -135,7 +136,15 @@ export default defineNuxtConfig({
         priority: 0.8,
       }))
 
-      return [...staticRoutes, ...blogRoutes, ...toolRoutes]
+      const usecaseRoutes = Object.entries(usecases).map(([id, usecase]) => ({
+        url: `/usecases/${id}`,
+        lastmod: new Date(),
+        // Add optional sitemap properties for better SEO
+        changefreq: 'weekly',
+        priority: 0.8,
+      }))
+
+      return [...staticRoutes, ...blogRoutes, ...toolRoutes, ...usecaseRoutes]
     }
   }
 })

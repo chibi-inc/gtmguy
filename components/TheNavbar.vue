@@ -10,6 +10,24 @@
             <h1 class="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-900 to-neutral-800">GTMGuy</h1>
           </NuxtLink>
           <div class="hidden md:flex items-center gap-6">
+            <div class="relative group">
+              <button class="text-neutral-700 hover:text-neutral-900 transition-colors flex items-center gap-1">
+                Use Cases
+                <Icon name="ph:caret-down" class="text-lg transition-transform group-hover:rotate-180" />
+              </button>
+              <div class="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-stone-200">
+                <div class="py-2">
+                  <NuxtLink 
+                    v-for="(usecase, id) in usecases" 
+                    :key="id"
+                    :to="`/usecases/${id}`"
+                    class="block px-4 py-2 text-neutral-700 hover:bg-stone-50 hover:text-neutral-900 transition-colors"
+                  >
+                    {{ usecase.title }}
+                  </NuxtLink>
+                </div>
+              </div>
+            </div>
             <a href="/#features" class="text-neutral-700 hover:text-neutral-900 transition-colors">Features</a>
             <a href="/#pricing-section" class="text-neutral-700 hover:text-neutral-900 transition-colors">Pricing</a>
             <a href="/#benefits-section" class="text-neutral-700 hover:text-neutral-900 transition-colors">Benefits</a>
@@ -36,6 +54,13 @@ import { useAuth } from '~/composables/useAuth'
 
 const { signInWithGoogle, isLoading } = useAuth()
 const user = useSupabaseUser()
+
+const usecases = {
+  understand: { title: 'Understand' },
+  build: { title: 'Build' },
+  launch: { title: 'Launch' },
+  grow: { title: 'Grow' }
+}
 
 // Compute button text based on auth state
 const buttonText = computed(() => {

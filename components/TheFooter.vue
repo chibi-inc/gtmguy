@@ -40,7 +40,12 @@
             <h3 class="font-semibold text-neutral-900 mb-4">Tools</h3>
             <div class="grid grid-cols-2 gap-x-8 gap-y-6">
               <div v-for="stage in ['understand', 'build', 'launch', 'grow']" :key="stage">
-                <span class="text-sm font-medium text-sky-600 block mb-2 capitalize">{{ stage }}</span>
+                <NuxtLink 
+                  :to="`/usecases/${stage}`"
+                  class="text-sm font-medium text-sky-600 block mb-2 capitalize hover:text-sky-700 transition-colors"
+                >
+                  {{ stage }}
+                </NuxtLink>
                 <div class="grid gap-y-2">
                   <NuxtLink 
                     v-for="tool in toolsArray.filter(t => t.stage === stage)" 

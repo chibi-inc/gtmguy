@@ -58,6 +58,45 @@
       </div>
     </section>
 
+    <!-- Value Impact Section -->
+    <section class="py-32 bg-gradient-to-b from-white to-stone-50/50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20">
+          <span class="text-sky-600 font-semibold mb-3 block uppercase tracking-wider text-sm">Value Impact</span>
+          <h2 class="text-4xl sm:text-5xl font-bold text-neutral-900 mb-6">Why This Stage Matters</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Why It Matters -->
+          <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl border border-stone-200/60 hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:question-duotone" class="text-2xl text-red-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-4">Why It Matters</h3>
+            <p class="text-neutral-600 leading-relaxed">{{ tool.valueProposition?.why }}</p>
+          </div>
+
+          <!-- Business Impact -->
+          <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl border border-stone-200/60 hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:chart-line-up-duotone" class="text-2xl text-emerald-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-4">Business Impact</h3>
+            <p class="text-neutral-600 leading-relaxed">{{ tool.valueProposition?.impact }}</p>
+          </div>
+
+          <!-- GTM Insight -->
+          <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl border border-stone-200/60 hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+              <Icon name="ph:lightbulb-duotone" class="text-2xl text-blue-600" />
+            </div>
+            <h3 class="text-xl font-semibold text-neutral-900 mb-4">GTM Insight</h3>
+            <p class="text-neutral-600 leading-relaxed">{{ tool.valueProposition?.gtmInsight }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Features Section -->
     <section class="py-24">
       <div class="max-w-7xl mx-auto px-6">
