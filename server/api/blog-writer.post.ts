@@ -7,19 +7,19 @@ export default defineEventHandler(async (event) => {
     apiKey: config.openaiApiKey
   });
 
-  const { topic, context, audience } = await readBody(event);
+  const { topic, context, keywords } = await readBody(event);
 
   const prompt = `Write a comprehensive, SEO-optimized blog post about "${topic}".
 
-Context: ${context}
-Target Audience: ${audience}
+Context and Audience: ${context}
+Target Keywords: ${keywords}
 
 The blog post should:
 - Be around 1200 words
 - Include a compelling introduction
 - Have clear, well-structured sections with headers
 - Include actionable insights and takeaways
-- Be optimized for SEO with proper heading hierarchy
+- Be optimized for SEO with proper heading hierarchy and naturally incorporate the target keywords
 - Use a tone appropriate for the context and audience
 - Include a strong conclusion
 - Sound human and engaging

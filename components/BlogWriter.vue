@@ -46,9 +46,9 @@
         <!-- Context Input -->
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Context
+            Context & Target Audience
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Why are you writing this blog? What's your goal?
+              Who is this blog post for and why are you writing it?
             </span>
           </label>
           <textarea
@@ -56,34 +56,34 @@
             rows="3"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showContentError }"
-            placeholder="e.g., Educating our customers about best practices, positioning our product as a solution..."
+            placeholder="e.g., Educating SaaS founders and product managers about best practices, positioning our product as a solution..."
             @input="showContentError = false"
             required
           ></textarea>
           <p v-if="showContentError" class="mt-2 text-sm text-red-600">
-            Please provide context for the blog
+            Please provide context and target audience
           </p>
         </div>
 
-        <!-- Audience Input -->
+        <!-- Keywords Input -->
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
-            Target Audience
+            Target Keywords
             <span class="text-sm font-normal text-neutral-500 block mt-1">
-              Who is this blog post for?
+              What keywords should this post target for SEO?
             </span>
           </label>
           <textarea
-            v-model="formData.audience"
-            rows="3"
+            v-model="formData.keywords"
+            rows="2"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
             :class="{ 'border-red-300': showTargetError }"
-            placeholder="e.g., SaaS founders and product managers looking to reduce churn..."
+            placeholder="e.g., customer retention, SaaS churn, user engagement, customer loyalty..."
             @input="showTargetError = false"
             required
           ></textarea>
           <p v-if="showTargetError" class="mt-2 text-sm text-red-600">
-            Please describe your target audience
+            Please provide target keywords
           </p>
         </div>
       </div>
@@ -116,7 +116,7 @@ import { useCredits } from '~/composables/useCredits'
 const formData = ref({
   topic: '',
   context: '',
-  audience: ''
+  keywords: ''
 })
 
 const isLoading = ref(false)
@@ -136,9 +136,9 @@ const handleSubmit = async () => {
   // Validate inputs
   if (!formData.value.topic) showTitleError.value = true
   if (!formData.value.context) showContentError.value = true
-  if (!formData.value.audience) showTargetError.value = true
+  if (!formData.value.keywords) showTargetError.value = true
 
-  if (!formData.value.topic || !formData.value.context || !formData.value.audience) {
+  if (!formData.value.topic || !formData.value.context || !formData.value.keywords) {
     return
   }
   
@@ -146,7 +146,7 @@ const handleSubmit = async () => {
 }
 
 const generateBlog = async () => {
-  if (!formData.value.topic || !formData.value.context || !formData.value.audience) return
+  if (!formData.value.topic || !formData.value.context || !formData.value.keywords) return
   
   isLoading.value = true
   response.value = ''

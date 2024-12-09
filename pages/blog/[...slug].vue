@@ -37,7 +37,7 @@
           />
         </div>
 
-        <div class="prose prose-sm sm:prose-base md:prose-lg max-w-none">
+        <div class="prose prose-sm sm:prose-base md:prose-lg max-w-none bg-stone-50">
           <ContentRenderer :value="post" />
         </div>
 
