@@ -1,7 +1,10 @@
 User-agent: *
 Allow: /
 Allow: /blog/
+Allow: /tools/
+Allow: /usecases/
 Disallow: /app/
 Disallow: /auth/
+Disallow: /auth/callback
 
 Sitemap: https://gtmguy.ai/sitemap.xml

@@ -109,12 +109,12 @@ export default defineNuxtConfig({
   },
   sitemap: {
     urls: async () => {
-      // Static routes
+      // Static routes (excluding auth routes)
       const staticRoutes = [
         '/',
         '/blog',
         '/tools',
-      ]
+      ].filter(route => !route.includes('auth'))  // Extra safety check
 
       // Get the content directly from the filesystem
       const contentDir = path.join(process.cwd(), 'content/blog')
@@ -131,7 +131,6 @@ export default defineNuxtConfig({
       const toolRoutes = Object.values(tools).map(tool => ({
         url: `/tools/${tool.id}`,
         lastmod: new Date(),
-        // Add optional sitemap properties for better SEO
         changefreq: 'weekly',
         priority: 0.8,
       }))
@@ -139,12 +138,16 @@ export default defineNuxtConfig({
       const usecaseRoutes = Object.entries(usecases).map(([id, usecase]) => ({
         url: `/usecases/${id}`,
         lastmod: new Date(),
-        // Add optional sitemap properties for better SEO
         changefreq: 'weekly',
         priority: 0.8,
       }))
 
+      // Combine all routes and filter out auth callback
       return [...staticRoutes, ...blogRoutes, ...toolRoutes, ...usecaseRoutes]
+        .filter(route => {
+          const url = typeof route === 'string' ? route : route.url
+          return url !== '/auth/callback'
+        })
     }
   }
 })

@@ -1,0 +1,35 @@
+# gtmguy.ai llms.txt
+
+> An AI-powered platform designed to support SaaS founders by providing strategic tools for idea validation, launch planning, and growth optimization, enabling faster product development and market introduction.
+
+- [SaaS SEO Strategy Guide](https://gtmguy.ai/blog/saas-seo-strategy-guide): Guide for developing effective SEO strategies for SaaS companies to enhance growth and online visibility.
+- [Landing Page Optimization](https://gtmguy.ai/tools/landing-page-optimizer): Optimize landing pages to improve conversion rates using AI-driven recommendations and best practices.
+- [Feature Prioritization Tool](https://gtmguy.ai/tools/feature-prioritization): Enable product teams to prioritize features effectively using AI for maximum impact and resource optimization.
+- [Product Launch Optimization](https://gtmguy.ai/usecases/launch): To provide tools and strategies for optimizing product launch success and customer acquisition.
+- [Planning SaaS Features](https://gtmguy.ai/blog/how-to-plan-saas-features): Guide for planning effective features in SaaS products to enhance user experience and business success.
+- [AI Co-founder in Startups](https://gtmguy.ai/blog/role-of-an-ai-cofounder-in-validating-ideas): Explains the role of AI co-founders in startup innovation and idea validation.
+- [Grow Your Business](https://gtmguy.ai/usecases/grow): Provide tools and strategies for systematic growth of SaaS businesses.
+- [Internal Link Optimizer](https://gtmguy.ai/tools/internal-link-optimizer): Optimize internal linking to improve SEO and user experience for websites.
+\- [GTM Strategy Generator](https://gtmguy.ai/tools/go-to-market-strategy): Create effective market entry strategies using AI analysis for startups and marketing teams.
+- [AI in Digital Marketing](https://gtmguy.ai/blog/ai-in-digital-marketing): Explains how to effectively use AI in digital marketing for improved strategies and customer engagement.
+- [AI Blog Post Generator](https://gtmguy.ai/tools/blog-writer): Generate SEO-optimized blog content quickly using AI technology tailored to target audiences.
+- [Refund Policy Details](https://gtmguy.ai/refund): Outlines GTMGuy's strict no-refund policy for purchases made through their platform.
+- [Product Development Tools](https://gtmguy.ai/usecases/build): Offer tools for effective product development and feature prioritization to enhance market success.
+- [User Research Planner](https://gtmguy.ai/tools/user-research-planner): To provide an AI-powered tool for efficiently creating structured user research plans.
+- [User Journey Mapping Tool](https://gtmguy.ai/tools/user-journey-mapper): Create and optimize user journey maps for enhanced customer experience insights.
+- [A/B Test Planner](https://gtmguy.ai/tools/ab-test-planner): Helps users design and analyze A/B tests for data-driven decision-making.
+- [PRD Generator Tool](https://gtmguy.ai/tools/product-requirements-doc): Generate structured product requirement documents to enhance team alignment and streamline documentation.
+- [Metrics & KPI Generator](https://gtmguy.ai/tools/metrics-and-kpi): Generate and optimize key performance indicators for data-driven business growth.
+- [MVP Feature Generator](https://gtmguy.ai/tools/mvp-feature-generator): Assist product teams in defining and prioritizing features for their minimum viable product efficiently.
+- [Privacy Policy](https://gtmguy.ai/privacy): Outlines how GTMGuy collects, uses, and protects user data in compliance with privacy regulations.
+- [GTM Insights Blog](https://gtmguy.ai/blog): Offer expert insights and tools for go-to-market strategies and product launches.
+- [AI-Powered SEO Optimization](https://gtmguy.ai/tools/seo-optimization): Enhance website SEO performance through analysis and actionable recommendations.
+- [SWOT Analysis Generator](https://gtmguy.ai/tools/swot-analysis): Generate and analyze comprehensive SWOT reports for informed strategic planning.
+- [Terms of Service](https://gtmguy.ai/terms): Outlines the terms and conditions for using GTMGuy's AI-powered services.
+- [Market Understanding Tools](https://gtmguy.ai/usecases/understand): Assist users in validating their SaaS ideas through market research and analysis tools.
+- [AI Tools for SaaS Growth](https://gtmguy.ai): Assist SaaS founders in validating ideas and launching products quickly using AI-powered strategies and tools.
+- [AI Product Management Tools](https://gtmguy.ai/blog/ai-product-and-marketing-tools-to-save-your-time): Offering AI-powered tools to streamline product management and marketing tasks for founders and product teams.
+- [AI Copywriting Assistant](https://gtmguy.ai/tools/ai-copywriting-assistant): Generate engaging and conversion-focused marketing copy using AI.
+- [Ideal Customer Profile Creator](https://gtmguy.ai/tools/ideal-customer-profile): Assist businesses in creating detailed customer profiles for targeted marketing and product development.
+- [ChatGPT for Product Managers](https://gtmguy.ai/blog/chatgpt-for-product-managers): Guide product managers on using ChatGPT to enhance workflows and automate tasks.
+- [Product Launch Planner](https://gtmguy.ai/tools/product-launch-planner): Facilitate comprehensive planning and management of product launches for teams using an AI-powered tool.
