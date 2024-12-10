@@ -43,6 +43,7 @@
           </p>
         </div>
 
+
         <!-- Context Input -->
         <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
           <label class="block text-base font-semibold text-neutral-900 mb-2">
@@ -87,6 +88,19 @@
           </p>
         </div>
       </div>
+
+      <!-- Images Input -->
+       <div class="bg-white p-6 rounded-xl border border-stone-200 hover:border-stone-300 transition-colors">
+        <label class="block text-base font-semibold text-neutral-900 mb-2">
+          Images
+          <div class="flex items-center gap-2 mt-2"> 
+            <input type="checkbox" 
+              v-model="formData.useAiImages"
+            />
+            <p class="text-sm font-normal text-neutral-500">Use AI to generate images?</p>
+          </div>
+        </label>
+       </div>
 
       <button
         type="submit"
@@ -146,7 +160,7 @@ const handleSubmit = async () => {
 }
 
 const generateBlog = async () => {
-  if (!formData.value.topic || !formData.value.context || !formData.value.keywords) return
+  if (!formData.value.topic || !formData.value.context || !formData.value.keywords || !formData.value.useAiImages) return
   
   isLoading.value = true
   response.value = ''
