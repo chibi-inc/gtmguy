@@ -134,7 +134,7 @@ Improving your marketing strategy as a solo founder doesn't have to be an overwh
 By focusing on your unique value proposition, understanding your audience, and leveraging various marketing channels, you'll set yourself up for success in the indie hacker community. Here's to smashing your goals and taking your marketing strategy to the next level!
 
 ## Related Articles
-- [10 Essential SEO Tips for Indie Hackers](/blog/essential-seo-tips)
-- [Building an Email Marketing Strategy from Scratch](/blog/email-marketing-strategy)
-- [Social Media Marketing Guide for Solo Founders](/blog/social-media-marketing-guide)
-- [Content Marketing Strategies That Actually Work](/blog/content-marketing-strategies)
+- [AI in Digital Marketing: Transforming Strategies](/blog/ai-in-digital-marketing)
+- [The Ultimate SaaS SEO Strategy Guide](/blog/saas-seo-strategy-guide)
+- [SaaS Marketing Plan Template](/blog/saas-marketing-plan)
+- [Why I Made GTMGuy](/blog/ai-product-and-marketing-tools-to-save-your-time)

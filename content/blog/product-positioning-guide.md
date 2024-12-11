@@ -88,6 +88,11 @@ As you embark on your product positioning journey, keep these steps in mind and 
 - [How to Create a Winning Go-to-Market Strategy](/blog/go-to-market-strategy)
 - [Understanding Your Target Market: A Comprehensive Guide](/blog/target-market-guide)
 - [Competitive Analysis: Tools and Techniques](/blog/competitive-analysis)
+- [How to Plan SaaS Features: A Complete Guide](/blog/how-to-plan-saas-features)
+- [ChatGPT Prompts Every Product Manager Should Know](/blog/chatgpt-for-product-managers)
+- [Why I Made GTMGuy](/blog/ai-product-and-marketing-tools-to-save-your-time)
+- [15 Game-Changing Tips to Improve Your Marketing Strategy](/blog/improve-marketing-strategy)
+- [SaaS Marketing Plan Template](/blog/saas-marketing-plan)
 
 ---
 
