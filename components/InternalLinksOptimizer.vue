@@ -9,10 +9,9 @@
         <div class="animate-spin text-sky-500">
           <Icon name="ph:circle-notch-duotone" class="text-2xl" />
         </div>
-        <span class="text-neutral-900">Analyzing internal links...</span>
+        <span class="text-neutral-900">{{ processingMessage }}</span>
       </div>
     </div>
-
 
     <form @submit.prevent="analyzeBlogForLinks" class="space-y-8">
       <!-- Form Header -->
@@ -34,12 +33,12 @@
             v-model="blogContent"
             rows="6"
             class="w-full rounded-lg border-stone-200 bg-stone-50/50 focus:outline-none resize-none"
-            :class="{ 'border-red-300': showProductError }"
+            :class="{ 'border-red-300': showBlogError }"
             placeholder="Enter your blog content..."
-            @input="showProductError = false"
+            @input="showBlogError = false"
             required
           />
-          <p v-if="showProductError" class="mt-2 text-sm text-red-600">
+          <p v-if="showBlogError" class="mt-2 text-sm text-red-600">
             Please provide blog content (minimum 100 characters)
           </p>
         </div>
@@ -73,72 +72,62 @@
         :disabled="isProcessing || !isValidInputs"
       >
         <Icon name="ph:link-duotone" class="text-xl" />
-        {{ isProcessing ? 'Analyzing...' : 'Analyze & Suggest Links' }}
+        {{ isProcessing ? processingMessage : 'Analyze & Build Links' }}
       </button>
     </form>
 
-    <div v-if="suggestions.length" class="mt-8 space-y-8">
-      <SuggestedLinks 
-        :suggestions="suggestions" 
-        :enhanced-content="blogContent"
-        @clear="clearResults"
-        @regenerate="analyzeBlogForLinks"
-      />
-    </div>
+    <!-- Response Section -->
+    <ResponseSection
+      v-if="response"
+      :content="response"
+      @clear="clearResponse"
+      @regenerate="analyzeBlogForLinks"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useUrlValidation } from '~/composables/useUrlValidation'
 import { useCredits } from '~/composables/useCredits'
-import SuggestedLinks from '~/components/SuggestedLinks.vue'
-
-interface Suggestion {
-  originalText: string
-  targetUrl: string
-  relevanceScore: number
-  contextMatch: number
-  reason: string
-}
+import ResponseSection from '~/components/common/ResponseSection.vue'
 
 const blogContent = ref('')
 const sitemapUrl = ref('')
 const isProcessing = ref(false)
+const processingMessage = ref('Analyzing content...')
 const error = ref('')
-const suggestions = ref<Suggestion[]>([])
-const showProductError = ref(false)
+const response = ref('')
+const showBlogError = ref(false)
 const showUrlError = ref(false)
 const emit = defineEmits(['updateCredits'])
 
-const { validateUrl } = useUrlValidation()
-const { checkAndConsumeCredit  } = useCredits()
+const { checkAndConsumeCredit } = useCredits()
 
 const isValidInputs = computed(() => {
-  return blogContent.value.length > 100 && validateUrl(sitemapUrl.value)
+  return blogContent.value.length > 100 && 
+         sitemapUrl.value.startsWith('http') && 
+         sitemapUrl.value.includes('.xml')
 })
 
-
 async function analyzeBlogForLinks() {
-  // Reset errors
-  showProductError.value = false
+  // Reset states
+  showBlogError.value = false
   showUrlError.value = false
+  error.value = ''
+  response.value = ''
 
   // Validate inputs
   if (!blogContent.value || blogContent.value.length <= 100) {
-    showProductError.value = true
+    showBlogError.value = true
+    return
   }
-  if (!sitemapUrl.value || !validateUrl(sitemapUrl.value)) {
+  if (!sitemapUrl.value || !sitemapUrl.value.startsWith('http')) {
     showUrlError.value = true
-  }
-
-  if (showProductError.value || showUrlError.value) {
     return
   }
 
   isProcessing.value = true
-  suggestions.value = []
-  error.value = ''
+  processingMessage.value = 'Fetching sitemap...'
 
   try {
     // Check credits first
@@ -148,15 +137,10 @@ async function analyzeBlogForLinks() {
       return
     }
     emit('updateCredits')
-    interface ApiResponse {
-      success: boolean
-      data: {
-        suggestions: Suggestion[]
-      }
-      message?: string
-    }
 
-    const response = await $fetch<ApiResponse>('/api/internal-links', {
+    processingMessage.value = 'Analyzing content and building links...'
+
+    const apiResponse = await $fetch('/api/internal-links', {
       method: 'POST',
       body: {
         blogContent: blogContent.value,
@@ -164,22 +148,21 @@ async function analyzeBlogForLinks() {
       }
     })
 
-    if (response.success) {
-      suggestions.value = response.data.suggestions
-      console.log('Received suggestions:', suggestions.value)
+    if (apiResponse.success) {
+      response.value = apiResponse.data.enhancedContent
     } else {
-      throw new Error(response.message || 'Failed to generate suggestions')
+      throw new Error(apiResponse.message || 'Failed to enhance content')
     }
   } catch (e: any) {
-    error.value = e.message || 'An error occurred while analyzing'
-    console.error('Error in analyzeBlogForLinks:', e)
+    error.value = e.message || 'An error occurred while processing'
+    console.error('Error:', e)
   } finally {
     isProcessing.value = false
+    processingMessage.value = 'Analyzing content...'
   }
 }
 
-// Add clear function
-const clearResults = () => {
-  suggestions.value = []
+function clearResponse() {
+  response.value = ''
 }
 </script> 

@@ -18,12 +18,13 @@ export default defineEventHandler(async (event: H3Event) => {
   }
 
   try {
+    // Fetch and parse sitemap
     const xmlText = await fetchPageContent(sitemapUrl)
     const urlRegex = /(https?:\/\/[^\s<>"']+)/g
     const urlMatches = xmlText.match(urlRegex)
     
     if (!urlMatches) {
-      throw new Error('No URLs found in the content')
+      throw new Error('No URLs found in the sitemap')
     }
 
     const urls = urlMatches
@@ -31,23 +32,26 @@ export default defineEventHandler(async (event: H3Event) => {
       .filter(url => url.startsWith('http'))
 
     if (!urls.length) {
-      throw new Error('No valid URLs found. Please check the content format.')
+      throw new Error('No valid URLs found in the sitemap')
     }
 
+    // Generate link suggestions
     const suggestions = await generateInternalLinkSuggestions(blogContent, urls)
     
+    // Format the enhanced content with markdown
+    const enhancedContent = formatEnhancedContent(blogContent, suggestions)
+
     return {
       success: true,
       data: {
-        suggestions,
-        linkSummary: generateLinkSummaryTable(suggestions)
+        enhancedContent
       },
-      message: 'Internal link suggestions generated successfully'
+      message: 'Content enhanced with internal links'
     }
   } catch (error: any) {
     throw createError({
       statusCode: error.status || 500,
-      message: error.message || 'Failed to generate internal link suggestions'
+      message: error.message || 'Failed to process content'
     })
   }
 })
@@ -64,12 +68,14 @@ async function generateInternalLinkSuggestions(blogContent: string, urls: string
         2. Natural placement within the text
         3. User experience and flow
         4. SEO value of the link placement
+        5. Avoid overlapping or nested links
+        6. Maximum 5-7 relevant links per content
 
         Return the response in the following JSON format:
         {
           "suggestions": [
             {
-              "originalText": "text where link should be added",
+              "originalText": "exact text where link should be added",
               "targetUrl": "url to link to",
               "relevanceScore": number between 0-100,
               "contextMatch": number between 0-100,
@@ -90,19 +96,22 @@ async function generateInternalLinkSuggestions(blogContent: string, urls: string
   })
 
   const result = JSON.parse(completion.choices[0].message.content || '{"suggestions": []}')
-  return result.suggestions.map((suggestion: any) => ({
-    ...suggestion,
-    relevanceScore: Math.round(suggestion.relevanceScore),
-    contextMatch: Math.round(suggestion.contextMatch)
-  }))
+  return result.suggestions
 }
 
-function generateLinkSummaryTable(suggestions: any[]) {
-  return suggestions.map(suggestion => ({
-    text: suggestion.originalText,
-    url: suggestion.targetUrl,
-    relevance: `${suggestion.relevanceScore}%`,
-    context: `${suggestion.contextMatch}%`,
-    reason: suggestion.reason
-  }))
+function formatEnhancedContent(content: string, suggestions: any[]) {
+  let enhancedContent = content
+
+  // Add a summary of changes
+  const summary = `## Internal Links Added\n\n${suggestions.map(s => 
+    `- [${s.originalText}](${s.targetUrl}) (Relevance: ${s.relevanceScore}%)\n  ${s.reason}`
+  ).join('\n\n')}\n\n## Enhanced Content\n\n`
+
+  // Apply the links to the content
+  suggestions.forEach(suggestion => {
+    const link = `[${suggestion.originalText}](${suggestion.targetUrl})`
+    enhancedContent = enhancedContent.replace(suggestion.originalText, link)
+  })
+
+  return summary + enhancedContent
 } 
