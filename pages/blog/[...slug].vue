@@ -28,7 +28,7 @@
           </div>
         </header>
 
-        <div class="mb-10 sm:mb-16 -mx-4 sm:mx-0">
+        <div class="mb-10 sm:mb-16 -mx-4 sm:mx-0 mt-10">
           <img 
             v-if="post.image" 
             :src="post.image" 
