@@ -15,7 +15,7 @@ Context and Audience: ${context}
 Target Keywords: ${keywords}
 
 The blog post should:
-- Be around 1200 words
+- Be around 2500 words
 - Include a compelling introduction
 - Have clear, well-structured sections with headers
 - Include actionable insights and takeaways
