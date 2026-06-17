@@ -1,7 +1,8 @@
 import { JSDOM } from 'jsdom'
-import fetch from 'node-fetch'
 import { isIP } from 'net'
 import { lookup } from 'dns/promises'
+
+// Uses Node's built-in global fetch (Node 18+), so no node-fetch dependency.
 
 // Reject anything pointing at the local host, the cloud metadata endpoint, or
 // any private/reserved network. This is an SSRF guard: the URL is user-supplied
