@@ -1,19 +1,22 @@
-import { serverSupabaseServiceRole } from "#supabase/server"
+import { serverSupabaseUser, serverSupabaseServiceRole } from "#supabase/server"
 import { H3Event } from "h3"
 
 export default defineEventHandler(async (event: H3Event) => {
-    // Get the user_id from the request body
-    const body = await readBody(event);
-    const { user_id } = body;
-  
+    // Identify the user from their session, NOT from the request body.
+    // A caller can no longer create/seed an account for an arbitrary user id.
+    const user = await serverSupabaseUser(event);
+    if (!user) {
+      throw createError({ statusCode: 401, message: 'You must be signed in to do that.' });
+    }
+
     // Create Supabase client
     const supabase = serverSupabaseServiceRole(event);
-  
+
     // Check if an account already exists for the user
     const { data: existingAccount, error: checkError } = await supabase
       .from('accounts')
       .select('user')
-      .eq('user', user_id)
+      .eq('user', user.id)
       .single();
 
     if (checkError && checkError.code !== 'PGRST116') {
@@ -29,14 +32,14 @@ export default defineEventHandler(async (event: H3Event) => {
     const { data, error } = await supabase
       .from('accounts')
       .insert([
-        { user: user_id, credits: 100, credits_last_reset: getUtcStartOfMonth() }
+        { user: user.id, credits: 100, credits_last_reset: getUtcStartOfMonth() }
       ]);
-  
+
     // Handle errors
     if (error) {
       console.error('Error inserting user account:', error);
       return { success: false, message: 'Failed to insert account data.' };
     }
-  
+
     return { success: true, data };
-}); 
+});

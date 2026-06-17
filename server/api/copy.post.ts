@@ -1,8 +1,12 @@
 import OpenAI from 'openai';
+import { consumeCredit } from '../utils/consumeCredit';
 
 export default defineEventHandler(async (event) => {
+  // Authenticate + spend a credit before doing any paid work.
+  await consumeCredit(event);
+
   const config = useRuntimeConfig();
-  
+
   const openai = new OpenAI({
     apiKey: config.openaiApiKey
   });

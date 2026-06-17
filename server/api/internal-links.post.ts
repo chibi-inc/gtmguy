@@ -1,12 +1,16 @@
 import OpenAI from 'openai'
 import { H3Event } from 'h3'
 import { fetchPageContent } from '../utils/pageFetcher'
+import { consumeCredit } from '../utils/consumeCredit'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY as string
 })
 
 export default defineEventHandler(async (event: H3Event) => {
+  // Authenticate + spend a credit before doing any paid work.
+  await consumeCredit(event)
+
   const body = await readBody(event)
   const { blogContent, sitemapUrl } = body
 
